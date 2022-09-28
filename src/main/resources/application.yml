@@ -1,0 +1,32 @@
+spring:
+  datasource:
+    user:
+      jdbc-url: jdbc:mysql://121.36.247.134:3306/volatile_user
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      allowMultiQueries: true
+      username: lyk
+      password:
+    task:
+      jdbc-url: jdbc:mysql://121.36.247.134:3306/volatile_task
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      allowMultiQueries: true
+      username: lyk
+      password:
+    report:
+      jdbc-url: jdbc:mysql://121.36.247.134:3306/volatile_report
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      allowMultiQueries: true
+      username: lyk
+      password:
+
+
+#  profiles:
+#    active: dev
+
+server:
+  port: 8000
+
+#mybatis:
+#  mapper-locations: classpath*:com
+
+
