@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/Backend-VolatileReborn.iml" filepath="$PROJECT_DIR$/.idea/Backend-VolatileReborn.iml" />
+      <module fileurl="file://$PROJECT_DIR$/collect-service/collect-service.iml" filepath="$PROJECT_DIR$/collect-service/collect-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/eureka-server/eureka-server.iml" filepath="$PROJECT_DIR$/eureka-server/eureka-server.iml" />
+    </modules>
+  </component>
+</project>
