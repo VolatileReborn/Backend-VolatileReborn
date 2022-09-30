@@ -44,7 +44,7 @@ node("slave1") {
         sh "ls -al"
 
     }
-    stage('build jar on slave machine, jacoco file generated') {
+    stage('build jar on slave machine, inorder to generate jacoco file ') {
 
         sh 'mvn --version'
         sh "mvn  clean package jacoco:report -Dmaven.test.failure.ignore=true"
@@ -68,11 +68,6 @@ node("slave1") {
 
         sh "docker build -t ${IMAGE_FULL_NAME} ."
     }
-    stage("run container") {
-        def IMAGE_TO_RUN = ${IMAGE_FULL_NAME}
-        sh "docker image ls"
-        sh "docker container run --name ${CONTAINER_NAME} --net=host  -d ${IMAGE_TO_RUN}"
-    }
 
     stage("login to dockerhub"){
         withCredentials([usernamePassword(credentialsId: 'DOCKERHUB_KEY', passwordVariable: 'password', usernameVariable: 'username')]) {
@@ -84,6 +79,15 @@ node("slave1") {
         echo "begin push to dockerhub"
         sh "docker image push ${IMAGE_FULL_NAME}"
     }
+
+
+    stage("run container") {
+        def IMAGE_TO_RUN = ${IMAGE_FULL_NAME}
+        sh "docker image ls"
+        sh "docker container run --name ${CONTAINER_NAME} --net=host  -d ${IMAGE_TO_RUN}"
+    }
+
+
 //    stage("clean previous image and container"){
 //        sh "docker container rm -f ${CONTAINER_NAME}"
 //        sh "docker image rm ${IMAGE_NAME_WITH_TAG}"
