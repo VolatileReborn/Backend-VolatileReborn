@@ -2,7 +2,9 @@ node("slave1") {
     def workspace = pwd()
 
     def git_branch = 'master'
-    def git_repository = 'git@git.nju.edu.cn:191820133/backend-volatile.git'
+//    def git_repository = 'git@git.nju.edu.cn:191820133/backend-volatile.git' //Gitlab
+    def git_repository = 'git@github.com:VolatileReborn/Backend-VolatileReborn.git' //Github
+
     def vm_ip = '124.222.135.47'
     def vm_port = '22'
     def vm_user = 'lyk'
@@ -11,12 +13,24 @@ node("slave1") {
     def vm_target_place = "/usr/local/src/target/"
 
 
-    def IMAGE_NAME = 'volatile_backend'
-    def IMAGE_NAME_WITH_TAG = 'volatile_backend:latest'
-    def IMAGE_TO_RUN = 'lyklove/volatile_backend:latest'
-    def CONTAINER_NAME = 'volatile_backend'
+    def __PROJECT_NAME = 'volatile_reborn'
+    def __PROJECT_TYPE = 'backend'
+    def __DOCKERHUB_ACCOUNT = 'lyklove'
+    def __IMAGE_TAG = 'latest'
 
-    stage('clone from gitlab into slave\'s workspace') {
+
+//    def PUBLIC_PORT = '81'
+//    def CONTAINER_PORT = '80' // 80 for VUE
+
+    def ORIGINAL_IMAGE_NAME = __PROJECT_TYPE + '_' + __PROJECT_NAME //backend_volatile_reborn
+    def IMAGE_NAME_WITH_INITIAL_TAG = ORIGINAL_IMAGE_NAME + ':' + __IMAGE_TAG //backend_volatile_reborn:latest
+    def IMAGE_FULL_NAME = __DOCKERHUB_ACCOUNT + '/' + IMAGE_NAME_WITH_INITIAL_TAG // lyklove/backend_volatile_reborn:latest
+
+    def CONTAINER_NAME = ORIGINAL_IMAGE_NAME //backend_volatile_reborn
+    def SERVICE_NAME = CONTAINER_NAME + '_svc' //backend_volatile_reborn_svc
+
+
+    stage('clone from github into slave\'s workspace. Using branch: ' + "master") {
         echo "workspace: ${workspace}"
         git branch: "${git_branch}", url: "${git_repository}"
     }
@@ -49,8 +63,15 @@ node("slave1") {
     }
 
 
-    stage("build docker image"){
-        sh "docker build -t ${IMAGE_NAME} ."
+    stage("build docker image, tag it"){
+//        def DOCKERFILE_PATH = ''
+
+        sh "docker build -t ${IMAGE_FULL_NAME} ."
+    }
+    stage("run container") {
+        def IMAGE_TO_RUN = ${IMAGE_FULL_NAME}
+        sh "docker image ls"
+        sh "docker container run --name ${CONTAINER_NAME} --net=host  -d ${IMAGE_TO_RUN}"
     }
 
     stage("login to dockerhub"){
@@ -61,24 +82,20 @@ node("slave1") {
 
     stage("push to dockerhub"){
         echo "begin push to dockerhub"
-        sh "docker image tag ${IMAGE_NAME_WITH_TAG} lyklove/${IMAGE_NAME_WITH_TAG}"
-        sh "docker image push lyklove/${IMAGE_NAME_WITH_TAG}"
+        sh "docker image push ${IMAGE_FULL_NAME}"
     }
-    stage("clean previous image and container"){
-        sh "docker container rm -f ${CONTAINER_NAME}"
-        sh "docker image rm ${IMAGE_NAME_WITH_TAG}"
-        sh "docker image rm ${IMAGE_TO_RUN}"
-    }
-    stage( "pull image" ){
-        sh "docker pull  lyklove/${IMAGE_NAME_WITH_TAG}"
-    }
-    stage("run container") {
-        sh "docker image ls"
-        sh "docker container run --name ${CONTAINER_NAME} --net=host  -d ${IMAGE_TO_RUN}"
-    }
-    stage("signal gitlab: deployed"){
-        updateGitlabCommitStatus name: 'deployed', state: 'success'
-    }
+//    stage("clean previous image and container"){
+//        sh "docker container rm -f ${CONTAINER_NAME}"
+//        sh "docker image rm ${IMAGE_NAME_WITH_TAG}"
+//        sh "docker image rm ${IMAGE_TO_RUN}"
+//    }
+//    stage( "pull image" ){
+//        sh "docker pull  lyklove/${IMAGE_NAME_WITH_TAG}"
+//    }
+
+//    stage("signal gitlab: deployed"){
+//        updateGitlabCommitStatus name: 'deployed', state: 'success'
+//    }
 
 
 }
