@@ -82,7 +82,7 @@ node("slave1") {
 
 
     stage("run container") {
-        def IMAGE_TO_RUN = ${IMAGE_FULL_NAME}
+        def IMAGE_TO_RUN = IMAGE_FULL_NAME
         sh "docker image ls"
         sh "docker container run --name ${CONTAINER_NAME} --net=host  -d ${IMAGE_TO_RUN}"
     }
