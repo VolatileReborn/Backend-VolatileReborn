@@ -21,10 +21,10 @@ CREATE TABLE `login_logs` (
     `user_id` bigint(20) NOT NULL,
     `role` tinyint(5) NOT NULL ,
     `login_time` bigint(40) NOT NULL,
-    `login_event` varchar(256) NOT NULL,
+    `logAin_event` varchar(256) NOT NULL,
     PRIMARY KEY (`login_id`),
     FOREIGN KEY (`user_id`) REFERENCES users(`user_id`) ON DELETE CASCADE
-)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+)ENGINE=InnoDB UTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
 --
@@ -83,6 +83,18 @@ CREATE TABLE `task_favors`(
     `user_id` bigint(20) NOT NULL ,
     FOREIGN KEY(`user_id`) REFERENCES users(`user_id`) on delete cascade
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO task_favors (task_favor, user_id) VALUES
+('功能测试任务', 21),
+('功能测试任务', 22),
+('功能测试任务', 23),
+('功能测试任务', 24),
+('功能测试任务', 25),
+('性能测试任务', 21),
+('性能测试任务', 22),
+('性能测试任务', 23),
+('性能测试任务', 24),
+('性能测试任务', 25);
 --
 -- Dumping data for table `users`
 --

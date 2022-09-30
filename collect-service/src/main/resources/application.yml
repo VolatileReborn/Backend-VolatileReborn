@@ -3,23 +3,25 @@ spring:
     name: collect-service
   datasource:
     user:
-      jdbc-url: jdbc:mysql://121.36.247.134:3306/volatile_user
+      # TODO: 修改数据库配置
+      # 121.36.247.134
+      jdbc-url: jdbc:mysql://localhost:3306/volatile_user
       driver-class-name: com.mysql.cj.jdbc.Driver
       allowMultiQueries: true
-      username: lyk
-      password:
+      username: root
+      password: lzj669657ABC
     task:
-      jdbc-url: jdbc:mysql://121.36.247.134:3306/volatile_task
+      jdbc-url: jdbc:mysql://localhost:3306/volatile_task
       driver-class-name: com.mysql.cj.jdbc.Driver
       allowMultiQueries: true
-      username: lyk
-      password:
+      username: root
+      password: lzj669657ABC
     report:
-      jdbc-url: jdbc:mysql://121.36.247.134:3306/volatile_report
+      jdbc-url: jdbc:mysql://localhost:3306/volatile_report
       driver-class-name: com.mysql.cj.jdbc.Driver
       allowMultiQueries: true
-      username: lyk
-      password:
+      username: root
+      password: lzj669657ABC
 
 
 #  profiles:
@@ -37,5 +39,9 @@ eureka:
       defaultZone: http://localhost:8080/eureka/
   instance:
     perfer-ip-address: true
+
+
+mybatis:
+  mapper-locations: classpath*:mapper/**/*Mapper.xml
 
 

@@ -8,7 +8,6 @@ public enum ReportStateConstant {
 
     TO_BE_COOPERATED(2,"待协作"),
 
-
     COOPERATED(3,"已协作");
 
     private int code;

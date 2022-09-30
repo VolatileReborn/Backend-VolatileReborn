@@ -2,6 +2,14 @@ package com.example.BackendVolatile.util.constant;
 
 
 public class ParamFormatErrorConstant {
+    public static final String PAGE_NUM_CANNOT_BE_NULL = "页号不能为空";
+
+    public static final String PAGE_NUM_MUST_BE_POSITIVE = "页号必须为正数";
+
+    public static final String PAGE_SIZE_CANNOT_BE_NULL = "页大小不能为空";
+
+    public static final String PAGE_SIZE_MUST_BE_POSITIVE = "页大小必须为正数";
+
     public static final String PHONE_NUMBER_CANNOT_BE_NULL = "手机号不能为空";
 
     public static final String WRONG_PHONE_NUMBER_FORMAT = "手机号格式错误";

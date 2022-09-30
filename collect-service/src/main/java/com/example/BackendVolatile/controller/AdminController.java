@@ -77,9 +77,4 @@ public class AdminController {
         return adminService.setChangeablePeriod(setChangeablePeriodDTO);
     }
 
-
-
-
-
-
 }

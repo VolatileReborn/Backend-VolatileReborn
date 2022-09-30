@@ -1,5 +1,7 @@
 package com.example.BackendVolatile.mapper.user;
+import com.example.BackendVolatile.dao.stakeholder.EmployeeDAO;
 import com.example.BackendVolatile.dao.UserDao.User;
+import com.example.BackendVolatile.dao.stakeholder.EmployerDAO;
 import com.example.BackendVolatile.util.constant.ParamFormatErrorConstant;
 import org.apache.ibatis.annotations.*;
 import org.springframework.validation.annotation.Validated;
@@ -15,6 +17,7 @@ import java.util.List;
  *
  */
 @Validated(Default.class)
+@Mapper
 public interface UserMapper {
 
     @NotNull
@@ -37,6 +40,37 @@ public interface UserMapper {
     @Select("SELECT * FROM users WHERE role = #{ role }")
     List<User> get_by_role(@Param("role")Integer role );
 
+
+    @NotNull(message = ParamFormatErrorConstant.NO_USER_EXIST)
+    List<EmployeeDAO> get_all_employee(@Param("role") Integer role,
+                                       @Param("limit") Integer maxResults,
+                                       @Param("offset") Integer offset );
+
+    @Select("SELECT rs.score FROM volatile_report.reports AS r, volatile_report.report_scores AS rs " +
+            "WHERE r.report_id = rs.report_id AND r.user_id = #{userId}")
+    List<Integer> get_all_scores_of_reports_of_employee(@Param("userId") Long userId);
+
+    @Select("SELECT t.task_difficulty FROM volatile_task.select_task AS st, volatile_task.tasks AS t " +
+            "WHERE st.task_id = t.task_id AND st.user_id = #{userId}")
+    List<Integer> get_all_difficulty_of_tasks_of_employee(@Param("userId") Long userId);
+
+    @Select("SELECT t.task_type AS type FROM volatile_task.select_task AS st, volatile_task.tasks AS t " +
+            "WHERE st.task_id = t.task_id AND st.user_id = #{userId}")
+    List<String> get_all_type_of_tasks_of_employee(@Param("userId") Long userId);
+
+
+    @NotNull(message = ParamFormatErrorConstant.NO_USER_EXIST)
+    List<EmployerDAO> get_all_employer(@Param("role") Integer role,
+                                       @Param("limit") Integer maxResults,
+                                       @Param("offset") Integer offset );
+
+    @Select("SELECT task_difficulty FROM volatile_task.tasks AS t WHERE t.user_id = #{userId}")
+    List<Integer> get_all_difficulty_of_tasks_of_employer(@Param("userId") Long userId);
+
+    @Select("SELECT task_type FROM volatile_task.tasks AS t WHERE t.user_id = #{userId}")
+    List<String> get_all_type_of_tasks_of_employer(@Param("userId") Long userId);
+
+
     @NotNull
     @Min(value = 1, message = ParamFormatErrorConstant.WRONG_PASSWORD)
     @Select("SELECT count(1) FROM users WHERE phone_number = #{phone_number} AND password = #{password}")
@@ -49,6 +83,8 @@ public interface UserMapper {
     @NotNull(message = ParamFormatErrorConstant.NO_USER_EXIST)
     @Select("SELECT * FROM users" )
     List<User> get_all_without_paging();
+
+
 
     @Max(value = 0,message = ParamFormatErrorConstant.PHONE_NUMBER_ALREADY_REGISTERED)
     @NotNull

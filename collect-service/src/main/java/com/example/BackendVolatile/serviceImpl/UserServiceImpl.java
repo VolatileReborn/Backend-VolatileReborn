@@ -1,7 +1,9 @@
 package com.example.BackendVolatile.serviceImpl;
 
+import com.example.BackendVolatile.dao.stakeholder.EmployeeDAO;
 import com.example.BackendVolatile.dao.UserDao.LoginLog;
 import com.example.BackendVolatile.dao.UserDao.User;
+import com.example.BackendVolatile.dao.stakeholder.EmployerDAO;
 import com.example.BackendVolatile.dto.userDTO.LoginDTO;
 import com.example.BackendVolatile.dto.userDTO.RegisterDTO;
 import com.example.BackendVolatile.dto.userDTO.SetUserProfileDTO;
@@ -14,26 +16,23 @@ import com.example.BackendVolatile.util.EncryptionUtils;
 import com.example.BackendVolatile.util.ParameterValidityVerification;
 import com.example.BackendVolatile.util.constant.*;
 import com.example.BackendVolatile.util.jwtUtil.JwtTokenUtil;
-import com.example.BackendVolatile.util.pythonUtil.GetSimilarReportUtil.GetSimilarReportsDTO;
-import com.example.BackendVolatile.util.pythonUtil.GetSimilarReportUtil.GetSimilarReportsVO;
-import com.example.BackendVolatile.util.pythonUtil.prepareReportTrainingData.PrepareReportTrainingDataDTO;
 import com.example.BackendVolatile.util.pythonUtil.prepareReportTrainingData.PrepareReportTrainingDataUtil;
-import com.example.BackendVolatile.util.pythonUtil.prepareTaskRecommendationTrainingDataUtil.PrepareTaskRecommendationTrainingDataDTO;
 import com.example.BackendVolatile.util.pythonUtil.prepareTaskRecommendationTrainingDataUtil.PrepareTaskRecommendationTrainingDataUtil;
 import com.example.BackendVolatile.vo.ResultVO;
-import com.example.BackendVolatile.vo.userVO.GetUserDataVO;
-import com.example.BackendVolatile.vo.userVO.LoginVO;
-import com.example.BackendVolatile.vo.userVO.RegisterVO;
-import com.example.BackendVolatile.vo.userVO.SetUserProfileVO;
+import com.example.BackendVolatile.vo.stakeholder.EmployeeStateVO;
+import com.example.BackendVolatile.vo.stakeholder.EmployerStateVO;
+import com.example.BackendVolatile.vo.userVO.*;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Service
 public class UserServiceImpl implements UserService {
+    public static final int DAY_LIMIT=10;
 
     @Resource
     private UserMapper userMapper;
@@ -171,14 +170,25 @@ public class UserServiceImpl implements UserService {
         getUserDataVO.setNickname(user.getNick_name());
         getUserDataVO.setProfessionalSkill(user.getProfessional_skill());
 
-        int day = 10;
-        Long limit = System.currentTimeMillis() - (day + 1) * ActivityUtil.oneDayLong;
+        Long limit = System.currentTimeMillis() - (DAY_LIMIT + 1) * ActivityUtil.oneDayLong;
         List<Long> login_time = loginLogMapper.get_login_time_list_by_user_id_with_limit(userId,limit);
 
-        getUserDataVO.setActiveDegree(activityUtil.calActivity(login_time,day));
+        getUserDataVO.setActiveDegree(activityUtil.calActivity(login_time,DAY_LIMIT));
         getUserDataVO.setResponse(new ResultVO(ResponseConstant.EMPLOYEE_SUCCEEDED));
         return getUserDataVO;
     }
 
+    @Override
+    public List<EmployerStateVO> test() {
+        return getPageOfAllEmployerStateInfo(10,0);
+    }
 
+
+    public List<EmployeeStateVO> getPageOfAllEmployeeStateInfo(Integer num, Integer offset){
+        return null;
+    }
+
+    public List<EmployerStateVO> getPageOfAllEmployerStateInfo(Integer num, Integer offset) {
+        return null;
+    }
 }

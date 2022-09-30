@@ -16,7 +16,6 @@ import java.util.List;
 @Validated(Default.class)
 public interface CooperationMapper {
 
-
     @Insert("INSERT INTO cooperations ( report_id ,user_id, cooperation_state) " +
             "VALUES (#{report_id}, #{user_id}, #{cooperation_state}) ")
     void insert(@Param("report_id") Long reportId, @Param("user_id") Long user_id,

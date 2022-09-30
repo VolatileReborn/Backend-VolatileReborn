@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.BackendVolatile.mapper.user.UserMapper">
+    <resultMap id="DeviceMap" type="com.example.BackendVolatile.vo.stakeholder.EmployerStateVO">
+        <result column="device" property="deviceName"/>
+        <result column="numOfUsers" property="numOfUsers"/>
+        <result column="numOfTasks" property="numOfTasks"/>
+        <result column="numOfRecruitingTasks" property="numOfRecruitingTasks"/>
+    </resultMap>
+    <resultMap id="EmployerInfoMap" type="com.example.BackendVolatile.dao.stakeholder.EmployerDAO">
+        <id column="user_id" property="userId"/>
+        <result column="nick_name" property="nickName"/>
+        <result column="phone_number" property="phoneNumber"/>
+        <result column="publishedTaskNum" property="publishedTaskNum"/>
+        <result column="recruitingTaskNum" property="recruitingTaskNum"/>
+        <result column="lastTaskPublishedTime" property="lastTaskPublishedTime"/>
+        <result column="lastLoginTime" property="lastLoginTime"/>
+    </resultMap>
+    <resultMap id="EmployeeInfoMap" type="com.example.BackendVolatile.dao.stakeholder.EmployeeDAO">
+        <id column="user_id" property="userId"/>
+        <result column="nick_name" property="nickName"/>
+        <result column="phone_number" property="phoneNumber"/>
+        <result column="device" property="device"/>
+        <result column="professional_skill" property="professionalSkill"/>
+        <result column="finishedTaskNum" property="finishedTaskNum"/>
+        <result column="acceptedTaskNum" property="acceptedTaskNum"/>
+        <result column="collaborationNum" property="collaborationNum"/>
+        <result column="lastLoginTime" property="lastLoginTime"/>
+<!--        <collection property="taskFavorList" ofType="java.lang.String">-->
+<!--            <result column="task_favor"/>-->
+<!--        </collection>-->
+<!--        <collection property="allScoreList" ofType="java.lang.Integer">-->
+<!--            <result column="score"/>-->
+<!--        </collection>-->
+<!--        <collection property="allDifficultyList" ofType="java.lang.Integer">-->
+<!--            <result column="difficulty"/>-->
+<!--        </collection>-->
+<!--        <collection property="allTaskTypeList" ofType="java.lang.String">-->
+<!--            <result column="type"/>-->
+<!--        </collection>-->
+    </resultMap>
+
+    <select id="get_all_device" resultMap="DeviceMap">
+        select
+    </select>
+    <select id="get_all_employee" resultMap="EmployeeInfoMap">
+         select users.user_id                      as user_id,
+                nick_name,
+                phone_number,
+                device,
+                professional_skill,
+                (select count(*)
+                 from volatile_report.reports as r
+                 where r.user_id = users.user_id)  as finishedTaskNum,
+                (select count(*)
+                 from volatile_task.select_task as st
+                 where st.user_id = users.user_id) as acceptedTaskNum,
+                (select count(report_id)
+                 from volatile_report.cooperations as c
+                 where c.user_id = users.user_id
+                   and c.cooperation_state = 1)    as collaborationNum,
+                (select max(login_time)
+                 from login_logs as ll
+                 where ll.user_id = user_id)       as lastLoginTime
+--                         tf.task_favor                      as task_favor,
+--                         us.score                           as score,
+--                         ud.difficulty                      as difficulty,
+--                         ut.type                            as type
+         from users
+--                           left join task_favors as tf on tf.user_id = users.user_id
+--                           left join (select r.user_id as uid, rs.score as score
+--                                      from volatile_report.reports as r,
+--                                           volatile_report.report_scores as rs
+--                                      where r.report_id = rs.report_id) as us on us.uid = users.user_id
+--                           left join (select st.user_id as uid, t.task_difficulty as difficulty
+--                                      from volatile_task.select_task as st,
+--                                           volatile_task.tasks as t
+--                                      where st.task_id = t.task_id) as ud on ud.uid = users.user_id
+--                           left join (select st.user_id as uid, t.task_type as type
+--                                      from volatile_task.select_task as st,
+--                                           volatile_task.tasks as t
+--                                      where st.task_id = t.task_id) as ut on ut.uid = users.user_id
+         where users.role = #{role}
+         order by users.user_id
+         limit #{limit}
+         offset #{offset}
+    </select>
+    <select id="get_all_employer" resultMap="EmployerInfoMap">
+        select user_id,
+               nick_name,
+               phone_number,
+               (select count(t.task_id)
+                from volatile_task.tasks as t
+                where t.user_id = users.user_id) as publishedTaskNum,
+               (select count(t.task_id)
+                from volatile_task.tasks as t
+                where t.user_id = users.user_id and t.task_state = 0) as recruitingTaskNum,
+               (select max(t.begin_time)
+                from volatile_task.tasks as t
+                where t.user_id = users.user_id) as lastTaskPublishedTime,
+               (select max(login_time)
+                from login_logs as ll
+                where ll.user_id = user_id) as lastLoginTime
+        from users
+        where users.role = #{role}
+        order by users.user_id
+        limit #{limit}
+        offset #{offset}
+    </select>
+</mapper>
