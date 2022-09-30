@@ -13,4 +13,5 @@ import java.util.List;
 public class BrowserEmployeesVO {
     private ResultVO response;
     private List<EmployeeStateVO> employeeList;
+    private Integer currSumSize;
 }

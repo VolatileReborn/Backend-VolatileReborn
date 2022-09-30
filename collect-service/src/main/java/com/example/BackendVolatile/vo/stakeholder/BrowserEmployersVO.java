@@ -9,4 +9,5 @@ import java.util.List;
 public class BrowserEmployersVO {
     private ResultVO response;
     private List<EmployerStateVO> employerList;
+    private Integer currSumSize;
 }

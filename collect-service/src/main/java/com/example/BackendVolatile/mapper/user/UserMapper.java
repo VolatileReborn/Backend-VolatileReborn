@@ -4,6 +4,7 @@ import com.example.BackendVolatile.dao.UserDao.User;
 import com.example.BackendVolatile.dao.stakeholder.EmployerDAO;
 import com.example.BackendVolatile.util.constant.ParamFormatErrorConstant;
 import org.apache.ibatis.annotations.*;
+import org.springframework.security.core.parameters.P;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.Max;
@@ -19,6 +20,15 @@ import java.util.List;
 @Validated(Default.class)
 @Mapper
 public interface UserMapper {
+
+    @NotNull
+    @Select("SELECT count(user_id) FROM users WHERE role = #{code}")
+    Integer get_employer_size(@Param("code") Integer employer_code);
+
+    @NotNull
+    @Select("SELECT count(user_id) FROM users WHERE role = #{code}")
+    Integer get_employee_size(@Param("code") Integer employee_code);
+
 
     @NotNull
     @Select("SELECT user_id FROM users WHERE role = #{role}")

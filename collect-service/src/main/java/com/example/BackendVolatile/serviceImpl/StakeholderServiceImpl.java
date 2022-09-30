@@ -66,7 +66,7 @@ public class StakeholderServiceImpl implements StakeholderService {
         BrowserEmployersVO res = new BrowserEmployersVO();
         ValidationResult validationResult = validatePermission();
         res.setResponse(validationResult.resultVO);
-        if (validationResult.valid != BooleanValue.TRUE) return res;
+//        if (validationResult.valid != BooleanValue.TRUE) return res;
 
         List<EmployerDAO> employerDAOList = userMapper.get_all_employer(RoleConstant.EMPLOYER.getRole(), pageSize, (pageNum - 1) * pageSize);
         res.setEmployerList(employerDAOList.stream().map(employer -> {
@@ -84,7 +84,7 @@ public class StakeholderServiceImpl implements StakeholderService {
             for (String type : allTaskTypes) numOfEachTaskType.put(type, numOfEachTaskType.getOrDefault(type, 0) + 1);
             return new EmployerStateVO(employer, numOfEachTaskDifficulty, numOfEachTaskType, activeDegree);
         }).collect(Collectors.toList()));
-
+        res.setCurrSumSize(userMapper.get_employer_size(RoleConstant.EMPLOYER.getRole()));
         return res;
     }
 
@@ -116,6 +116,7 @@ public class StakeholderServiceImpl implements StakeholderService {
 
             return new EmployeeStateVO(employee, task_favor_list, numOfEachScore, numOfEachTaskDifficulty, numOfEachTaskType, activeDegree);
         }).collect(Collectors.toList()));
+        res.setCurrSumSize(userMapper.get_employee_size(RoleConstant.EMPLOYEE.getRole()));
         return res;
     }
 

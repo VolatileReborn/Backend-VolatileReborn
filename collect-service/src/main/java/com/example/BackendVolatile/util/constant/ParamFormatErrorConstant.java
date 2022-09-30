@@ -2,6 +2,7 @@ package com.example.BackendVolatile.util.constant;
 
 
 public class ParamFormatErrorConstant {
+
     public static final String PAGE_NUM_CANNOT_BE_NULL = "页号不能为空";
 
     public static final String PAGE_NUM_MUST_BE_POSITIVE = "页号必须为正数";
@@ -164,7 +165,5 @@ public class ParamFormatErrorConstant {
     public static final String UNCLEAR_TASK_STATE = "任务状态异常，请联系管理员";
 
     public static final String LOGIN_LOG_DO_NOT_EXIST = "登录日志不存在";
-
-
 
 }
