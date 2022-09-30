@@ -16,7 +16,7 @@ node("slave1") {
     def __PROJECT_NAME = 'volatile_reborn'
     def __PROJECT_TYPE = 'backend'
     def __DOCKERHUB_ACCOUNT = 'lyklove'
-    def __IMAGE_TAG = 'latest'
+    def __IMAGE_TAG = 'latest-linux'
 
 
 //    def PUBLIC_PORT = '81'
