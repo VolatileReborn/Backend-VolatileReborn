@@ -5,23 +5,23 @@ spring:
     user:
       # TODO: 修改数据库配置
       # 121.36.247.134
-      jdbc-url: jdbc:mysql://localhost:3306/volatile_user
+      jdbc-url: jdbc:mysql://123.56.20.222:3306/VR_user
       driver-class-name: com.mysql.cj.jdbc.Driver
       allowMultiQueries: true
-      username: root
-      password: lzj669657ABC
+      username: VR
+      password: VR
     task:
-      jdbc-url: jdbc:mysql://localhost:3306/volatile_task
+      jdbc-url: jdbc:mysql://123.56.20.222:3306/VR_task
       driver-class-name: com.mysql.cj.jdbc.Driver
       allowMultiQueries: true
-      username: root
-      password: lzj669657ABC
+      username: VR
+      password: VR
     report:
-      jdbc-url: jdbc:mysql://localhost:3306/volatile_report
+      jdbc-url: jdbc:mysql://123.56.20.222:3306/VR_report
       driver-class-name: com.mysql.cj.jdbc.Driver
       allowMultiQueries: true
-      username: root
-      password: lzj669657ABC
+      username: VR
+      password: VR
 
 
 #  profiles:

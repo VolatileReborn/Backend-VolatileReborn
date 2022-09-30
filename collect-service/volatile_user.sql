@@ -1,6 +1,6 @@
 -- MariaDB dump 10.19  Distrib 10.6.5-MariaDB, for Linux (x86_64)
 --
--- Host: localhost    Database: volatile_user
+-- Host: localhost    Database: VR_user
 -- ------------------------------------------------------
 -- Server version	10.6.5-MariaDB
 

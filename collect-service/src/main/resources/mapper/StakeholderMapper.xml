@@ -50,13 +50,13 @@
                 device,
                 professional_skill,
                 (select count(*)
-                 from volatile_report.reports as r
+                 from VR_report.reports as r
                  where r.user_id = users.user_id)  as finishedTaskNum,
                 (select count(*)
-                 from volatile_task.select_task as st
+                 from VR_task.select_task as st
                  where st.user_id = users.user_id) as acceptedTaskNum,
                 (select count(report_id)
-                 from volatile_report.cooperations as c
+                 from VR_report.cooperations as c
                  where c.user_id = users.user_id
                    and c.cooperation_state = 1)    as collaborationNum,
                 (select max(login_time)
@@ -69,16 +69,16 @@
          from users
 --                           left join task_favors as tf on tf.user_id = users.user_id
 --                           left join (select r.user_id as uid, rs.score as score
---                                      from volatile_report.reports as r,
---                                           volatile_report.report_scores as rs
+--                                      from VR_report.reports as r,
+--                                           VR_report.report_scores as rs
 --                                      where r.report_id = rs.report_id) as us on us.uid = users.user_id
 --                           left join (select st.user_id as uid, t.task_difficulty as difficulty
---                                      from volatile_task.select_task as st,
---                                           volatile_task.tasks as t
+--                                      from VR_task.select_task as st,
+--                                           VR_task.tasks as t
 --                                      where st.task_id = t.task_id) as ud on ud.uid = users.user_id
 --                           left join (select st.user_id as uid, t.task_type as type
---                                      from volatile_task.select_task as st,
---                                           volatile_task.tasks as t
+--                                      from VR_task.select_task as st,
+--                                           VR_task.tasks as t
 --                                      where st.task_id = t.task_id) as ut on ut.uid = users.user_id
          where users.role = #{role}
          order by users.user_id
@@ -90,13 +90,13 @@
                nick_name,
                phone_number,
                (select count(t.task_id)
-                from volatile_task.tasks as t
+                from VR_task.tasks as t
                 where t.user_id = users.user_id) as publishedTaskNum,
                (select count(t.task_id)
-                from volatile_task.tasks as t
+                from VR_task.tasks as t
                 where t.user_id = users.user_id and t.task_state = 0) as recruitingTaskNum,
                (select max(t.begin_time)
-                from volatile_task.tasks as t
+                from VR_task.tasks as t
                 where t.user_id = users.user_id) as lastTaskPublishedTime,
                (select max(login_time)
                 from login_logs as ll

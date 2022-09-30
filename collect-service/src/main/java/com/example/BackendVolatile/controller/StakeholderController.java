@@ -25,7 +25,7 @@ public class StakeholderController {
      * @see com.example.BackendVolatile.vo.stakeholder.EmployerStateVO
      */
     @GetMapping("/stateList/employer")
-    //@UserLoginToken
+    @UserLoginToken
     public BrowserEmployersVO getEmployerStates(@Valid PageMsgDTO pageMsgDTO) {
         return stakeholderService.getEmployerStates(pageMsgDTO.getPageNum(), pageMsgDTO.getPageSize());
     }

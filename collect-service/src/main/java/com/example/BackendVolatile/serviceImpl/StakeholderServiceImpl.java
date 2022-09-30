@@ -66,7 +66,7 @@ public class StakeholderServiceImpl implements StakeholderService {
         BrowserEmployersVO res = new BrowserEmployersVO();
         ValidationResult validationResult = validatePermission();
         res.setResponse(validationResult.resultVO);
-//        if (validationResult.valid != BooleanValue.TRUE) return res;
+        if (validationResult.valid != BooleanValue.TRUE) return res;
 
         List<EmployerDAO> employerDAOList = userMapper.get_all_employer(RoleConstant.EMPLOYER.getRole(), pageSize, (pageNum - 1) * pageSize);
         res.setEmployerList(employerDAOList.stream().map(employer -> {
