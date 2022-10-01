@@ -121,9 +121,11 @@ node("slave1") {
     }
 
 
+
+
         stage("clean previous image and container"){
-        sh "docker container rm -f ${EUREKA_CONTAINER_NAME}"
-//        sh "docker container rm -f ${COLLECT_CONTAINER_NAME}"
+//        sh "docker container rm -f ${EUREKA_CONTAINER_NAME}"
+        sh "docker container rm -f ${COLLECT_CONTAINER_NAME}"
 
 //        sh "docker image rm ${EUREKA_IMAGE_TO_RUN}"
 //        sh "docker image rm ${COLLECT_IMAGE_TO_RUN}"
