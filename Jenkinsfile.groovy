@@ -140,7 +140,7 @@ node("slave1") {
     }
 
     stage("run Collect container") {
-        sh "docker image ls"
+//        sh "docker image ls"
 
 //        sh "docker container run -p ${EUREKA_HOST_PORT}:${EUREKA_CONTAINER_PORT} --name ${EUREKA_CONTAINER_NAME}   -d ${EUREKA_IMAGE_TO_RUN}"
         sh "docker container run --net=host --restart unless-stopped --name ${COLLECT_CONTAINER_NAME}   -d ${COLLECT_IMAGE_TO_RUN}"
