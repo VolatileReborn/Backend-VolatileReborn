@@ -73,9 +73,9 @@ node("slave1") {
 
         sh 'mvn --version'
 
-//        sh './build.sh'
+        sh './build.sh'
 //        sh "mvn  clean package -X org.jacoco:jacoco-maven-plugin:report  -Dmaven.test.failure.ignore=true"
-        sh "mvn  clean package"
+//        sh "mvn  clean package"
 
 //        echo "build finish on ${vm_ip}"
 
