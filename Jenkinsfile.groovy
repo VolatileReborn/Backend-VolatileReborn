@@ -133,7 +133,7 @@ node("slave1") {
         sh "docker image ls"
 
         sh "docker container run -p ${EUREKA_HOST_PORT}:${EUREKA_CONTAINER_PORT} --name ${EUREKA_CONTAINER_NAME}   -d ${EUREKA_IMAGE_TO_RUN}"
-        sh "docker container run -p ${COLLECT_HOST_PORT}:${COLLECT_CONTAINER_PORT} --name ${COLLECT_CONTAINER_NAME}   -d ${COLLECT_IMAGE_TO_RUN}"
+        sh "docker container run --net=host --name ${COLLECT_CONTAINER_NAME}   -d ${COLLECT_IMAGE_TO_RUN}"
 
     }
 
