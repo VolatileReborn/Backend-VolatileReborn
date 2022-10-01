@@ -125,8 +125,8 @@ node("slave1") {
         sh "docker container rm -f ${EUREKA_CONTAINER_NAME}"
         sh "docker container rm -f ${COLLECT_CONTAINER_PORT}"
 
-        sh "docker image rm ${EUREKA_IMAGE_TO_RUN}"
-        sh "docker image rm ${COLLECT_IMAGE_TO_RUN}"
+//        sh "docker image rm ${EUREKA_IMAGE_TO_RUN}"
+//        sh "docker image rm ${COLLECT_IMAGE_TO_RUN}"
     }
 
     stage("run container") {
@@ -136,6 +136,9 @@ node("slave1") {
         sh "docker container run -p ${COLLECT_HOST_PORT}:${COLLECT_CONTAINER_PORT} --name ${COLLECT_CONTAINER_NAME}   -d ${COLLECT_IMAGE_TO_RUN}"
 
     }
+
+
+
 
 //    //Using docker service
 //    //需要先在服务器上手动创建该service
