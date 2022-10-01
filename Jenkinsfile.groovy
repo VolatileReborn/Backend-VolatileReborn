@@ -44,6 +44,8 @@ node("slave1") {
         sh "ls -al"
 
     }
+
+    //需要服务器安装maven
     stage('build jar on slave machine, inorder to generate jacoco file ') {
 
         sh 'mvn --version'
