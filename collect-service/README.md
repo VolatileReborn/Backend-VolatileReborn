@@ -1,4 +1,8 @@
+# Visit Online
 
+* Eureka: http://124.222.135.47:8001/
+* Collect: http://124.222.135.47:9000/
+   * Collect是个Spring项目， 没有网页， 只能通过Apifox等来进行测试
 # Run Locally
 1. Build:
 
