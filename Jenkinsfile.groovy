@@ -123,16 +123,24 @@ node("slave1") {
 
         stage("clean previous image and container"){
         sh "docker container rm -f ${EUREKA_CONTAINER_NAME}"
-        sh "docker container rm -f ${COLLECT_CONTAINER_NAME}"
+//        sh "docker container rm -f ${COLLECT_CONTAINER_NAME}"
 
 //        sh "docker image rm ${EUREKA_IMAGE_TO_RUN}"
 //        sh "docker image rm ${COLLECT_IMAGE_TO_RUN}"
     }
 
-    stage("run container") {
+
+    //Using docker service on Eureka
+    //需要先在服务器上手动创建该service
+    stage("update Eureka service by built image"){
+
+        sh "docker service update --image ${EUREKA_IMAGE_TO_RUN} --update-parallelism 1  --update-delay 2s ${EUREKA_SERVICE_NAME}"
+    }
+
+    stage("run Collect container") {
         sh "docker image ls"
 
-        sh "docker container run -p ${EUREKA_HOST_PORT}:${EUREKA_CONTAINER_PORT} --name ${EUREKA_CONTAINER_NAME}   -d ${EUREKA_IMAGE_TO_RUN}"
+//        sh "docker container run -p ${EUREKA_HOST_PORT}:${EUREKA_CONTAINER_PORT} --name ${EUREKA_CONTAINER_NAME}   -d ${EUREKA_IMAGE_TO_RUN}"
         sh "docker container run --net=host --name ${COLLECT_CONTAINER_NAME}   -d ${COLLECT_IMAGE_TO_RUN}"
 
     }
