@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ReportDataSourceConfig.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">demo</a> &gt; <a href="index.source.html" class="el_package">com.example.BackendVolatile.config</a> &gt; <span class="el_source">ReportDataSourceConfig.java</span></div><h1>ReportDataSourceConfig.java</h1><pre class="source lang-java linenums">package com.example.BackendVolatile.config;
+
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.SqlSessionTemplate;
+import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.jdbc.DataSourceBuilder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+
+import javax.sql.DataSource;
+
+@Configuration
+@MapperScan(basePackages = &quot;com.example.BackendVolatile.mapper.report&quot;, sqlSessionFactoryRef = &quot;sqlSessionFactory_report&quot;)
+<span class="fc" id="L18">public class ReportDataSourceConfig {</span>
+    @Bean(name = &quot;dataSource_report&quot;)
+    @ConfigurationProperties(prefix = &quot;spring.datasource.report&quot;)
+    public DataSource dataSource() {
+<span class="fc" id="L22">        return DataSourceBuilder.create().build();</span>
+    }
+
+    @Bean(name = &quot;sqlSessionFactory_report&quot;)
+    public SqlSessionFactory sqlSessionFactory(@Qualifier(&quot;dataSource_report&quot;) DataSource dataSource) throws Exception {
+<span class="fc" id="L27">        SqlSessionFactoryBean bean = new SqlSessionFactoryBean();</span>
+<span class="fc" id="L28">        bean.setDataSource(dataSource);</span>
+//        bean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(&quot;classpath:mapper/*.xml&quot;));
+<span class="fc" id="L30">        return bean.getObject();</span>
+    }
+
+    @Bean(name = &quot;transactionManager_report&quot;)
+    public DataSourceTransactionManager transactionManager(@Qualifier(&quot;dataSource_report&quot;) DataSource dataSource) {
+<span class="fc" id="L35">        return new DataSourceTransactionManager(dataSource);</span>
+    }
+
+    @Bean(name = &quot;sqlSessionTemplate_report&quot;)
+    public SqlSessionTemplate sqlSessionTemplate(@Qualifier(&quot;sqlSessionFactory_report&quot;) SqlSessionFactory sqlSessionFactory) {
+<span class="fc" id="L40">        return new SqlSessionTemplate(sqlSessionFactory);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

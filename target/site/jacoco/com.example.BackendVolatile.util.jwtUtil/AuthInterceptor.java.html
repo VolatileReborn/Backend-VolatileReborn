@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AuthInterceptor.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">demo</a> &gt; <a href="index.source.html" class="el_package">com.example.BackendVolatile.util.jwtUtil</a> &gt; <span class="el_source">AuthInterceptor.java</span></div><h1>AuthInterceptor.java</h1><pre class="source lang-java linenums">package com.example.BackendVolatile.util.jwtUtil;
+import com.example.BackendVolatile.service.UserService;
+import com.example.BackendVolatile.util.jwtUtil.CustomAnnotation.PassToken;
+import com.example.BackendVolatile.util.jwtUtil.CustomAnnotation.UserLoginToken;
+import com.example.BackendVolatile.util.ThreadLocalUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
+
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+
+import javax.servlet.http.HttpServletResponse;
+import java.lang.reflect.Method;
+
+<span class="fc" id="L20">public class AuthInterceptor implements HandlerInterceptor {</span>
+<span class="fc" id="L21">    private static final Logger log = LoggerFactory.getLogger(AuthInterceptor.class);</span>
+
+    @Resource
+    private JwtTokenUtil jwtTokenUtil;
+
+    @Resource
+    UserService userService;
+
+
+
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object object) throws Exception {
+<span class="nc" id="L33">        log.info(&quot;&gt;&gt;&gt;AuthInterceptor&gt;&gt;&gt;&gt;&gt;&gt;&gt;在请求处理之前进行调用（Controller方法调用之前)&quot;);</span>
+<span class="nc" id="L34">        String token = request.getHeader(&quot;Authorization&quot;);// 从 http 请求头中取出 token</span>
+        // 如果不是映射到方法直接通过
+<span class="nc bnc" id="L36" title="All 2 branches missed.">        if(!(object instanceof HandlerMethod)){</span>
+<span class="nc" id="L37">            return true;</span>
+        }
+
+<span class="nc" id="L40">        HandlerMethod handlerMethod=(HandlerMethod)object;</span>
+<span class="nc" id="L41">        Method method=handlerMethod.getMethod();</span>
+<span class="nc bnc" id="L42" title="All 2 branches missed.">        if (method.isAnnotationPresent(PassToken.class)) {</span>
+<span class="nc" id="L43">            PassToken passToken = method.getAnnotation(PassToken.class);</span>
+<span class="nc bnc" id="L44" title="All 2 branches missed.">            if (passToken.required()) {</span>
+<span class="nc" id="L45">                return true;</span>
+            }
+        }
+        //检查有没有需要用户权限的注解
+<span class="nc bnc" id="L49" title="All 2 branches missed.">        if (method.isAnnotationPresent(UserLoginToken.class)) {</span>
+<span class="nc" id="L50">            UserLoginToken userLoginToken = method.getAnnotation(UserLoginToken.class);</span>
+<span class="nc bnc" id="L51" title="All 2 branches missed.">            if (userLoginToken.required()) {</span>
+<span class="nc bnc" id="L52" title="All 2 branches missed.">                if (token == null) {</span>
+<span class="nc" id="L53">                    log.info(&quot;无token，请重新登录&quot;);</span>
+<span class="nc" id="L54">                    ThreadLocalUtils.set(&quot;valid&quot;,0L);</span>
+<span class="nc" id="L55">                    ThreadLocalUtils.set(&quot;userId&quot;, -1L);</span>
+<span class="nc" id="L56">                    return true;</span>
+
+                }
+
+                // 验证 token
+<span class="nc" id="L61">                boolean valid = jwtTokenUtil.validateToken(token);</span>
+<span class="nc bnc" id="L62" title="All 2 branches missed.">                if(!valid){</span>
+<span class="nc" id="L63">                    log.info(&quot;token无效&quot;);</span>
+<span class="nc" id="L64">                    ThreadLocalUtils.set(&quot;valid&quot;, 0L);</span>
+<span class="nc" id="L65">                    ThreadLocalUtils.set(&quot;userId&quot;, -1L);</span>
+<span class="nc" id="L66">                    return true;</span>
+                }
+                // 获取 token 中的 user id
+                long userId;
+                try {
+<span class="nc" id="L71">                    userId = jwtTokenUtil.getIdFromToken(token);</span>
+<span class="nc" id="L72">                } catch (Exception e) {</span>
+<span class="nc" id="L73">                    log.info(&quot;拦截器获取userId出现异常&quot;);</span>
+<span class="nc" id="L74">                    ThreadLocalUtils.set(&quot;valid&quot;,0L);</span>
+<span class="nc" id="L75">                    ThreadLocalUtils.set(&quot;userId&quot;, -1L);</span>
+<span class="nc" id="L76">                    return true;</span>
+<span class="nc" id="L77">                }</span>
+
+<span class="nc" id="L79">                ThreadLocalUtils.set(&quot;valid&quot;,1L);</span>
+<span class="nc" id="L80">                ThreadLocalUtils.set(&quot;userId&quot;, userId);</span>
+
+<span class="nc" id="L82">                return true;</span>
+            }
+
+        }
+
+<span class="nc" id="L87">        return true;</span>
+    }
+
+    @Override
+    public void postHandle(HttpServletRequest httpServletRequest,
+                           HttpServletResponse httpServletResponse,
+                           Object o, ModelAndView modelAndView) throws Exception {
+
+<span class="nc" id="L95">    }</span>
+
+    @Override
+    public void afterCompletion(HttpServletRequest httpServletRequest,
+                                HttpServletResponse httpServletResponse,
+                                Object o, Exception e) throws Exception {
+<span class="nc" id="L101">        ThreadLocalUtils.remove();</span>
+<span class="nc" id="L102">    }</span>
+
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

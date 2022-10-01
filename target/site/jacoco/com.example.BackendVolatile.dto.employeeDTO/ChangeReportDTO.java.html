@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ChangeReportDTO.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">demo</a> &gt; <a href="index.source.html" class="el_package">com.example.BackendVolatile.dto.employeeDTO</a> &gt; <span class="el_source">ChangeReportDTO.java</span></div><h1>ChangeReportDTO.java</h1><pre class="source lang-java linenums">package com.example.BackendVolatile.dto.employeeDTO;
+
+import com.example.BackendVolatile.dto.taskDTO.File;
+import com.example.BackendVolatile.util.constant.ParamFormatErrorConstant;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import java.util.List;
+
+<span class="nc bnc" id="L13" title="All 30 branches missed.">@Data</span>
+<span class="nc" id="L14">@NoArgsConstructor</span>
+public class ChangeReportDTO {
+
+    @NotNull(message = ParamFormatErrorConstant.TASK_ID_CANNOT_BE_NULL)
+    @Min(value = 1, message = ParamFormatErrorConstant.TASK_ID_DONT_EXIST)
+<span class="nc" id="L19">    private Long taskId;</span>
+
+    @NotNull(message = ParamFormatErrorConstant.REPORT_ID_CANNOT_BE_NULL)
+    @Min(value = 1, message = ParamFormatErrorConstant.REPORT_ID_DONT_EXIST)
+<span class="nc" id="L23">    private Long reportId;</span>
+
+    @Valid
+<span class="nc" id="L26">    private TestReport taskReport;</span>
+
+    @NotNull
+    public String getDefectExplain(){
+<span class="nc" id="L30">        return taskReport.getDefectExplain();</span>
+    }
+
+    @NotNull
+    public String getReportName(){
+<span class="nc" id="L35">        return taskReport.getReportName();</span>
+    }
+
+    @NotNull
+    public String getDefectReproductionStep(){
+<span class="nc" id="L40">        return taskReport.getDefectReproductionStep();</span>
+    }
+
+    @NotNull
+    public String getTestEquipmentInformation(){
+<span class="nc" id="L45">        return taskReport.getTestEquipmentInformation();</span>
+    }
+
+    @NotNull
+    public List&lt;File&gt; getDefectPictureList(){
+<span class="nc" id="L50">        return taskReport.getDefectPictureList();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

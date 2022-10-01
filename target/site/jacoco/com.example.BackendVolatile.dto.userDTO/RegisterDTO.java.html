@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RegisterDTO.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">demo</a> &gt; <a href="index.source.html" class="el_package">com.example.BackendVolatile.dto.userDTO</a> &gt; <span class="el_source">RegisterDTO.java</span></div><h1>RegisterDTO.java</h1><pre class="source lang-java linenums">package com.example.BackendVolatile.dto.userDTO;
+
+import com.example.BackendVolatile.util.constant.ParamFormatErrorConstant;
+import com.example.BackendVolatile.util.constant.ParamRegexp;
+import com.example.BackendVolatile.util.constant.RoleConstant;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.validation.constraints.*;
+
+<span class="nc bnc" id="L12" title="All 38 branches missed.">@Data</span>
+<span class="nc" id="L13">@NoArgsConstructor</span>
+<span class="nc" id="L14">@AllArgsConstructor</span>
+public class RegisterDTO {
+
+    @NotBlank(message = ParamFormatErrorConstant.PHONE_NUMBER_CANNOT_BE_NULL)
+    @Pattern(regexp= ParamRegexp.PHONE_NUMBER_FORMAT, message = ParamFormatErrorConstant.WRONG_PHONE_NUMBER_FORMAT)
+<span class="nc" id="L19">    private String phone_number;</span>
+
+    @NotBlank(message = ParamFormatErrorConstant.PASSWORD_CANNOT_BE_NULL)
+<span class="nc" id="L22">    private String password;</span>
+
+    @NotNull(message = ParamFormatErrorConstant.ROLE_CANNOT_BE_NULL)
+    @Max(value = RoleConstant.ROLE_MAX, message = ParamFormatErrorConstant.WRONG_ROLE_FORMAT)
+    @Min(value = RoleConstant.ROLE_MIN, message = ParamFormatErrorConstant.WRONG_ROLE_FORMAT)
+<span class="nc" id="L27">    private Integer role;</span>
+
+    @NotBlank(message = ParamFormatErrorConstant.NICKNAME_CANNOT_BE_NULL)
+<span class="nc" id="L30">    private String nickname;</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

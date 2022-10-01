@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>JwtTokenUtil.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">demo</a> &gt; <a href="index.source.html" class="el_package">com.example.BackendVolatile.util.jwtUtil</a> &gt; <span class="el_source">JwtTokenUtil.java</span></div><h1>JwtTokenUtil.java</h1><pre class="source lang-java linenums">package com.example.BackendVolatile.util.jwtUtil;
+import com.example.BackendVolatile.dto.userDTO.LoginDTO;
+import com.example.BackendVolatile.vo.userVO.LoginVO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+
+
+/**
+ * JwtToken生成的工具类
+ *
+ */
+@Component
+<span class="fc" id="L24">public class JwtTokenUtil {</span>
+
+
+<span class="fc" id="L27">    private static final Logger LOGGER = LoggerFactory.getLogger(JwtTokenUtil.class);</span>
+    private static final String CLAIM_KEY_USERNAME = &quot;sub&quot;;
+    private static final String CLAIM_KEY_CREATED = &quot;created&quot;;
+    private static final String secret = &quot;P:7H.MDC_hMr.8-462--o2W*bCQMJ?7M8&quot;;
+    private static final int expiration = 3600 * 24 * 100;
+
+//    @Value(&quot;${jwt.secret}&quot;)
+//    private String secret;
+//
+//    @Value(&quot;${jwt.expiration}&quot;)
+//    private Long expiration;
+
+
+    /**
+     * 根据负责生成JWT的token
+     */
+    public String generateToken(Map&lt;String, Object&gt; claims){
+<span class="nc" id="L44">        return Jwts.builder().setClaims(claims)</span>
+<span class="nc" id="L45">                .setExpiration(generateExpirationDate())</span>
+<span class="nc" id="L46">                .signWith(SignatureAlgorithm.HS256,secret)</span>
+<span class="nc" id="L47">                .compact();</span>
+
+    }
+
+//    public static void main(String[] args){
+//        LoginVO loginVO = new LoginVO();
+//        loginVO.setNickname(&quot;张三&quot;);
+//        loginVO.setRole(2);
+//        System.out.println(generateToken(loginVO,5));
+//        String token = &quot;eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI1Iiwic3ViIjoi5byg5LiJIiwiaWF0IjoxNjQ3MDc0MDY0LCJleHAiOjE2NDcxNjA0OTcsImNyZWF0ZWQiOjE2NDcwNzQwOTc4NTN9.sEyflm3jE8hXU573gfFs_z1p14lsT01ZyOueekhvfVs&quot;;
+//        boolean valid = validateToken(token);
+//        System.out.println(valid);
+//        if(valid){
+//            System.out.println(getExpiredDateFromToken(token));
+//            System.out.println(getUserNameFromToken(token));
+//            String newToken = refreshToken(token);
+//            System.out.println(newToken);
+//            System.out.println(getExpiredDateFromToken(newToken));
+//            System.out.println(getIdFromToken(newToken));
+//        }
+//        else{
+//            System.out.println(&quot;token无效请重新登陆&quot;);
+//        }
+//
+//    }
+
+    public String generateToken(LoginVO loginVO, long userId){
+<span class="nc" id="L74">        return Jwts.builder().setId(&quot;&quot; + userId)</span>
+<span class="nc" id="L75">                .setSubject(loginVO.getNickname())</span>
+<span class="nc" id="L76">                .setIssuedAt(new Date())</span>
+<span class="nc" id="L77">                .setExpiration(generateExpirationDate())</span>
+<span class="nc" id="L78">                .signWith(SignatureAlgorithm.HS256,secret)</span>
+<span class="nc" id="L79">                .compact();</span>
+    }
+
+    /**
+     * 从token中获取JWT中的负载
+     * @param token
+     * @return
+     */
+
+    public Claims getClaimsFromToken(String token){
+<span class="nc" id="L89">        Claims claims = null;</span>
+        try{
+<span class="nc" id="L91">            claims = Jwts.parser()</span>
+<span class="nc" id="L92">                    .setSigningKey(secret)</span>
+<span class="nc" id="L93">                    .parseClaimsJws(token)</span>
+<span class="nc" id="L94">                    .getBody();</span>
+        }
+<span class="nc" id="L96">        catch (Exception e){</span>
+<span class="nc" id="L97">            LOGGER.info(&quot;JWT格式验证失败:{}&quot;,token);</span>
+<span class="nc" id="L98">        }</span>
+<span class="nc" id="L99">        return claims;</span>
+    }
+
+
+    /**
+     * 从token中获取用户名
+     * @param token
+     * @return
+     */
+    public String getUserNameFromToken(String token) {
+        String username;
+        try{
+<span class="nc" id="L111">            Claims claims = getClaimsFromToken(token);</span>
+<span class="nc" id="L112">            username = claims.getSubject();</span>
+        }
+<span class="nc" id="L114">        catch (Exception e){</span>
+<span class="nc" id="L115">            username = null;</span>
+<span class="nc" id="L116">        }</span>
+<span class="nc" id="L117">        return username;</span>
+    }
+
+
+    public long getIdFromToken(String token){
+        long id;
+        try{
+<span class="nc" id="L124">            Claims claims = getClaimsFromToken(token);</span>
+<span class="nc" id="L125">            id = Long.parseLong(claims.getId());</span>
+        }
+<span class="nc" id="L127">        catch (Exception e){</span>
+<span class="nc" id="L128">            id = -1;</span>
+<span class="nc" id="L129">        }</span>
+<span class="nc" id="L130">        return id;</span>
+    }
+
+    /**
+     * 验证token是否还有效
+     *
+     * @param token 客户端传入的token
+     */
+
+    public boolean validateToken(String token){
+<span class="nc" id="L140">        Claims claims = getClaimsFromToken(token);</span>
+<span class="nc bnc" id="L141" title="All 2 branches missed.">        if(claims == null){</span>
+<span class="nc" id="L142">            return false;</span>
+        }
+<span class="nc" id="L144">        Date expiredDate =  claims.getExpiration();</span>
+<span class="nc bnc" id="L145" title="All 2 branches missed.">        return !expiredDate.before(new Date());</span>
+    }
+
+    /**
+     * 从token中获取过期时间
+     */
+    private Date getExpiredDateFromToken(String token) {
+<span class="nc" id="L152">         Claims claims = getClaimsFromToken(token);</span>
+<span class="nc" id="L153">         return claims.getExpiration();</span>
+    }
+
+
+    public Date generateExpirationDate(){
+<span class="nc" id="L158">        return new Date(System.currentTimeMillis() + expiration * 1000);</span>
+    }
+
+//    /**
+//     * 判断token是否可以被刷新
+//     */
+//    public boolean canRefresh(String token) {
+//        return !isTokenExpired(token);
+//    }
+
+
+    /**
+     * 刷新token
+     */
+    public String refreshToken(String token) {
+<span class="nc" id="L173">        Claims claims = getClaimsFromToken(token);</span>
+<span class="nc" id="L174">        claims.put(CLAIM_KEY_CREATED, new Date());</span>
+<span class="nc" id="L175">        return generateToken(claims);</span>
+    }
+
+//    /**
+//     * 判断token是否已经失效
+//     */
+//    private boolean isTokenExpired(String token) {
+//        Date expiredDate = getExpiredDateFromToken(token);
+//        return expiredDate.before(new Date());
+//    }
+
+
+//    /**
+//     * 根据用户信息生成token
+//     */
+//    public String generateToken(UserDetails userDetails) {
+//        Map&lt;String, Object&gt; claims = new HashMap&lt;&gt;();
+//        claims.put(CLAIM_KEY_USERNAME, userDetails.getUsername());
+//        claims.put(CLAIM_KEY_CREATED, new Date());
+//        return generateToken(claims);
+//    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CooperationReportDetailVO.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">demo</a> &gt; <a href="index.source.html" class="el_package">com.example.BackendVolatile.vo.employeeVO</a> &gt; <span class="el_source">CooperationReportDetailVO.java</span></div><h1>CooperationReportDetailVO.java</h1><pre class="source lang-java linenums">package com.example.BackendVolatile.vo.employeeVO;
+
+
+import com.example.BackendVolatile.dao.reportDAO.CooperationDefectPicture;
+import com.example.BackendVolatile.dao.reportDAO.CooperationReport;
+import com.example.BackendVolatile.dao.reportDAO.DefectPicture;
+import com.example.BackendVolatile.vo.ResultVO;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
+
+<span class="nc bnc" id="L14" title="All 62 branches missed.">@Data</span>
+<span class="nc" id="L15">@NoArgsConstructor</span>
+public class CooperationReportDetailVO {
+
+<span class="nc" id="L18">    private ResultVO response;</span>
+<span class="nc" id="L19">    private List&lt;File&gt; defectPictureList;</span>
+<span class="nc" id="L20">    private String defectExplain;</span>
+<span class="nc" id="L21">    private String defectReproduction;</span>
+<span class="nc" id="L22">    private String testEquipmentInfo;</span>
+<span class="nc" id="L23">    private String reportName;</span>
+<span class="nc" id="L24">    private Long parentId;</span>
+
+
+    public void setPartCooperationReportDetailVO(CooperationReport cooperationReport){
+<span class="nc" id="L28">        this.defectExplain = cooperationReport.getDefect_explain();</span>
+<span class="nc" id="L29">        this.defectReproduction = cooperationReport.getDefect_reproduction_step();</span>
+<span class="nc" id="L30">        this.reportName = cooperationReport.getReport_name();</span>
+<span class="nc" id="L31">        this.testEquipmentInfo = cooperationReport.getTest_equipment_information();</span>
+<span class="nc" id="L32">        this.parentId = cooperationReport.getParent_report_id();</span>
+<span class="nc" id="L33">    }</span>
+
+    public void setDefectPictureList(List&lt;CooperationDefectPicture&gt; cooperationDefectPictureList) {
+<span class="nc" id="L36">        this.defectPictureList = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L37" title="All 2 branches missed.">        for(int i = 0; i &lt; cooperationDefectPictureList.size(); i++){</span>
+<span class="nc" id="L38">            File temp = new File(cooperationDefectPictureList.get(i).getPicture_url(),</span>
+<span class="nc" id="L39">                    cooperationDefectPictureList.get(i).getPicture_name());</span>
+<span class="nc" id="L40">            this.defectPictureList.add(temp);</span>
+        }
+<span class="nc" id="L42">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

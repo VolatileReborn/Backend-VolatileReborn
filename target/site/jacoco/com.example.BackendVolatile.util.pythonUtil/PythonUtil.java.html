@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PythonUtil.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">demo</a> &gt; <a href="index.source.html" class="el_package">com.example.BackendVolatile.util.pythonUtil</a> &gt; <span class="el_source">PythonUtil.java</span></div><h1>PythonUtil.java</h1><pre class="source lang-java linenums">package com.example.BackendVolatile.util.pythonUtil;
+
+import cn.hutool.json.JSON;
+import cn.hutool.json.JSONObject;
+import com.example.BackendVolatile.util.JSONUtils;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+@Component
+<span class="fc" id="L15">public class PythonUtil {</span>
+    public ClusterReportsDTO getClusterReportsDTO(Long reportId, Long taskId){
+<span class="nc" id="L17">        return new ClusterReportsDTO(reportId,taskId);</span>
+    }
+
+    public RecommendedReportsDTO getRecommendedReportsDTO(
+            Long reportId, Long taskId, Integer num, String algorithm){
+<span class="nc" id="L22">        return new RecommendedReportsDTO(reportId,taskId,num,algorithm);</span>
+    }
+
+    public SimilarReportsDTO getSimilarReportsDTO(
+            Long reportId, Long taskId, Integer num, String algorithm){
+<span class="nc" id="L27">        return new SimilarReportsDTO(reportId,taskId,num,algorithm);</span>
+    }
+
+    public List&lt;ClusterReportVO&gt; parseCluster(String s){
+<span class="nc" id="L31">        List&lt;ClusterReportVO&gt; clusters = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L32" title="All 4 branches missed.">        if(s == null || s.equals(&quot;&quot;)){</span>
+<span class="nc" id="L33">            return clusters;</span>
+        }
+<span class="nc bnc" id="L35" title="All 4 branches missed.">        boolean right = s.charAt(0) == '[' &amp;&amp; s.charAt(s.length()-1) ==']';</span>
+<span class="nc bnc" id="L36" title="All 2 branches missed.">        if(!right){</span>
+<span class="nc" id="L37">            return clusters;</span>
+        }
+<span class="nc" id="L39">        String splitString = &quot;}, &quot;;</span>
+<span class="nc" id="L40">        String[] itemList = s.substring(1,s.length()-2).split(splitString);</span>
+<span class="nc bnc" id="L41" title="All 2 branches missed.">        for(int i=0;i&lt;itemList.length;i++){</span>
+<span class="nc" id="L42">            System.out.println(itemList[i]);</span>
+<span class="nc" id="L43">            ClusterReportVO clusterReportVO = JSONUtils.jsonToPojo(itemList[i] + &quot;}&quot;,ClusterReportVO.class);</span>
+<span class="nc" id="L44">            clusters.add(clusterReportVO);</span>
+        }
+<span class="nc" id="L46">        return clusters;</span>
+    }
+
+
+}
+
+<span class="nc bnc" id="L52" title="All 22 branches missed.">@Data</span>
+<span class="nc" id="L53">@AllArgsConstructor</span>
+class ClusterReportsDTO{
+<span class="nc" id="L55">    private Long report_id;</span>
+<span class="nc" id="L56">    private Long task_id;</span>
+}
+
+<span class="nc bnc" id="L59" title="All 38 branches missed.">@Data</span>
+<span class="nc" id="L60">@AllArgsConstructor</span>
+class RecommendedReportsDTO{
+<span class="nc" id="L62">    private Long report_id;</span>
+<span class="nc" id="L63">    private Long task_id;</span>
+<span class="nc" id="L64">    private Integer recommended_report_num;</span>
+<span class="nc" id="L65">    private String algorithm;</span>
+
+}
+
+<span class="nc bnc" id="L69" title="All 38 branches missed.">@Data</span>
+<span class="nc" id="L70">@AllArgsConstructor</span>
+class SimilarReportsDTO{
+<span class="nc" id="L72">    private Long report_id;</span>
+<span class="nc" id="L73">    private Long task_id;</span>
+<span class="nc" id="L74">    private Integer similar_report_num;</span>
+<span class="nc" id="L75">    private String algorithm;</span>
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

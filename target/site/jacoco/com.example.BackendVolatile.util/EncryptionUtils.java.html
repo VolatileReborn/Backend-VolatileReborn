@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>EncryptionUtils.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">demo</a> &gt; <a href="index.source.html" class="el_package">com.example.BackendVolatile.util</a> &gt; <span class="el_source">EncryptionUtils.java</span></div><h1>EncryptionUtils.java</h1><pre class="source lang-java linenums">package com.example.BackendVolatile.util;
+
+import org.springframework.stereotype.Component;
+
+import java.security.MessageDigest;
+
+@Component
+<span class="fc" id="L8">public class EncryptionUtils {</span>
+
+    public String md5Encrypt(String srcStr) {
+<span class="nc" id="L11">        return encrypt(&quot;MD5&quot;, srcStr);</span>
+    }
+
+    public String sha1Encrypt(String srcStr) {
+<span class="nc" id="L15">        return encrypt(&quot;SHA-1&quot;, srcStr);</span>
+    }
+
+    public String sha256Encrypt(String srcStr) {
+<span class="nc" id="L19">        return encrypt(&quot;SHA-256&quot;, srcStr);</span>
+    }
+
+    public String sha384Encrypt(String srcStr) {
+<span class="nc" id="L23">        return encrypt(&quot;SHA-384&quot;, srcStr);</span>
+    }
+
+    public String sha512Encrypt(String srcStr) {
+<span class="nc" id="L27">        return encrypt(&quot;SHA-512&quot;, srcStr);</span>
+    }
+
+    public String encrypt(String algorithm, String srcStr) {
+        try {
+<span class="nc" id="L32">            StringBuilder result = new StringBuilder();</span>
+<span class="nc" id="L33">            MessageDigest md = MessageDigest.getInstance(algorithm);</span>
+<span class="nc" id="L34">            byte[] bytes = md.digest(srcStr.getBytes(&quot;utf-8&quot;));</span>
+<span class="nc bnc" id="L35" title="All 2 branches missed.">            for (byte b : bytes) {</span>
+<span class="nc" id="L36">                String hex = Integer.toHexString(b &amp; 0xFF);</span>
+<span class="nc bnc" id="L37" title="All 2 branches missed.">                if (hex.length() == 1)</span>
+<span class="nc" id="L38">                    result.append(&quot;0&quot;);</span>
+<span class="nc" id="L39">                result.append(hex);</span>
+            }
+<span class="nc" id="L41">            return result.toString();</span>
+<span class="nc" id="L42">        } catch (Exception e) {</span>
+<span class="nc" id="L43">            throw new RuntimeException(e);</span>
+        }
+    }
+
+    public static void main(String[] args) {
+//        String str = &quot;111111&quot;;
+//        System.out.println(md5Encrypt(str));
+//        System.out.println(sha1Encrypt(str));
+//        System.out.println(sha256Encrypt(str));
+//        System.out.println(sha384Encrypt(str));
+//        System.out.println(sha512Encrypt(str));
+//		打印结果：
+//		96e79218965eb72c92a549dd5a330112
+//		3d4f2bf07dc1be38b20cd6e46949a1071f9d0e3d
+//		bcb15f821479b4d5772bd0ca866c00ad5f926e3580720659cc80d39c9d09802a
+//		1b0268a40ae44c012946c974d60bf5291e7bb7c63cdb72a904d9283e3dc0a34de9afebe4035665768aaa503a4e7a30c3
+//		b0412597dcea813655574dc54a5b74967cf85317f0332a2591be7953a016f8de56200eb37d5ba593b1e4aa27cea5ca27100f94dccd5b04bae5cadd4454dba67d
+<span class="nc" id="L60">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

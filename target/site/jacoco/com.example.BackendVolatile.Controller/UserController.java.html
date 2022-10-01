@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">demo</a> &gt; <a href="index.source.html" class="el_package">com.example.BackendVolatile.Controller</a> &gt; <span class="el_source">UserController.java</span></div><h1>UserController.java</h1><pre class="source lang-java linenums">package com.example.BackendVolatile.Controller;
+
+import com.example.BackendVolatile.dto.userDTO.SetUserProfileDTO;
+import com.example.BackendVolatile.service.UserService;
+import com.example.BackendVolatile.dto.userDTO.LoginDTO;
+import com.example.BackendVolatile.dto.userDTO.RegisterDTO;
+import com.example.BackendVolatile.util.jwtUtil.CustomAnnotation.UserLoginToken;
+import com.example.BackendVolatile.vo.userVO.GetUserDataVO;
+import com.example.BackendVolatile.vo.userVO.LoginVO;
+import com.example.BackendVolatile.vo.userVO.RegisterVO;
+import com.example.BackendVolatile.vo.userVO.SetUserProfileVO;
+import org.springframework.context.annotation.Profile;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import javax.validation.Valid;
+
+@RestController
+@RequestMapping(path = &quot;/api/user&quot;)
+<span class="fc" id="L21">public class UserController {</span>
+
+    @Resource
+    UserService userService;
+
+
+    @GetMapping(value = &quot;/login&quot;)
+    public LoginVO login(@Valid LoginDTO loginDTO){
+<span class="nc" id="L29">        return userService.userLogin(loginDTO);</span>
+
+    }
+
+    @GetMapping(value = &quot;/register&quot;)
+    public RegisterVO register(@Valid RegisterDTO registerDTO){
+<span class="nc" id="L35">        System.out.println(&quot;Register Controller&quot;);</span>
+<span class="nc" id="L36">        return userService.userRegister(registerDTO);</span>
+    }
+
+    @PostMapping(value = &quot;/setUserProfile&quot;)
+    @UserLoginToken
+    public SetUserProfileVO setUserProfile(@Valid @RequestBody SetUserProfileDTO setUserProfileDTO){
+<span class="nc" id="L42">        return userService.setUserProfile(setUserProfileDTO);</span>
+    }
+
+    @GetMapping(value = &quot;/getUserData&quot;)
+    @UserLoginToken
+    public GetUserDataVO getUserData(){
+<span class="nc" id="L48">        return userService.getUserData();</span>
+    }
+
+
+
+    @Profile(&quot;test&quot;)
+    @GetMapping(value = &quot;/test_register&quot;)
+    public RegisterVO test_register(@RequestParam(&quot;phone_number&quot;) String phone_number, @RequestParam(&quot;password&quot;) String password, @RequestParam(&quot;role&quot;)int role, @RequestParam(&quot;nick_name&quot;) String nick_name  )
+    {
+<span class="nc" id="L57">        RegisterDTO  registerDTO = new RegisterDTO();</span>
+<span class="nc" id="L58">        registerDTO.setPhone_number(phone_number);</span>
+<span class="nc" id="L59">        registerDTO.setPassword(password);</span>
+<span class="nc" id="L60">        registerDTO.setRole(role);</span>
+<span class="nc" id="L61">        registerDTO.setNickname(nick_name);</span>
+<span class="nc" id="L62">        System.out.println(&quot;Register Controller&quot;);</span>
+<span class="nc" id="L63">        return userService.userRegister(registerDTO);</span>
+    }
+
+    @Profile(&quot;test&quot;)
+    @GetMapping(value = &quot;/hello&quot;)
+    public String test_hello()
+    {
+<span class="nc" id="L70">        return &quot;hello&quot;;</span>
+    }
+
+
+
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

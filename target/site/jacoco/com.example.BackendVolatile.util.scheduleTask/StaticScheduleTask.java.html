@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>StaticScheduleTask.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">demo</a> &gt; <a href="index.source.html" class="el_package">com.example.BackendVolatile.util.scheduleTask</a> &gt; <span class="el_source">StaticScheduleTask.java</span></div><h1>StaticScheduleTask.java</h1><pre class="source lang-java linenums">package com.example.BackendVolatile.util.scheduleTask;
+
+import com.example.BackendVolatile.mapper.task.TaskMapper;
+import com.example.BackendVolatile.util.constant.PythonServerConstant;
+import com.example.BackendVolatile.util.pythonUtil.prepareReportTrainingData.PrepareReportTrainingDataDTO;
+import com.example.BackendVolatile.util.pythonUtil.prepareReportTrainingData.PrepareReportTrainingDataUtil;
+import com.example.BackendVolatile.util.pythonUtil.prepareTaskRecommendationTrainingDataUtil.PrepareTaskRecommendationTrainingDataDTO;
+import com.example.BackendVolatile.util.pythonUtil.prepareTaskRecommendationTrainingDataUtil.PrepareTaskRecommendationTrainingDataUtil;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.web.client.RestTemplate;
+
+import javax.annotation.Resource;
+import java.time.LocalDateTime;
+import java.util.List;
+
+@Configuration      //1.主要用于标记配置类，兼备Component的效果。
+@EnableScheduling   // 2.开启定时任务
+<span class="fc" id="L20">public class StaticScheduleTask {</span>
+    @Resource
+    TaskMapper taskMapper;
+
+    @Resource
+    PrepareReportTrainingDataUtil prepareReportTrainingDataUtil;
+
+    @Resource
+    PrepareTaskRecommendationTrainingDataUtil prepareTaskRecommendationTrainingDataUtil;
+
+    @Resource
+    RestTemplate restTemplate;
+
+//    //3.添加定时任务
+////    @Scheduled(cron = &quot;0/5 * * * * ?&quot;)
+//    //或直接指定时间间隔，例如：5秒
+//    @Scheduled(fixedRate=3600000)
+//    private void configureTasks() {
+//
+//                System.err.println(&quot;执行定时任务时间:准备报告数据: &quot; + LocalDateTime.now());
+//                String url = &quot;http://&quot;+ PythonServerConstant.IP+ &quot;:&quot;+PythonServerConstant.PORT+&quot;/prepareReportTrainingData&quot;;
+//                System.out.println(url);
+//                List&lt;Long&gt; taskIdList = taskMapper.get_all_task_id();
+//                for(int i=0;i&lt;taskIdList.size();i++){
+//                    try{
+//                    Long taskId = taskIdList.get(i);
+//                    System.out.println(&quot;taskId: &quot; + taskId);
+//                    PrepareReportTrainingDataDTO pDTO = prepareReportTrainingDataUtil.getPrepareReportTrainingDataDTO(taskId,&quot;DeepPrior&quot;);
+//                    if(pDTO.getReport_list().size()&gt;0){
+//                        String s = restTemplate.postForObject(url, pDTO, String.class);
+//                        System.out.println(&quot;report behind&quot;);
+//                        System.out.println(&quot;report: &quot; + s);
+//                    }
+//                    else{
+//                        System.out.println(&quot;该任务未提交报告&quot;);
+//                    }
+//                    }catch (Exception e){
+//                        e.printStackTrace();
+//                    }
+//
+//                }
+//
+//
+//
+//
+//    }
+
+//    @Scheduled(fixedRate = 50000)
+//    private void recommend(){
+//        System.err.println(&quot;执行定时任务时间:准备推荐数据: &quot; + LocalDateTime.now());
+//        try {
+//
+//            String url = &quot;http://&quot;+PythonServerConstant.IP+ &quot;:&quot;+PythonServerConstant.PORT+
+//                    &quot;/prepareTaskRecommendationTrainingData&quot;;
+//            System.out.println(url);
+//            PrepareTaskRecommendationTrainingDataDTO pDTO
+//                    = prepareTaskRecommendationTrainingDataUtil.getPrepareTaskRecommendationTrainingDataDTO();
+//
+//            String s = restTemplate.postForObject(url, pDTO, String.class);
+//            System.out.println(&quot;recommend behind&quot;);
+//            System.out.println(&quot;recommend: &quot; + s);
+//
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

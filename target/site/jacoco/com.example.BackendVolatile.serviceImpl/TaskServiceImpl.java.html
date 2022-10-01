@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TaskServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">demo</a> &gt; <a href="index.source.html" class="el_package">com.example.BackendVolatile.serviceImpl</a> &gt; <span class="el_source">TaskServiceImpl.java</span></div><h1>TaskServiceImpl.java</h1><pre class="source lang-java linenums">package com.example.BackendVolatile.serviceImpl;
+
+import com.example.BackendVolatile.dao.taskDAO.ExecutableFile;
+import com.example.BackendVolatile.dao.taskDAO.RequirementDescriptionFile;
+import com.example.BackendVolatile.dao.taskDAO.Task;
+import com.example.BackendVolatile.dto.taskDTO.AcceptTaskDTO;
+import com.example.BackendVolatile.dto.taskDTO.File;
+import com.example.BackendVolatile.dto.taskDTO.TaskPublishDTO;
+import com.example.BackendVolatile.mapper.task.ExecutableFileMapper;
+import com.example.BackendVolatile.mapper.task.RequirementDescriptionFileMapper;
+import com.example.BackendVolatile.mapper.task.SelectTaskMapper;
+import com.example.BackendVolatile.mapper.task.TaskMapper;
+import com.example.BackendVolatile.service.TaskService;
+import com.example.BackendVolatile.util.ParameterValidityVerification;
+import com.example.BackendVolatile.util.constant.*;
+import com.example.BackendVolatile.vo.ResultVO;
+import com.example.BackendVolatile.vo.taskVO.AcceptTaskVO;
+import com.example.BackendVolatile.vo.taskVO.PublishTaskVO;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.List;
+import java.util.Map;
+
+@Service
+<span class="fc" id="L26">public class TaskServiceImpl implements TaskService {</span>
+
+    @Resource
+    TaskMapper taskMapper;
+
+    @Resource
+    SelectTaskMapper selectTaskMapper;
+
+    @Resource
+    ExecutableFileMapper executableFileMapper;
+
+    @Resource
+    RequirementDescriptionFileMapper requirementDescriptionFileMapper;
+
+    @Resource
+    ParameterValidityVerification parameterValidityVerification;
+
+
+    /**
+     * 调用者：employer
+     * 业务逻辑：发包方发布任务，填写相应信息，后端对数据进行校验，然后写入数据库
+     * @param taskPublishDTO
+     * @return
+     */
+    @Override
+    public PublishTaskVO publishTask(TaskPublishDTO taskPublishDTO) {
+<span class="nc" id="L52">        PublishTaskVO publishTaskVO = new PublishTaskVO();</span>
+<span class="nc" id="L53">        Map&lt;String, Object&gt; tokenVerification =</span>
+<span class="nc" id="L54">                parameterValidityVerification.tokenVerification(RoleConstant.EMPLOYER.getRole());</span>
+<span class="nc" id="L55">        ResultVO resultVO = (ResultVO)tokenVerification.get(VerificationMapConstant.RESULTVO.getStr());</span>
+<span class="nc" id="L56">        Long valid = (Long)tokenVerification.get(VerificationMapConstant.VALID.getStr());</span>
+<span class="nc" id="L57">        Long userId = (Long)tokenVerification.get(VerificationMapConstant.USERID.getStr());</span>
+
+<span class="nc bnc" id="L59" title="All 2 branches missed.">        if(valid != BooleanValue.TRUE){</span>
+<span class="nc" id="L60">            publishTaskVO.setResponse(resultVO);</span>
+<span class="nc" id="L61">            return publishTaskVO;</span>
+        }
+
+<span class="nc" id="L64">        Task task = new Task(taskPublishDTO,userId);</span>
+<span class="nc" id="L65">        taskMapper.insert(task);</span>
+<span class="nc" id="L66">        Long task_id = taskMapper.max_id();</span>
+
+<span class="nc" id="L68">        List&lt;File&gt; executableFileList = taskPublishDTO.getExecutableFileList();</span>
+<span class="nc bnc" id="L69" title="All 2 branches missed.">        for(int i = 0; i &lt; executableFileList.size(); i++){</span>
+<span class="nc" id="L70">            ExecutableFile executableFile = new ExecutableFile(executableFileList.get(i));</span>
+<span class="nc" id="L71">            executableFile.setTask_id(task_id);</span>
+<span class="nc" id="L72">            executableFileMapper.insert(executableFile);</span>
+        }
+
+<span class="nc" id="L75">        List&lt;File&gt; requirementDescriptionFileList = taskPublishDTO.getRequirementDescriptionFileList();</span>
+<span class="nc bnc" id="L76" title="All 2 branches missed.">        for(int i = 0; i &lt; requirementDescriptionFileList.size(); i++){</span>
+<span class="nc" id="L77">            RequirementDescriptionFile requirementDescriptionFile =</span>
+<span class="nc" id="L78">                    new RequirementDescriptionFile(requirementDescriptionFileList.get(i));</span>
+<span class="nc" id="L79">            requirementDescriptionFile.setTask_id(task_id);</span>
+<span class="nc" id="L80">            requirementDescriptionFileMapper.insert(requirementDescriptionFile);</span>
+        }
+
+<span class="nc" id="L83">        publishTaskVO.setResponse(new ResultVO(ResponseConstant.REQUEST_PUBLISH_TASK_SUCCEEDED));</span>
+<span class="nc" id="L84">        return publishTaskVO;</span>
+    }
+
+    /**
+     * 调用者：employee
+     * 业务逻辑：众包工人在任务大厅看到任务后接受任务，后端校验用户身份，任务是否存在，是否已经被选择，没有的话允许用户选择人物并写入数据库，
+     * 同时对应任务的需求人数减一，如果剩余人数已经为0，则提示无法人数已满
+     * @param acceptTaskDTO
+     * @return
+     */
+    @Override
+    public AcceptTaskVO acceptTask(AcceptTaskDTO acceptTaskDTO){
+<span class="nc" id="L96">        AcceptTaskVO acceptTaskVO = new AcceptTaskVO();</span>
+<span class="nc" id="L97">        Map&lt;String, Object&gt; tokenVerification =</span>
+<span class="nc" id="L98">                parameterValidityVerification.tokenVerification(RoleConstant.EMPLOYEE.getRole());</span>
+<span class="nc" id="L99">        ResultVO resultVO = (ResultVO)tokenVerification.get(VerificationMapConstant.RESULTVO.getStr());</span>
+<span class="nc" id="L100">        Long valid = (Long)tokenVerification.get(VerificationMapConstant.VALID.getStr());</span>
+<span class="nc" id="L101">        Long userId = (Long)tokenVerification.get(VerificationMapConstant.USERID.getStr());</span>
+
+<span class="nc bnc" id="L103" title="All 2 branches missed.">        if(valid != BooleanValue.TRUE){</span>
+<span class="nc" id="L104">            acceptTaskVO.setResponse(resultVO);</span>
+<span class="nc" id="L105">            return acceptTaskVO;</span>
+        }
+<span class="nc" id="L107">        Long taskId = acceptTaskDTO.getTaskId();</span>
+
+        //isNotSelected的值无用，但是在调用时判断是否已经选择过，选择过会报错
+<span class="nc" id="L110">        Integer isNotSelected = selectTaskMapper.assert_is_not_selected(taskId,userId);</span>
+<span class="nc" id="L111">        Integer worker_num_left = taskMapper.get_worker_num_left_by_task_id(taskId);</span>
+<span class="nc bnc" id="L112" title="All 2 branches missed.">        if(worker_num_left ==0){</span>
+<span class="nc" id="L113">            acceptTaskVO.setResponse(new ResultVO(ResponseConstant.TASK_FULL));</span>
+<span class="nc" id="L114">            return acceptTaskVO;</span>
+        }
+<span class="nc" id="L116">        selectTaskMapper.insert(taskId,userId);</span>
+//            该任务的的所缺工人数-1
+<span class="nc" id="L118">        taskMapper.update_task_worker_num_left(taskId);</span>
+<span class="nc" id="L119">        acceptTaskVO.setResponse(new ResultVO(ResponseConstant.REQUEST_ACCEPT_TASK_SUCCEEDED));</span>
+<span class="nc" id="L120">        return acceptTaskVO;</span>
+
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

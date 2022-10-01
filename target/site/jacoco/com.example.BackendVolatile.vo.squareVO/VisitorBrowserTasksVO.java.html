@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>VisitorBrowserTasksVO.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">demo</a> &gt; <a href="index.source.html" class="el_package">com.example.BackendVolatile.vo.squareVO</a> &gt; <span class="el_source">VisitorBrowserTasksVO.java</span></div><h1>VisitorBrowserTasksVO.java</h1><pre class="source lang-java linenums">package com.example.BackendVolatile.vo.squareVO;
+
+import com.example.BackendVolatile.dao.taskDAO.Task;
+import com.example.BackendVolatile.vo.ResultVO;
+import lombok.Data;
+
+import java.util.ArrayList;
+import java.util.List;
+
+<span class="nc bnc" id="L10" title="All 22 branches missed.">@Data</span>
+public class VisitorBrowserTasksVO {
+<span class="nc" id="L12">    private ResultVO response;</span>
+<span class="nc" id="L13">    private List&lt;TaskBriefInfo&gt; taskList;</span>
+
+    public void setTaskList(List&lt;Task&gt; taskList){
+<span class="nc bnc" id="L16" title="All 2 branches missed.">        for(int i = 0; i &lt; taskList.size(); i++){</span>
+<span class="nc" id="L17">            TaskBriefInfo temp = new TaskBriefInfo(taskList.get(i));</span>
+<span class="nc" id="L18">            this.taskList.add(temp);</span>
+        }
+<span class="nc" id="L20">    }</span>
+
+<span class="nc" id="L22">    public VisitorBrowserTasksVO(){</span>
+<span class="nc" id="L23">        this.response = new ResultVO();</span>
+<span class="nc" id="L24">        this.taskList = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L25">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

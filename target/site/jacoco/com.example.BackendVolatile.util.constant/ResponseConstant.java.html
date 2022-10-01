@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ResponseConstant.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">demo</a> &gt; <a href="index.source.html" class="el_package">com.example.BackendVolatile.util.constant</a> &gt; <span class="el_source">ResponseConstant.java</span></div><h1>ResponseConstant.java</h1><pre class="source lang-java linenums">package com.example.BackendVolatile.util.constant;
+
+<span class="nc" id="L3">public enum ResponseConstant {</span>
+
+<span class="nc" id="L5">    TOKEN_FAILED(1, &quot;登录状态无效，请重新登陆&quot;),  //token失效</span>
+
+<span class="nc" id="L7">    FAILED(2, &quot;请求参数格式错误&quot;),</span>
+
+<span class="nc" id="L9">    GET_DATA_FAILED(3, &quot;获取数据失败&quot;),</span>
+
+
+<span class="nc" id="L12">    REGISTRATION_SUCCEEDED(100,&quot; 注册成功&quot;),</span>
+
+<span class="nc" id="L14">    REGISTRATION_FAILED(101,&quot;注册失败&quot;),</span>
+
+<span class="nc" id="L16">    REGISTRATION_MISSING_INFORMATION(102,&quot;缺少必填信息，注册失败&quot;),</span>
+
+<span class="nc" id="L18">    REGISTRATION_REPEATED(103, &quot;该账号已注册,请直接登陆&quot;),</span>
+
+<span class="nc" id="L20">    REGISTRATION_WRONG_PHONE_NUMBER_FORMAT(103,&quot;手机号格式错误，请重新填写&quot;),</span>
+
+<span class="nc" id="L22">    REGISTRATION_WRONG_ROLE_FORMAT(104,&quot;用户角色数据错误，请重新填写&quot;),</span>
+
+<span class="nc" id="L24">    REGISTRATION_MISSING_NICKNAME(105,&quot;昵称不得为空，注册失败&quot;),</span>
+
+<span class="nc" id="L26">    REGISTRATION_MISSING_PASSWORD(106,&quot;密码不得为空，注册失败&quot;),</span>
+
+
+
+
+<span class="nc" id="L31">    LOGIN_SUCCESS(200,&quot;登陆成功&quot;),</span>
+
+<span class="nc" id="L33">    LOGIN_FAILED(201,&quot;账号或密码错误，登录失败&quot;),</span>
+
+<span class="nc" id="L35">    LOGIN_NOT_YET_REGISTERED(202, &quot;账号未注册，请注册后登录&quot;),</span>
+
+<span class="nc" id="L37">    LOGIN_WRONG_PHONE_NUMBER_FORMAT(203,&quot;手机号格式错误，请重新填写&quot;),</span>
+
+
+
+<span class="nc" id="L41">    REQUEST_DATA_SUCCEEDED(300,&quot;请求或获取数据成功&quot;),</span>
+
+<span class="nc" id="L43">    REQUEST_PUBLISH_TASK_SUCCEEDED(300,&quot;任务发布成功&quot;),</span>
+
+<span class="nc" id="L45">    REQUEST_ACCEPT_TASK_SUCCEEDED(300,&quot;任务接受成功&quot;),</span>
+
+<span class="nc" id="L47">    REQUEST_MISSING_INFORMATION(301,&quot;缺少必要信息或格式错误，请求或获取数据失败&quot;),</span>
+
+<span class="nc" id="L49">    REQUEST_DATA_FAILED(302,&quot;没有发布过任务&quot;),</span>
+
+<span class="nc" id="L51">    REQUEST_NO_USER(303,&quot;用户不存在，请求或获取数据失败&quot;),</span>
+
+<span class="nc" id="L53">    REQUEST_NO_TASK(304,&quot;任务不存在，请求或获取数据失败&quot;),</span>
+
+<span class="nc" id="L55">    REQUEST_NO_REPORT(305,&quot;报告不存在，请求或获取数据失败&quot;),</span>
+
+<span class="nc" id="L57">    REQUEST_NO_DATA(306,&quot;请求数据为空，请求失败&quot;),</span>
+
+<span class="nc" id="L59">    REQUEST_GET_DATA_FAILED(307,&quot;从数据库获取数据失败&quot;),</span>
+
+<span class="nc" id="L61">    REQUEST_GET_ROLE_FAILED(308,&quot;获取用户身份失败&quot;),</span>
+
+<span class="nc" id="L63">    REQUEST_NO_ACCESS_TO_PUBLISH_TASK(309,&quot;没有发布任务的权限&quot;),</span>
+
+<span class="nc" id="L65">    REQUEST_UNCLEAR_ROLE(310,&quot;用户身份异常，请重新登陆&quot;),</span>
+
+<span class="nc" id="L67">    REQUEST_NO_ACCESS_TO_ACCEPT_TASK(311,&quot;没有接受任务的权限&quot;),</span>
+
+<span class="nc" id="L69">    REQUEST_ACCEPT_TASK_REPEATED(312,&quot;你已经参与了这个任务&quot;),</span>
+
+
+
+
+<span class="nc" id="L74">    EMPLOYEE_SUCCEEDED(400,&quot;请求数据成功&quot;),</span>
+
+<span class="nc" id="L76">    EMPLOYEE_SET_USER_PROFILE_SUCCEEDED(400,&quot;设置用户资料成功&quot;),</span>
+
+<span class="nc" id="L78">    EMPLOYEE_SCORE_THE_REPORT_SUCCEEDED(400,&quot;评分成功&quot;),</span>
+
+
+<span class="nc" id="L81">    EMPLOYEE_UPLOAD_REPORT_SUCCEEDED(400,&quot;上传报告成功&quot;),</span>
+
+<span class="nc" id="L83">    EMPLOYEE_NO_AUTHORITY_TO_DO(401,&quot;没有权限进行此操作&quot;),</span>
+
+<span class="nc" id="L85">    EMPLOYEE_NO_UNDERTAKING_TASKS(400,&quot;该用户没有正在进行的任务&quot;),</span>
+
+<span class="nc" id="L87">    EMPLOYEE_NOT_SELECT_THE_TASK(402,&quot;您没有接受这个任务，无法查看详情&quot;),</span>
+
+<span class="nc" id="L89">    EMPLOYEE_UNCLEAR_SELECTED_STATE(403,&quot;判断任务选择状态时发生异常，请联系管理员&quot;),</span>
+
+<span class="nc" id="L91">    EMPLOYEE_UNKNOWN_ERROR_WHEN_PROCESS(404,&quot;处理数据中出现异常&quot;),</span>
+
+<span class="nc" id="L93">    EMPLOYEE_NOT_MATCH_THE_TASK(505,&quot;报告与任务不对应，请求数据失败&quot;),</span>
+
+<span class="nc" id="L95">    EMPLOYEE_NOT_MATCH_THE_USER(506,&quot;这不是你的报告，请求数据失败&quot;),</span>
+
+<span class="nc" id="L97">    EMPLOYEE_REPORT_HAVE_SUBMITTED(507,&quot;该任务您已提交过报告，无法再次提交&quot;),</span>
+
+<span class="nc" id="L99">    EMPLOYEE_UNCLEAR_SUBMIT_STATE(508,&quot;报告提交状态异常，请联系管理员&quot;),</span>
+
+<span class="nc" id="L101">    EMPLOYEE_NOT_SELECT_THE_TASK_AND_SUBMIT_REPORT(402,&quot;您没有接受这个任务，无法提交报告&quot;),</span>
+
+<span class="nc" id="L103">    EMPLOYEE_CANNOT_MODIFY_REPORT(403,&quot;提交近期您无法修改报告,请在规定时间后修改&quot;),</span>
+
+
+
+<span class="nc" id="L107">    EMPLOYER_SUCCEEDED(500,&quot;请求数据成功&quot;),</span>
+
+<span class="nc" id="L109">    EMPLOYER_UPDATE_TASK_STATE_SUCCEEDED(500,&quot;更新任务状态成功&quot;),</span>
+
+<span class="nc" id="L111">    EMPLOYER_NO_AUTHORITY_TO_DO(501,&quot;没有权限进行此操作&quot;),</span>
+
+<span class="nc" id="L113">    EMPLOYER_NOT_YOUR_TASK(502,&quot;该任务不是你发布的任务，无法查看任务详情&quot;),</span>
+
+<span class="nc" id="L115">    EMPLOYER_TASK_ALREADY_FINISHED(503,&quot;该任务已经停止招募&quot;),</span>
+
+<span class="nc" id="L117">    EMPLOYER_UNCLEAR_TASK_STATE(504,&quot;任务状态异常，请联系管理员&quot;),</span>
+
+<span class="nc" id="L119">    EMPLOYER_NOT_YOUR_REPORT(505,&quot;不是你发布的任务的报告，无法查看任务详情&quot;),</span>
+
+<span class="nc" id="L121">    EMPLOYER_NOT_REPORT_FOR_THE_TASK(506,&quot;报告与任务不对应，请求失败&quot;),</span>
+
+<span class="nc" id="L123">    EMPLOYER_NO_UNDERTAKING_TASKS(500,&quot;该用户没有正在进行的任务&quot;),</span>
+
+
+
+
+
+<span class="nc" id="L129">    TASK_FULL(601,&quot;参与人数已满，无法继续&quot;),</span>
+
+<span class="nc" id="L131">    TASK_UNCLEAR_WORKER(602,&quot;任务人数异常，请联系管理员&quot;),</span>
+
+<span class="nc" id="L133">    ADMIN_SET_RECOMMENDATION_RULE_SUCCESS(700, &quot;设置任务推荐规则成功&quot;),</span>
+
+<span class="nc" id="L135">    ADMIN_SET_RULE_SUCCESS(700, &quot;设置相似度计算算法成功&quot;),</span>
+
+
+
+
+
+<span class="nc" id="L141">    NULL(999,&quot;wu&quot;);</span>
+
+
+
+
+    private int code;
+
+    private String message;
+
+<span class="nc" id="L150">    private ResponseConstant(int code, String message){</span>
+<span class="nc" id="L151">        this.code = code;</span>
+<span class="nc" id="L152">        this.message = message;</span>
+<span class="nc" id="L153">    }</span>
+
+    public int getCode() {
+<span class="nc" id="L156">        return code;</span>
+    }
+
+    public String getMessage() {
+<span class="nc" id="L160">        return message;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

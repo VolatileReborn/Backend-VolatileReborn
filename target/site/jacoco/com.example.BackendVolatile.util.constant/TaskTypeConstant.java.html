@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TaskTypeConstant.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">demo</a> &gt; <a href="index.source.html" class="el_package">com.example.BackendVolatile.util.constant</a> &gt; <span class="el_source">TaskTypeConstant.java</span></div><h1>TaskTypeConstant.java</h1><pre class="source lang-java linenums">package com.example.BackendVolatile.util.constant;
+
+import com.example.BackendVolatile.vo.taskVO.PublishTaskVO;
+
+<span class="nc" id="L5">public enum TaskTypeConstant {</span>
+
+<span class="nc" id="L7">    FUNCTIONAL_TEST(0,&quot;功能测试&quot;),</span>
+
+<span class="nc" id="L9">    PERFORMANCE_TEST(1,&quot;性能测试&quot;);</span>
+
+
+    private int code;
+    private String message;
+
+    public static final int TASK_TYPE_MAX = 1;
+
+    public static final int TASK_TYPE_MIN = 0;
+
+<span class="nc" id="L19">    private TaskTypeConstant(int code,String message){</span>
+<span class="nc" id="L20">        this.code = code;</span>
+<span class="nc" id="L21">        this.message = message;</span>
+<span class="nc" id="L22">    }</span>
+
+    public int getCode() {
+<span class="nc" id="L25">        return code;</span>
+    }
+
+    public String getMessage(){
+<span class="nc" id="L29">        return message;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

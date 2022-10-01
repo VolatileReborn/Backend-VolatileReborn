@@ -1,0 +1,47 @@
+spring:
+  application:
+    name: collect-service
+  datasource:
+    user:
+      # TODO: 修改数据库配置
+      # 121.36.247.134
+      jdbc-url: jdbc:mysql://123.56.20.222:3306/VR_user
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      allowMultiQueries: true
+      username: VR
+      password: VR
+    task:
+      jdbc-url: jdbc:mysql://123.56.20.222:3306/VR_task
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      allowMultiQueries: true
+      username: VR
+      password: VR
+    report:
+      jdbc-url: jdbc:mysql://123.56.20.222:3306/VR_report
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      allowMultiQueries: true
+      username: VR
+      password: VR
+
+
+#  profiles:
+#    active: dev
+
+server:
+  port: 8000
+
+#mybatis:
+#  mapper-locations: classpath*:com
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8080/eureka/
+  instance:
+    perfer-ip-address: true
+
+
+mybatis:
+  mapper-locations: classpath*:mapper/**/*Mapper.xml
+
+

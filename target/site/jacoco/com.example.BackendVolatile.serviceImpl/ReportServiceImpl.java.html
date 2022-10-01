@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ReportServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">demo</a> &gt; <a href="index.source.html" class="el_package">com.example.BackendVolatile.serviceImpl</a> &gt; <span class="el_source">ReportServiceImpl.java</span></div><h1>ReportServiceImpl.java</h1><pre class="source lang-java linenums">package com.example.BackendVolatile.serviceImpl;
+
+import com.example.BackendVolatile.dao.reportDAO.CooperationReport;
+import com.example.BackendVolatile.dao.reportDAO.Report;
+import com.example.BackendVolatile.dao.reportDAO.ReportScore;
+import com.example.BackendVolatile.dao.taskDAO.Task;
+import com.example.BackendVolatile.dto.reportDTO.*;
+import com.example.BackendVolatile.mapper.report.CooperationReportMapper;
+import com.example.BackendVolatile.mapper.report.ReportMapper;
+import com.example.BackendVolatile.mapper.report.ReportScoreMapper;
+import com.example.BackendVolatile.mapper.task.TaskMapper;
+import com.example.BackendVolatile.service.ReportService;
+import com.example.BackendVolatile.util.JSONUtils;
+import com.example.BackendVolatile.util.ParameterValidityVerification;
+import com.example.BackendVolatile.util.constant.*;
+import com.example.BackendVolatile.util.pythonUtil.ClusterReportVO;
+import com.example.BackendVolatile.util.pythonUtil.PythonUtil;
+import com.example.BackendVolatile.util.pythonUtil.prepareReportTrainingData.PrepareReportTrainingDataDTO;
+import com.example.BackendVolatile.util.pythonUtil.prepareReportTrainingData.PrepareReportTrainingDataUtil;
+import com.example.BackendVolatile.vo.ResultVO;
+import com.example.BackendVolatile.vo.employerVO.CooperationReportDetailVO;
+import com.example.BackendVolatile.vo.reportVO.*;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+@Service
+<span class="fc" id="L32">public class ReportServiceImpl implements ReportService {</span>
+
+    @Resource
+    ReportMapper reportMapper;
+
+    @Resource
+    TaskMapper taskMapper;
+
+    @Resource
+    ReportScoreMapper reportScoreMapper;
+
+    @Resource
+    CooperationReportMapper cooperationReportMapper;
+
+    @Resource
+    ParameterValidityVerification parameterValidityVerification;
+
+    @Resource
+    RestTemplate restTemplate;
+
+    @Resource
+    PythonUtil pythonUtil;
+
+    @Resource
+    PrepareReportTrainingDataUtil prepareReportTrainingDataUtil;
+    /**
+     * 调用者：所有人
+     * 业务逻辑：发包方在任务界面查看提交的报告列表, 后端给前端返回reportid，userid，reportname的列表
+     * @param checkReportsDTO
+     * @return
+     */
+    @Override
+    public CheckReportsVO checkReports(CheckReportsDTO checkReportsDTO){
+<span class="nc" id="L65">        CheckReportsVO checkReportsVO = new CheckReportsVO();</span>
+<span class="nc" id="L66">        Long taskId = checkReportsDTO.getTaskId();</span>
+<span class="nc" id="L67">        List&lt;Long&gt; ids = new ArrayList&lt;&gt;();</span>
+//        try{
+//            String url = &quot;http://&quot;+PythonServerConstant.IP+ &quot;:&quot;+PythonServerConstant.PORT+&quot;/getRecommendedReports&quot;;
+//            System.out.println(url);
+//            String s = restTemplate.postForObject(url, pythonUtil.getRecommendedReportsDTO(1L,taskId,10,&quot;DeepRecommendation&quot;), String.class);
+//            ids = JSONUtils.jsonToList(s,Long.class);
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+
+<span class="nc" id="L77">        List&lt;Report&gt; reportList = reportMapper.get_all_by_task_id(taskId);</span>
+<span class="nc" id="L78">        checkReportsVO.setReportList(reportList);</span>
+//        checkReportsVO.setReportList2(reportList,ids);
+<span class="nc" id="L80">        checkReportsVO.setResponse(new ResultVO(ResponseConstant.EMPLOYER_SUCCEEDED));</span>
+<span class="nc" id="L81">        return checkReportsVO;</span>
+    }
+
+    /**
+     * 调用者：All
+     * 业务逻辑：给参与的任务的报告评分，分值在1-5
+     * @param scoreReportDTO
+     * @return
+     */
+    @Override
+    public ScoreReportVO scoreReport(ScoreReportDTO scoreReportDTO){
+<span class="nc" id="L92">        ScoreReportVO scoreReportVO = new ScoreReportVO();</span>
+<span class="nc" id="L93">        int[] roleList = new int[]</span>
+<span class="nc" id="L94">                {RoleConstant.EMPLOYEE.getRole(), RoleConstant.EMPLOYER.getRole(), RoleConstant.ADMIN.getRole()};</span>
+<span class="nc" id="L95">        Map&lt;String, Object&gt; tokenVerification =</span>
+<span class="nc" id="L96">                parameterValidityVerification.tokenVerification(roleList);</span>
+<span class="nc" id="L97">        ResultVO resultVO = (ResultVO)tokenVerification.get(VerificationMapConstant.RESULTVO.getStr());</span>
+<span class="nc" id="L98">        Long valid = (Long)tokenVerification.get(VerificationMapConstant.VALID.getStr());</span>
+<span class="nc" id="L99">        Long userId = (Long)tokenVerification.get(VerificationMapConstant.USERID.getStr());</span>
+
+<span class="nc bnc" id="L101" title="All 2 branches missed.">        if(valid != BooleanValue.TRUE){</span>
+<span class="nc" id="L102">            scoreReportVO.setResponse(resultVO);</span>
+<span class="nc" id="L103">            return scoreReportVO;</span>
+        }
+<span class="nc" id="L105">        Long reportId = scoreReportDTO.getReportId();</span>
+
+        //返回值notScoreTheReport没有用处，但是在调用时会检验reportId存在，如果不存在就会报错报告不存在
+<span class="nc" id="L108">        Integer reportExist = reportMapper.assert_report_id_exist(reportId);</span>
+
+        //返回值notScoreTheReport没有用处，但是在调用时会检验没有提交过评分，如果提交过就会报错已经交过了
+<span class="nc" id="L111">        Integer notScoreTheReport =</span>
+<span class="nc" id="L112">                reportScoreMapper.assert_have_not_submitted_report_score_by_user_id_and_report_id(userId,reportId);</span>
+
+<span class="nc" id="L114">        ReportScore reportScore = new ReportScore(scoreReportDTO);</span>
+<span class="nc" id="L115">        reportScore.setUser_id(userId);</span>
+<span class="nc" id="L116">        reportScoreMapper.insert(reportScore);</span>
+<span class="nc" id="L117">        scoreReportVO.setResponse(new ResultVO(ResponseConstant.EMPLOYEE_SCORE_THE_REPORT_SUCCEEDED));</span>
+<span class="nc" id="L118">        return scoreReportVO;</span>
+    }
+
+    /**
+     * 调用者：employer/admin
+     * 业务逻辑：根据reportId获得其协作报告的信息列表
+     * @param cooperationReportListDTO
+     * @return
+     */
+    @Override
+    public CooperationReportListVO cooperationReportList(CooperationReportListDTO cooperationReportListDTO){
+
+<span class="nc" id="L130">        CooperationReportListVO cooperationReportListVO = new CooperationReportListVO();</span>
+
+<span class="nc" id="L132">        int[] roleList = new int[]{RoleConstant.EMPLOYER.getRole(),RoleConstant.EMPLOYEE.getRole(),RoleConstant.ADMIN.getRole()};</span>
+<span class="nc" id="L133">        Map&lt;String, Object&gt; tokenVerification =</span>
+<span class="nc" id="L134">                parameterValidityVerification.tokenVerification(roleList);</span>
+<span class="nc" id="L135">        ResultVO resultVO = (ResultVO)tokenVerification.get(VerificationMapConstant.RESULTVO.getStr());</span>
+<span class="nc" id="L136">        Long valid = (Long)tokenVerification.get(VerificationMapConstant.VALID.getStr());</span>
+
+<span class="nc bnc" id="L138" title="All 2 branches missed.">        if(valid != BooleanValue.TRUE){</span>
+<span class="nc" id="L139">            cooperationReportListVO.setResponse(resultVO);</span>
+<span class="nc" id="L140">            return cooperationReportListVO;</span>
+        }
+
+<span class="nc" id="L143">        Long parentReportId = cooperationReportListDTO.getReportId();</span>
+        //判断是否存在
+<span class="nc" id="L145">        Integer reportIdExist = reportMapper.assert_report_id_exist(parentReportId);</span>
+<span class="nc" id="L146">        List&lt;CooperationReport&gt; cooperationReportList = cooperationReportMapper.get_by_parent_report_id(parentReportId);</span>
+<span class="nc" id="L147">        cooperationReportListVO.setCooperationReportList(cooperationReportList);</span>
+<span class="nc" id="L148">        cooperationReportListVO.setResponse(new ResultVO(ResponseConstant.REQUEST_DATA_SUCCEEDED));</span>
+<span class="nc" id="L149">        return cooperationReportListVO;</span>
+    }
+
+    /**
+     * 调用者：all
+     * 业务逻辑：根据userId和reportId获取一个用户对某个测试报告的评论和评分
+     * @param showReportScoreDTO
+     * @return
+     */
+    @Override
+    public ShowReportScoreVO showReportScore(ShowReportScoreDTO showReportScoreDTO){
+<span class="nc" id="L160">        ShowReportScoreVO showReportScoreVO = new ShowReportScoreVO();</span>
+
+<span class="nc" id="L162">        int[] roleList = new int[]{RoleConstant.EMPLOYER.getRole(),RoleConstant.ADMIN.getRole(), RoleConstant.EMPLOYEE.getRole()};</span>
+<span class="nc" id="L163">        Map&lt;String, Object&gt; tokenVerification =</span>
+<span class="nc" id="L164">                parameterValidityVerification.tokenVerification(roleList);</span>
+<span class="nc" id="L165">        ResultVO resultVO = (ResultVO)tokenVerification.get(VerificationMapConstant.RESULTVO.getStr());</span>
+<span class="nc" id="L166">        Long valid = (Long)tokenVerification.get(VerificationMapConstant.VALID.getStr());</span>
+<span class="nc" id="L167">        Long userId = (Long)tokenVerification.get(VerificationMapConstant.USERID.getStr());</span>
+
+<span class="nc bnc" id="L169" title="All 2 branches missed.">        if(valid != BooleanValue.TRUE){</span>
+<span class="nc" id="L170">            showReportScoreVO.setResponse(resultVO);</span>
+<span class="nc" id="L171">            return showReportScoreVO;</span>
+        }
+
+<span class="nc" id="L174">        ReportScore reportScore = reportScoreMapper.get_by_user_id_and_report_id(userId,showReportScoreDTO.getReportId());</span>
+<span class="nc" id="L175">        showReportScoreVO.setPartShowReportScoreVO(reportScore);</span>
+<span class="nc" id="L176">        showReportScoreVO.setResponse(new ResultVO(ResponseConstant.REQUEST_DATA_SUCCEEDED));</span>
+<span class="nc" id="L177">        return showReportScoreVO;</span>
+    }
+
+    /**
+     * 提供信息展示可视化图
+     */
+    public GetSimilarityGraphVO getSimilarityGraph(GetSimilarityGraphDTO getSimilarityGraphDTO){
+<span class="nc" id="L184">        List&lt;Report&gt; reportList = reportMapper.get_all_by_task_id(getSimilarityGraphDTO.getTaskId());</span>
+<span class="nc" id="L185">        int parents = reportList.size();</span>
+<span class="nc" id="L186">        List&lt;TempNode&gt; tempNodeList = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L187" title="All 2 branches missed.">        for(int i=0;i&lt;reportList.size();i++){</span>
+<span class="nc" id="L188">            tempNodeList.add(new TempNode(reportList.get(i),(long)i));</span>
+        }
+<span class="nc bnc" id="L190" title="All 2 branches missed.">        for(int i = 0;i &lt; tempNodeList.size(); i++){</span>
+<span class="nc bnc" id="L191" title="All 2 branches missed.">            for(int j = 0;j &lt; tempNodeList.size(); j++){</span>
+<span class="nc bnc" id="L192" title="All 2 branches missed.">                if(tempNodeList.get(i).getSimilarId().equals(tempNodeList.get(j).getReportId())){</span>
+<span class="nc" id="L193">                    tempNodeList.get(i).setTarget(tempNodeList.get(j).getId());</span>
+<span class="nc" id="L194">                    break;</span>
+                }
+            }
+        }
+<span class="nc" id="L198">        Long index = (long)parents;</span>
+<span class="nc bnc" id="L199" title="All 2 branches missed.">        for(int i=0;i&lt;parents;i++){</span>
+<span class="nc" id="L200">            Long parentId = tempNodeList.get(i).getId();</span>
+<span class="nc" id="L201">            String parentName = tempNodeList.get(i).getValue();</span>
+<span class="nc" id="L202">            Long parentReportId = tempNodeList.get(i).getReportId();</span>
+<span class="nc" id="L203">            List&lt;CooperationReport&gt; cooperationReportList = cooperationReportMapper.get_by_parent_report_id(parentReportId);</span>
+<span class="nc bnc" id="L204" title="All 2 branches missed.">            for(int j = 0; j &lt; cooperationReportList.size(); j++){</span>
+<span class="nc" id="L205">                tempNodeList.add(new TempNode(cooperationReportList.get(j),parentId,parentName,index));</span>
+<span class="nc" id="L206">                index++;</span>
+            }
+        }
+<span class="nc" id="L209">        GetSimilarityGraphVO getSimilarityGraphVO = new GetSimilarityGraphVO(tempNodeList,parents);</span>
+<span class="nc" id="L210">        getSimilarityGraphVO.setResponse(new ResultVO(ResponseConstant.REQUEST_DATA_SUCCEEDED));</span>
+<span class="nc" id="L211">        return getSimilarityGraphVO;</span>
+    }
+
+    /**
+     * 节点数数据
+     */
+    public GetCooperationTreeVO getCooperationTree(GetCooperationTreeDTO getCooperationTreeDTO){
+<span class="nc" id="L218">        Long index = 0L;</span>
+<span class="nc" id="L219">        GetCooperationTreeVO getCooperationTreeVO = new GetCooperationTreeVO();</span>
+<span class="nc" id="L220">        Long taskId = getCooperationTreeDTO.getTaskId();</span>
+<span class="nc" id="L221">        String taskName = taskMapper.get_name_by_task_id(taskId);</span>
+<span class="nc" id="L222">        getCooperationTreeVO.setName(index);</span>
+<span class="nc" id="L223">        index++;</span>
+<span class="nc" id="L224">        getCooperationTreeVO.setValue(taskName);</span>
+<span class="nc" id="L225">        List&lt;Report&gt; reportList = reportMapper.get_all_by_task_id(taskId);</span>
+<span class="nc" id="L226">        List&lt;TreeNode&gt; children = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L227" title="All 2 branches missed.">        for(int i=0;i&lt;reportList.size();i++){</span>
+<span class="nc" id="L228">            TreeNode tempNode = new TreeNode();</span>
+<span class="nc" id="L229">            tempNode.setName(index);</span>
+<span class="nc" id="L230">            index++;</span>
+<span class="nc" id="L231">            tempNode.setValue(reportList.get(i).getReport_name());</span>
+
+<span class="nc" id="L233">            List&lt;CooperationReport&gt; cooperationReportList =</span>
+<span class="nc" id="L234">                    cooperationReportMapper.get_by_parent_report_id(reportList.get(i).getReport_id());</span>
+<span class="nc" id="L235">            tempNode.setChildren(cooperationReportList,index);</span>
+<span class="nc" id="L236">            index += cooperationReportList.size();</span>
+<span class="nc" id="L237">            children.add(tempNode);</span>
+        }
+<span class="nc" id="L239">        getCooperationTreeVO.setChildren(children);</span>
+<span class="nc" id="L240">        return getCooperationTreeVO;</span>
+    }
+
+    @Override
+    public GetClusterScatterVO getClusterScatter(GetClusterScatterDTO getClusterScatterDTO){
+<span class="nc" id="L245">        GetClusterScatterVO getClusterScatterVO = new GetClusterScatterVO();</span>
+<span class="nc" id="L246">        Long taskId = getClusterScatterDTO.getTaskId();</span>
+<span class="nc" id="L247">        List&lt;Info&gt; clusterList = new ArrayList&lt;&gt;();//返回的结果</span>
+<span class="nc" id="L248">        List&lt;ClusterReportVO&gt; clusterReportVOList = new ArrayList&lt;&gt;();//算法返回值</span>
+<span class="nc" id="L249">        String s = &quot;&quot;;</span>
+        try{
+<span class="nc" id="L251">            String url = &quot;http://&quot; + PythonServerConstant.IP + &quot;:&quot; +</span>
+                    PythonServerConstant.PORT + &quot;/clusterReports&quot;;
+<span class="nc" id="L253">            s = restTemplate.postForObject(url,pythonUtil.getClusterReportsDTO(5L,taskId), String.class);</span>
+<span class="nc" id="L254">            System.out.println(&quot;python服务器返回数据：&quot; + s);</span>
+
+
+<span class="nc" id="L257">        }catch (Exception e){</span>
+<span class="nc" id="L258">            e.printStackTrace();</span>
+<span class="nc" id="L259">            System.out.println(&quot;请求报错，未准备数据，开始准备&quot;);</span>
+            try{
+<span class="nc" id="L261">                String url = &quot;http://&quot;+PythonServerConstant.IP+ &quot;:&quot;+PythonServerConstant.PORT+&quot;/prepareReportTrainingData&quot;;</span>
+<span class="nc" id="L262">                System.out.println(url);</span>
+<span class="nc" id="L263">                PrepareReportTrainingDataDTO pDTO = prepareReportTrainingDataUtil.getPrepareReportTrainingDataDTO(taskId,&quot;DeepPrior&quot;);</span>
+<span class="nc" id="L264">                s = restTemplate.postForObject(url, pDTO, String.class);</span>
+<span class="nc" id="L265">                String url2 = &quot;http://&quot; + PythonServerConstant.IP + &quot;:&quot; +</span>
+                        PythonServerConstant.PORT + &quot;/clusterReports&quot;;
+<span class="nc" id="L267">                s = restTemplate.postForObject(url2,pythonUtil.getClusterReportsDTO(5L,taskId), String.class);</span>
+<span class="nc" id="L268">                System.out.println(&quot;python服务器返回数据：&quot; + s);</span>
+<span class="nc" id="L269">            }catch (Exception e2){</span>
+<span class="nc" id="L270">                e2.printStackTrace();</span>
+<span class="nc" id="L271">            }</span>
+
+
+<span class="nc" id="L274">        }</span>
+<span class="nc" id="L275">        clusterReportVOList = pythonUtil.parseCluster(s);</span>
+<span class="nc" id="L276">        ArrayList&lt;Long&gt; indexList = new ArrayList&lt;&gt;();</span>
+        //假装到这里已经得到了列表
+<span class="nc bnc" id="L278" title="All 2 branches missed.">        for(int i=0;i&lt;clusterReportVOList.size();i++){</span>
+<span class="nc" id="L279">            ClusterReportVO clusterReportVO = clusterReportVOList.get(i);</span>
+<span class="nc" id="L280">            Info info = new Info();</span>
+<span class="nc" id="L281">            info.setReportId(clusterReportVO.getReport_id());</span>
+<span class="nc bnc" id="L282" title="All 2 branches missed.">            if(!indexList.contains(clusterReportVO.getCluster_id())){</span>
+<span class="nc" id="L283">                indexList.add(clusterReportVO.getCluster_id());</span>
+            }
+<span class="nc" id="L285">            info.setIndex(indexList.indexOf(clusterReportVO.getCluster_id()));</span>
+<span class="nc" id="L286">            info.setX(clusterReportVO.getCoordinate().get(0));</span>
+<span class="nc" id="L287">            info.setY(clusterReportVO.getCoordinate().get(1));</span>
+<span class="nc" id="L288">            clusterList.add(info);</span>
+        }
+<span class="nc" id="L290">        getClusterScatterVO.setData(clusterList);</span>
+<span class="nc" id="L291">        getClusterScatterVO.setClusterCount(indexList.size());</span>
+<span class="nc" id="L292">        getClusterScatterVO.setResponse(new ResultVO(ResponseConstant.REQUEST_DATA_SUCCEEDED));</span>
+<span class="nc" id="L293">        return getClusterScatterVO;</span>
+    }
+}
+
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

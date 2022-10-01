@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AdminController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">demo</a> &gt; <a href="index.source.html" class="el_package">com.example.BackendVolatile.Controller</a> &gt; <span class="el_source">AdminController.java</span></div><h1>AdminController.java</h1><pre class="source lang-java linenums">package com.example.BackendVolatile.Controller;
+
+import com.example.BackendVolatile.dto.adminDTO.BrowserTaskDetailDTO;
+import com.example.BackendVolatile.dto.adminDTO.SetAlgorithmDTO;
+import com.example.BackendVolatile.dto.adminDTO.SetChangeablePeriodDTO;
+import com.example.BackendVolatile.dto.adminDTO.SetRecommendRuleDTO;
+import com.example.BackendVolatile.service.AdminService;
+import com.example.BackendVolatile.util.jwtUtil.CustomAnnotation.UserLoginToken;
+import com.example.BackendVolatile.vo.adminVO.*;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
+@RestController
+@RequestMapping(path = &quot;/api/admin&quot;)
+<span class="fc" id="L18">public class AdminController {</span>
+
+    @Resource
+    AdminService adminService;
+
+    //管理员查看所有任务列表
+    @GetMapping(value = &quot;/browserAllTasks&quot;)
+    @UserLoginToken
+    public BrowserAllTasksVO browserAllTasks(){
+<span class="nc" id="L27">        return adminService.browserAllTasks();</span>
+    }
+
+    //管理员浏览任务细节
+    @GetMapping(value = &quot;/browserTaskDetail&quot;)
+    @UserLoginToken
+    public BrowserTaskDetailVO browserTaskDetail(@Valid BrowserTaskDetailDTO browserTaskDetailDTO){
+<span class="nc" id="L34">        return adminService.browserTaskDetail(browserTaskDetailDTO);</span>
+    }
+
+
+    //管理员设置任务推荐规则
+    @PostMapping(value = &quot;/setRecommendRule&quot;)
+    @UserLoginToken
+    public SetRecommendRuleVO setRecommendRule(@Valid @RequestBody SetRecommendRuleDTO setRecommendRuleDTO){
+<span class="nc" id="L42">        return adminService.setRecommendRule(setRecommendRuleDTO);</span>
+    }
+
+    //管理员查看任务推荐规则
+    @GetMapping(value = &quot;/getRecommendRule&quot;)
+    @UserLoginToken
+    public GetRecommendRuleVO getRecommendRule(){
+<span class="nc" id="L49">        return adminService.getRecommendRule();</span>
+    }
+
+    //管理员设置相似度计算算法
+    @PostMapping(value = &quot;/setAlgorithm&quot;)
+    @UserLoginToken
+    public SetAlgorithmVO setAlgorithm(@Valid @RequestBody SetAlgorithmDTO setAlgorithmDTO){
+<span class="nc" id="L56">        return adminService.setAlgorithm(setAlgorithmDTO);</span>
+    }
+
+    //管理员查看任务推荐规则
+    @GetMapping(value = &quot;/getAlgorithm&quot;)
+    @UserLoginToken
+    public GetAlgorithmVO getAlgorithm(){
+<span class="nc" id="L63">        return adminService.getAlgorithm();</span>
+    }
+
+
+    //管理员查看报告可修改时间
+    @GetMapping(value = &quot;/getChangeablePeriod&quot;)
+    @UserLoginToken
+    public GetChangeablePeriodVO getChangeablePeriod(){
+<span class="nc" id="L71">        return adminService.getChangeablePeriod();</span>
+    }
+
+    //管理员修改报告可修改时间
+    @PostMapping(value = &quot;/setChangeablePeriod&quot;)
+    @UserLoginToken
+    public SetChangeablePeriodVO setChangeablePeriod(@RequestBody SetChangeablePeriodDTO setChangeablePeriodDTO){
+<span class="nc" id="L78">        return adminService.setChangeablePeriod(setChangeablePeriodDTO);</span>
+    }
+
+
+
+
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

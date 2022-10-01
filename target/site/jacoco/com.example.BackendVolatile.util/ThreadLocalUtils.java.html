@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ThreadLocalUtils.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">demo</a> &gt; <a href="index.source.html" class="el_package">com.example.BackendVolatile.util</a> &gt; <span class="el_source">ThreadLocalUtils.java</span></div><h1>ThreadLocalUtils.java</h1><pre class="source lang-java linenums">package com.example.BackendVolatile.util;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * 线程缓存工具类
+ *
+ * @author Boss
+ */
+<span class="nc" id="L11">public class ThreadLocalUtils {</span>
+<span class="nc" id="L12">    private static ThreadLocal&lt;Map&lt;String, Long&gt;&gt; cache = new ThreadLocal&lt;&gt;();</span>
+
+    /**
+     * 向ThreadLocal缓存值
+     *
+     * @param key   要缓存的KEY
+     * @param value 要缓存的VALUE
+     */
+    public static void set(String key, Long value) {
+<span class="nc bnc" id="L21" title="All 2 branches missed.">        if (!isCaheIsNull()) {</span>
+<span class="nc" id="L22">            cache.get().put(key, value);</span>
+        } else {
+<span class="nc" id="L24">            Map&lt;String, Long&gt; vmap = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L25">            vmap.put(key, value);</span>
+<span class="nc" id="L26">            cache.set(vmap);</span>
+        }
+<span class="nc" id="L28">    }</span>
+
+    /**
+     * 从ThreadLocal里获取缓存的值
+     *
+     * @param key 要获取的数据的KEY
+     * @return 要获取的值
+     */
+    public static Long getCache(String key) {
+<span class="nc" id="L37">        Map&lt;String, Long&gt; map = cache.get();</span>
+<span class="nc bnc" id="L38" title="All 2 branches missed.">        if (isCaheIsNull()) {</span>
+<span class="nc" id="L39">            return null;</span>
+        }
+<span class="nc bnc" id="L41" title="All 2 branches missed.">        if (map.containsKey(key)) {</span>
+<span class="nc" id="L42">            return map.get(key);</span>
+        } else {
+<span class="nc" id="L44">            return null;</span>
+        }
+    }
+
+
+
+    /**
+     * 根据KEY移除缓存里的数据
+     *
+     * @param key
+     */
+    public static void removeByKey(String key) {
+<span class="nc bnc" id="L56" title="All 2 branches missed.">        if (isCaheIsNull()) {</span>
+<span class="nc" id="L57">            return;</span>
+        } else {
+<span class="nc" id="L59">            cache.get().remove(key);</span>
+        }
+<span class="nc" id="L61">    }</span>
+
+    /**
+     * 移除当前线程缓存
+     * 用于释放当前线程threadlocal资源
+     */
+    public static void remove() {
+<span class="nc" id="L68">        cache.remove();</span>
+<span class="nc" id="L69">    }</span>
+
+    private static boolean isCaheIsNull() {
+<span class="nc bnc" id="L72" title="All 2 branches missed.">        return cache.get() == null;</span>
+    }
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>
