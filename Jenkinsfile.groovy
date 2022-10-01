@@ -121,29 +121,33 @@ node("slave1") {
     }
 
 
-//    stage("run container") {
-//        sh "docker image ls"
-//
-//        sh "docker container run -p ${EUREKA_HOST_PORT}:${COLLECT_CONTAINER_PORT} --name ${EUREKA_CONTAINER_NAME}   -d ${EUREKA_IMAGE_TO_RUN}"
-//        sh "docker container run -p ${COLLECT_HOST_PORT}:${EUREKA_CONTAINER_PORT} --name ${COLLECT_CONTAINER_NAME}   -d ${COLLECT_IMAGE_TO_RUN}"
-//
-//    }
+        stage("clean previous image and container"){
+        sh "docker container rm -f ${EUREKA_CONTAINER_NAME}"
+        sh "docker container rm -f ${COLLECT_CONTAINER_PORT}"
 
-    //Using docker service
-    //需要先在服务器上手动创建该service
-    stage("update service by built image"){
-
-        sh "docker service update --image ${EUREKA_IMAGE_TO_RUN} --update-parallelism 1  --update-delay 2s ${EUREKA_SERVICE_NAME}"
-        sh "docker service update --image ${COLLECT_IMAGE_TO_RUN} --update-parallelism 1  --update-delay 2s ${COLLECT_SERVICE_NAME}"
+        sh "docker image rm ${EUREKA_IMAGE_TO_RUN}"
+        sh "docker image rm ${COLLECT_IMAGE_TO_RUN}"
     }
 
+    stage("run container") {
+        sh "docker image ls"
 
+        sh "docker container run -p ${EUREKA_HOST_PORT}:${EUREKA_CONTAINER_PORT} --name ${EUREKA_CONTAINER_NAME}   -d ${EUREKA_IMAGE_TO_RUN}"
+        sh "docker container run -p ${COLLECT_HOST_PORT}:${COLLECT_CONTAINER_PORT} --name ${COLLECT_CONTAINER_NAME}   -d ${COLLECT_IMAGE_TO_RUN}"
 
-//    stage("clean previous image and container"){
-//        sh "docker container rm -f ${CONTAINER_NAME}"
-//        sh "docker image rm ${IMAGE_NAME_WITH_TAG}"
-//        sh "docker image rm ${IMAGE_TO_RUN}"
+    }
+
+//    //Using docker service
+//    //需要先在服务器上手动创建该service
+//    stage("update service by built image"){
+//
+//        sh "docker service update --image ${EUREKA_IMAGE_TO_RUN} --update-parallelism 1  --update-delay 2s ${EUREKA_SERVICE_NAME}"
+//        sh "docker service update --image ${COLLECT_IMAGE_TO_RUN} --update-parallelism 1  --update-delay 2s ${COLLECT_SERVICE_NAME}"
 //    }
+
+
+
+
 //    stage( "pull image" ){
 //        sh "docker pull  lyklove/${IMAGE_NAME_WITH_TAG}"
 //    }
