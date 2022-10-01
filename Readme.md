@@ -1,9 +1,9 @@
 node("slave1") {
-    def workspace = pwd()
+def workspace = pwd()
 
     def git_branch = 'master'
 //    def git_repository = 'git@git.nju.edu.cn:191820133/backend-volatile.git' //Gitlab
-    def git_repository = 'git@github.com:VolatileReborn/Backend-VolatileReborn.git' //Github
+def git_repository = 'git@github.com:VolatileReborn/Backend-VolatileReborn.git' //Github
 
     def vm_ip = '124.222.135.47'
     def vm_port = '22'
@@ -127,7 +127,7 @@ node("slave1") {
 
 //        sh "docker image rm ${EUREKA_IMAGE_TO_RUN}"
 //        sh "docker image rm ${COLLECT_IMAGE_TO_RUN}"
-    }
+}
 
 
     //Using docker service on Eureka
@@ -141,7 +141,7 @@ node("slave1") {
         sh "docker image ls"
 
 //        sh "docker container run -p ${EUREKA_HOST_PORT}:${EUREKA_CONTAINER_PORT} --name ${EUREKA_CONTAINER_NAME}   -d ${EUREKA_IMAGE_TO_RUN}"
-        sh "docker container run --net=host --restart unless-stopped --name ${COLLECT_CONTAINER_NAME}   -d ${COLLECT_IMAGE_TO_RUN}"
+sh "docker container run --net=host --name ${COLLECT_CONTAINER_NAME}   -d ${COLLECT_IMAGE_TO_RUN}"
 
     }
 
