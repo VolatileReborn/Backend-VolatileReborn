@@ -20,22 +20,37 @@ node("slave1") {
     def __DOCKERHUB_ACCOUNT = 'lyklove'
     def __IMAGE_TAG = 'latest-linux'
 
+    // PORT:
+    def COLLECT_CONTAINER_PORT = 8000
+    def COLLECT_HOST_PORT = 8000
 
-//    def PUBLIC_PORT = '81'
-//    def CONTAINER_PORT = '80' // 80 for VUE
+    def EUREKA_CONTAINER_PORT = 8001
+    def EUREKA_HOST_PORT = 8001
+    //=======================
 
     def ORIGINAL_COLLECT_IMAGE_NAME = __PROJECT_TYPE + '_' + __PROJECT_NAME //backend_volatile_reborn
 
     def IMAGE_NAME_WITH_INITIAL_TAG = ORIGINAL_COLLECT_IMAGE_NAME + ':' + __IMAGE_TAG //backend_volatile_reborn:latest-linux
-    def IMAGE_FULL_NAME = __DOCKERHUB_ACCOUNT + '/' + IMAGE_NAME_WITH_INITIAL_TAG // lyklove/backend_volatile_reborn:latest-linux
+    def COLLECT_IMAGE_FULL_NAME = __DOCKERHUB_ACCOUNT + '/' + IMAGE_NAME_WITH_INITIAL_TAG // lyklove/backend_volatile_reborn:latest-linux
 
     def EUREKA_IMAGE_FULL_NAME = "lyklove/backend_eureka_volatile_reborn:latest-linux"
 
 
-    def CONTAINER_NAME = ORIGINAL_COLLECT_IMAGE_NAME //backend_volatile_reborn
-    def EUREKA_CONTAINER_NAME = "backend_eureka_volatile_reborn"
+    //IMAGE TO RUN
+    def COLLECT_IMAGE_TO_RUN = COLLECT_IMAGE_FULL_NAME
+    def EUREKA_IMAGE_TO_RUN = EUREKA_IMAGE_FULL_NAME
 
-    def SERVICE_NAME = CONTAINER_NAME + '_svc' //backend_volatile_reborn_svc
+    //======================
+
+    //CONTAINER NAME
+    def COLLECT_CONTAINER_NAME = ORIGINAL_COLLECT_IMAGE_NAME //backend_volatile_reborn
+    def EUREKA_CONTAINER_NAME = "backend_eureka_volatile_reborn"
+    //===================
+
+    //SERVICE_NAME
+    def COLLECT_SERVICE_NAME = COLLECT_CONTAINER_NAME + '_svc' //backend_volatile_reborn_svc
+    def EUREKA_SERVICE_NAME = EUREKA_CONTAINER_NAME + '_svc' //backend_eureka_volatile_reborn_svc
+    //============
 
 
     stage('clone from github into slave\'s workspace. Using branch: ' + "master") {
@@ -83,7 +98,7 @@ node("slave1") {
 
 
         def COLLECT_SERVICE_DOCKERFILE_PATH = './collect-service/Dockerfile'
-        sh "docker build -t ${IMAGE_FULL_NAME} -f ${COLLECT_SERVICE_DOCKERFILE_PATH} ."
+        sh "docker build -t ${COLLECT_IMAGE_FULL_NAME} -f ${COLLECT_SERVICE_DOCKERFILE_PATH} ."
         echo "Collect build finished"
 
 
@@ -97,28 +112,28 @@ node("slave1") {
 
     stage("push to dockerhub"){
         echo "begin push to dockerhub"
-        sh "docker image push ${IMAGE_FULL_NAME}"
+        sh "docker image push ${COLLECT_IMAGE_FULL_NAME}"
         sh "docker image push ${EUREKA_IMAGE_FULL_NAME}"
 
     }
 
 
-    stage("run container") {
-        def IMAGE_TO_RUN = IMAGE_FULL_NAME
-        def EUREKA_IMAGE_TO_RUN = EUREKA_IMAGE_FULL_NAME
-        sh "docker image ls"
+//    stage("run container") {
+//        sh "docker image ls"
+//
+//        sh "docker container run -p ${EUREKA_HOST_PORT}:${COLLECT_CONTAINER_PORT} --name ${EUREKA_CONTAINER_NAME}   -d ${EUREKA_IMAGE_TO_RUN}"
+//        sh "docker container run -p ${COLLECT_HOST_PORT}:${EUREKA_CONTAINER_PORT} --name ${COLLECT_CONTAINER_NAME}   -d ${COLLECT_IMAGE_TO_RUN}"
+//
+//    }
 
-        def COLLECT_CONTAINER_PORT = 8000
-        def COLLECT_HOST_PORT = 8000
+    //Using docker service
+    //需要先在服务器上手动创建该service
+    stage("update service by built image"){
 
-        def EUREKA_CONTAINER_PORT = 8001
-        def EUREKA_HOST_PORT = 8001
-
-
-        sh "docker container run -p ${EUREKA_HOST_PORT}:${COLLECT_CONTAINER_PORT} --name ${EUREKA_CONTAINER_NAME}   -d ${EUREKA_IMAGE_TO_RUN}"
-        sh "docker container run -p ${COLLECT_HOST_PORT}:${EUREKA_CONTAINER_PORT} --name ${CONTAINER_NAME}   -d ${IMAGE_TO_RUN}"
-
+        sh "docker service update --image ${EUREKA_IMAGE_TO_RUN} --update-parallelism 1  --update-delay 2s ${EUREKA_SERVICE_NAME}"
+        sh "docker service update --image ${COLLECT_IMAGE_TO_RUN} --update-parallelism 1  --update-delay 2s ${COLLECT_SERVICE_NAME}"
     }
+
 
 
 //    stage("clean previous image and container"){

@@ -1,4 +1,4 @@
-#! sh
+#!/bin/sh
 
 cd ./eureka-server
 mvn clean package
