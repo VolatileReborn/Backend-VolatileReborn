@@ -159,6 +159,7 @@
 				<configuration>
 					<includes>
 						<include>com/**/*</include>
+						<propertyName>jacoco.agent.argLine</propertyName>
 					</includes>
 				</configuration>
 				<executions>

@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.example.BackendVolatile.UserDAOTest
--------------------------------------------------------------------------------
-Tests run: 4, Failures: 0, Errors: 0, Skipped: 3, Time elapsed: 10.593 s - in com.example.BackendVolatile.UserDAOTest
