@@ -28,7 +28,7 @@ spring:
 #    active: dev
 
 server:
-  port: 8000
+  port: 9000
 
 #mybatis:
 #  mapper-locations: classpath*:com

@@ -21,8 +21,8 @@ node("slave1") {
     def __IMAGE_TAG = 'latest-linux'
 
     // PORT:
-    def COLLECT_CONTAINER_PORT = 8000
-    def COLLECT_HOST_PORT = 8000
+    def COLLECT_CONTAINER_PORT = 9000
+    def COLLECT_HOST_PORT = 9000
 
     def EUREKA_CONTAINER_PORT = 8001
     def EUREKA_HOST_PORT = 8001
