@@ -74,20 +74,23 @@ node("slave1") {
         sh 'mvn --version'
 
 //        sh './build.sh'
-        sh "mvn  clean package -X org.jacoco:jacoco-maven-plugin:report  -Dmaven.test.failure.ignore=true"
+//        sh "mvn  clean package -X org.jacoco:jacoco-maven-plugin:report  -Dmaven.test.failure.ignore=true"
+        sh "mvn  clean package"
+
 //        echo "build finish on ${vm_ip}"
 
     }
 
-    stage( 'testing, using jacoco' ) {
-        jacoco (
-                execPattern: '**/target/jacoco.exec',
-                classPattern: '**/classes',
-                sourcePattern: '**/src/main/java',
-                exclusionPattern: '**/src/test*',
-//                inclusionPattern: '**/com/hel/auto/service/*.class,**/com/hel/auto/controller/*.class',
-        )
-    }
+    // temporarily CLOSE
+//    stage( 'testing, using jacoco' ) {
+//        jacoco (
+//                execPattern: '**/target/jacoco.exec',
+//                classPattern: '**/classes',
+//                sourcePattern: '**/src/main/java',
+//                exclusionPattern: '**/src/test*',
+////                inclusionPattern: '**/com/hel/auto/service/*.class,**/com/hel/auto/controller/*.class',
+//        )
+//    }
 
 
     stage("build docker image, tag it"){
