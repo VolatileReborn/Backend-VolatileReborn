@@ -5,10 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0c3bbde9-fdae-41ae-88d5-20134bc1350d" name="变更" comment="变更">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/serviceImpl/EmployeeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/serviceImpl/EmployeeServiceImpl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -119,6 +115,7 @@
       <workItem from="1664623045244" duration="40000" />
       <workItem from="1664633613823" duration="2150000" />
       <workItem from="1664698014072" duration="2132000" />
+      <workItem from="1664707755867" duration="542000" />
     </task>
     <servers />
   </component>

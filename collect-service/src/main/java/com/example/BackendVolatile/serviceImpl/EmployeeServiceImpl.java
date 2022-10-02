@@ -223,8 +223,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         Long time = System.currentTimeMillis();
         Integer utilToday = (int) (time / (24 * 60 *60 * 1000) - 19100);
-        report.setReport_state(utilToday);
-        reportMapper.insert(report);
+//        report.setReport_state(utilToday);
+//        reportMapper.insert(report);
 
         Long reportId = reportMapper.max_id();
         List<File> files = uploadTestReportDTO.getDefectPictureList();
@@ -282,8 +282,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 //        }catch (Exception e){
 //            System.out.println("连接失败，无法计算相似度");
 //            e.printStackTrace();
-//            reportMapper.update_similar_report_id_by_report_id(reportId, reportId);
-//            reportMapper.update_similarity_by_report_id(reportId, 0);
+            reportMapper.update_similar_report_id_by_report_id(reportId, reportId);
+            reportMapper.update_similarity_by_report_id(reportId, 0);
 //        }
         uploadTestReportVO.setResponse(new ResultVO(ResponseConstant.EMPLOYEE_UPLOAD_REPORT_SUCCEEDED));
         return uploadTestReportVO;
