@@ -218,13 +218,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         Report report = new Report(uploadTestReportDTO,userId);
 
-        report.setSimilarity(0);// 计算相似度,并邀请其他工人协作低质量报告
-        report.setSimilar_report_id(1024L);
+//        report.setSimilarity(0);// 计算相似度,并邀请其他工人协作低质量报告
+//        report.setSimilar_report_id(1024L);
 
         Long time = System.currentTimeMillis();
         Integer utilToday = (int) (time / (24 * 60 *60 * 1000) - 19100);
-//        report.setReport_state(utilToday);
-//        reportMapper.insert(report);
+        report.setReport_state(utilToday);
+        reportMapper.insert(report);
 
         Long reportId = reportMapper.max_id();
         List<File> files = uploadTestReportDTO.getDefectPictureList();
