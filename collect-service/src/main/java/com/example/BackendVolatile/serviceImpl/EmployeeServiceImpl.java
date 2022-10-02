@@ -217,8 +217,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 //        Integer isNotSubmitted = reportMapper.assert_report_not_submitted(userId,taskId);
 
         Report report = new Report(uploadTestReportDTO,userId);
-//        report.setSimilarity(0);// 计算相似度,并邀请其他工人协作低质量报告
-//        report.setSimilar_report_id(1024L);
+
+        report.setSimilarity(0);// 计算相似度,并邀请其他工人协作低质量报告
+        report.setSimilar_report_id(1024L);
+
         Long time = System.currentTimeMillis();
         Integer utilToday = (int) (time / (24 * 60 *60 * 1000) - 19100);
         report.setReport_state(utilToday);
@@ -231,58 +233,58 @@ public class EmployeeServiceImpl implements EmployeeService {
             defectPicture.setReport_id(reportId);
             defectPictureMapper.insert(defectPicture);
         }
-        System.out.println("开始准备数据");
-
-        try {
-            String url = "http://"+PythonServerConstant.IP+ ":"+PythonServerConstant.PORT+"/prepareReportTrainingData";
-            System.out.println(url);
-            PrepareReportTrainingDataDTO pDTO = prepareReportTrainingDataUtil.getPrepareReportTrainingDataDTO(taskId,"DeepPrior");
-            System.out.println("开始连接");
-            Long time1 = System.currentTimeMillis();
-            String s = restTemplate.postForObject(url, pDTO, String.class);
-            Long time2 = System.currentTimeMillis();
-            System.out.println("准备完成, 用时" + (time2 - time1) / 1000 + "秒。");
-
-            String url2 = "http://"+PythonServerConstant.IP+ ":"+
-                    PythonServerConstant.PORT+"/getSimilarReports";
-
-            String s2 = restTemplate.postForObject(url2, pythonUtil.getSimilarReportsDTO(reportId,taskId,1,"DeepSimilarity"), String.class);
-            System.out.println("s2" + s2);
-
-            GetSimilarReportsVO getSimilarReportsVO = getSimilarReportsUtil.parseResult(s2);
-            if (getSimilarReportsVO.getReport_id() == -1) {
-                System.out.println("-1" + getSimilarReportsVO.getReport_id());
-                reportMapper.update_similar_report_id_by_report_id(reportId, reportId);
-                reportMapper.update_similarity_by_report_id(reportId, 0);
-            } else {
-                System.out.println("zc" + getSimilarReportsVO.getReport_id());
-                Integer similar = (int) (getSimilarReportsVO.getSimilarity() * 100);
-                reportMapper.update_similar_report_id_by_report_id(reportId, getSimilarReportsVO.getReport_id());
-                reportMapper.update_similarity_by_report_id(reportId, similar);
-                if (similar > 20) {//相似度过高推给别人协作
-                    List<Long> userIdList = selectTaskMapper.get_user_id_by_task_id(taskId);
-                    if (userIdList.size() < 10) {
-                        for (int i = 0; i < userIdList.size(); i++) {
-                            if (userIdList.get(i).equals(userId)) {
-                                continue;
-                            } else {
-                                cooperationMapper.insert(reportId, userIdList.get(i), CooperationReportStateConstant.COOPERATING.getCode());
-                            }
-                        }
-                    } else {
-                        int p = userIdList.size() / 10;
-                        for (int i = 0; i < 10; i++) {
-                            cooperationMapper.insert(reportId, userIdList.get(i * p), CooperationReportStateConstant.COOPERATING.getCode());
-                        }
-                    }
-                }
-            }
-        }catch (Exception e){
-            System.out.println("连接失败，无法计算相似度");
-            e.printStackTrace();
-            reportMapper.update_similar_report_id_by_report_id(reportId, reportId);
-            reportMapper.update_similarity_by_report_id(reportId, 0);
-        }
+//        System.out.println("开始准备数据");
+//
+//        try {
+//            String url = "http://"+PythonServerConstant.IP+ ":"+PythonServerConstant.PORT+"/prepareReportTrainingData";
+//            System.out.println(url);
+//            PrepareReportTrainingDataDTO pDTO = prepareReportTrainingDataUtil.getPrepareReportTrainingDataDTO(taskId,"DeepPrior");
+//            System.out.println("开始连接");
+//            Long time1 = System.currentTimeMillis();
+//            String s = restTemplate.postForObject(url, pDTO, String.class);
+//            Long time2 = System.currentTimeMillis();
+//            System.out.println("准备完成, 用时" + (time2 - time1) / 1000 + "秒。");
+//
+//            String url2 = "http://"+PythonServerConstant.IP+ ":"+
+//                    PythonServerConstant.PORT+"/getSimilarReports";
+//
+//            String s2 = restTemplate.postForObject(url2, pythonUtil.getSimilarReportsDTO(reportId,taskId,1,"DeepSimilarity"), String.class);
+//            System.out.println("s2" + s2);
+//
+//            GetSimilarReportsVO getSimilarReportsVO = getSimilarReportsUtil.parseResult(s2);
+//            if (getSimilarReportsVO.getReport_id() == -1) {
+//                System.out.println("-1" + getSimilarReportsVO.getReport_id());
+//                reportMapper.update_similar_report_id_by_report_id(reportId, reportId);
+//                reportMapper.update_similarity_by_report_id(reportId, 0);
+//            } else {
+//                System.out.println("zc" + getSimilarReportsVO.getReport_id());
+//                Integer similar = (int) (getSimilarReportsVO.getSimilarity() * 100);
+//                reportMapper.update_similar_report_id_by_report_id(reportId, getSimilarReportsVO.getReport_id());
+//                reportMapper.update_similarity_by_report_id(reportId, similar);
+//                if (similar > 20) {//相似度过高推给别人协作
+//                    List<Long> userIdList = selectTaskMapper.get_user_id_by_task_id(taskId);
+//                    if (userIdList.size() < 10) {
+//                        for (int i = 0; i < userIdList.size(); i++) {
+//                            if (userIdList.get(i).equals(userId)) {
+//                                continue;
+//                            } else {
+//                                cooperationMapper.insert(reportId, userIdList.get(i), CooperationReportStateConstant.COOPERATING.getCode());
+//                            }
+//                        }
+//                    } else {
+//                        int p = userIdList.size() / 10;
+//                        for (int i = 0; i < 10; i++) {
+//                            cooperationMapper.insert(reportId, userIdList.get(i * p), CooperationReportStateConstant.COOPERATING.getCode());
+//                        }
+//                    }
+//                }
+//            }
+//        }catch (Exception e){
+//            System.out.println("连接失败，无法计算相似度");
+//            e.printStackTrace();
+//            reportMapper.update_similar_report_id_by_report_id(reportId, reportId);
+//            reportMapper.update_similarity_by_report_id(reportId, 0);
+//        }
         uploadTestReportVO.setResponse(new ResultVO(ResponseConstant.EMPLOYEE_UPLOAD_REPORT_SUCCEEDED));
         return uploadTestReportVO;
 
