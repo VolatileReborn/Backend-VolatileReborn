@@ -25,7 +25,7 @@ CREATE TABLE `report_scores` (
     `score` tinyint(5) NOT NULL,
     `comment` VARCHAR(1000) NOT NULL COLLATE utf8mb4_unicode_ci NOT NULL,
     PRIMARY KEY (`score_id`),
-    FOREIGN KEY (`user_id`) REFERENCES volatile_user.users(`user_id`) ON DELETE CASCADE,
+    FOREIGN KEY (`user_id`) REFERENCES VR_user.users(`user_id`) ON DELETE CASCADE,
     FOREIGN KEY (`report_id`) REFERENCES reports(`report_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -108,8 +108,8 @@ CREATE TABLE `reports` (
   `similarity` tinyint(8),
   `similar_report_id` bigint(20),
   PRIMARY KEY (`report_id`),
-  FOREIGN KEY (`user_id`) REFERENCES volatile_user.users(`user_id`) on DELETE CASCADE,
-  FOREIGN KEY (`task_id`) REFERENCES volatile_task.tasks(`task_id`) on DELETE CASCADE
+  FOREIGN KEY (`user_id`) REFERENCES VR_user.users(`user_id`) on DELETE CASCADE,
+  FOREIGN KEY (`task_id`) REFERENCES VR_task.tasks(`task_id`) on DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
@@ -178,8 +178,8 @@ CREATE TABLE `cooperation_reports` (
     `task_id` bigint(20) NOT NULL,
     `parent_report_id` bigint(20) not null ,
     PRIMARY KEY (`report_id`),
-    FOREIGN KEY (`user_id`) REFERENCES volatile_user.users(`user_id`) on DELETE CASCADE,
-    FOREIGN KEY (`task_id`) REFERENCES volatile_task.tasks(`task_id`) on DELETE CASCADE,
+    FOREIGN KEY (`user_id`) REFERENCES VR_user.users(`user_id`) on DELETE CASCADE,
+    FOREIGN KEY (`task_id`) REFERENCES VR_task.tasks(`task_id`) on DELETE CASCADE,
     FOREIGN KEY (`parent_report_id`) REFERENCES reports(`report_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -191,7 +191,7 @@ CREATE TABLE `cooperations` (
     `report_id` bigint(20) NOT NULL ,
     `cooperation_state` tinyint(5) NOT NULL ,
     PRIMARY KEY (`cooperation_id`),
-    FOREIGN KEY (`user_id`) REFERENCES volatile_user.users(`user_id`) on delete cascade ,
+    FOREIGN KEY (`user_id`) REFERENCES VR_user.users(`user_id`) on delete cascade ,
     FOREIGN KEY (`report_id`) REFERENCES reports(`report_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT = 1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 

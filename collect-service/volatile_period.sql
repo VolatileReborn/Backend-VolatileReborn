@@ -18,7 +18,7 @@
 
 DROP TABLE IF EXISTS `period`;
 CREATE TABLE `period` (
-    day bigint(20) not null,
+                          day bigint(20) not null
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `period` VALUES (1);

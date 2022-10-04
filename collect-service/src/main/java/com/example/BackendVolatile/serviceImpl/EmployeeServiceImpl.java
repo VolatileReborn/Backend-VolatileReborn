@@ -223,7 +223,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         Long time = System.currentTimeMillis();
         Integer utilToday = (int) (time / (24 * 60 *60 * 1000) - 19100);
-        report.setReport_state(utilToday);
+        report.setReport_state(ReportStateConstant.TO_BE_REVIEWED.getCode());
+        System.err.println(report);
         reportMapper.insert(report);
 
         Long reportId = reportMapper.max_id();

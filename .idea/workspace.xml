@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0c3bbde9-fdae-41ae-88d5-20134bc1350d" name="变更" comment="变更">
-      <change beforePath="$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/serviceImpl/EmployeeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/serviceImpl/EmployeeServiceImpl.java" afterDir="false" />
-    </list>
+    <list default="true" id="0c3bbde9-fdae-41ae-88d5-20134bc1350d" name="变更" comment="变更" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -43,6 +41,10 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="node.js.detected.package.eslint" value="true" />
@@ -116,6 +118,8 @@
       <workItem from="1664633613823" duration="2150000" />
       <workItem from="1664698014072" duration="2132000" />
       <workItem from="1664707755867" duration="542000" />
+      <workItem from="1664885784987" duration="886000" />
+      <workItem from="1664887198853" duration="2835000" />
     </task>
     <servers />
   </component>
@@ -132,7 +136,6 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

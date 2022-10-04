@@ -150,7 +150,7 @@ CREATE TABLE `select_task` (
     `user_id` bigint(20) NOT NULL,
     `task_id` bigint(20) NOT NULL,
     FOREIGN KEY(`task_id`) REFERENCES tasks(`task_id`) ON DELETE CASCADE ,
-    FOREIGN KEY(`user_id`) REFERENCES `volatile_user`.users(`user_id`) on delete cascade
+    FOREIGN KEY(`user_id`) REFERENCES `VR_user`.users(`user_id`) on delete cascade
 
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -229,7 +229,7 @@ CREATE TABLE `tasks` (
   `ios` bit NOT NULL,
   `linux` bit NOT NULL,
   PRIMARY KEY (`task_id`),
-  FOREIGN KEY(`user_id`) REFERENCES volatile_user.users(`user_id`) on delete cascade
+  FOREIGN KEY(`user_id`) REFERENCES VR_user.users(`user_id`) on delete cascade
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
