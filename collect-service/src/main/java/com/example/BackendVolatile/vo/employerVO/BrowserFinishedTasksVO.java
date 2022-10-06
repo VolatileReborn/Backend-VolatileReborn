@@ -30,7 +30,7 @@ public class BrowserFinishedTasksVO implements Serializable{
 
     @Data
     @NoArgsConstructor
-    class InnerFinishedTask implements Serializable{
+    static class InnerFinishedTask implements Serializable{
         private Long taskId;
         private String taskName;
         private Long taskStartTime;

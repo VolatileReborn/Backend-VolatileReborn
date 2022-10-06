@@ -12,7 +12,7 @@ public class ReportBriefInfo {
 
     private Long reportId;
 
-    private String  reportName;
+    private String reportName;
 
     private Long taskId;
 

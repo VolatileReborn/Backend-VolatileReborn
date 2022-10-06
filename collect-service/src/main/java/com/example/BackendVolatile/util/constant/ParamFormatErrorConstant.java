@@ -2,6 +2,9 @@ package com.example.BackendVolatile.util.constant;
 
 
 public class ParamFormatErrorConstant {
+    public static final String TASK_INDEX_CANNOT_BE_NULL = "子任务序号不能为空";
+
+    public static final String TASK_INDEX_CANNOT_BE_NEGATIVE = "子任务序号不能为负数";
 
     public static final String PAGE_NUM_CANNOT_BE_NULL = "页号不能为空";
 

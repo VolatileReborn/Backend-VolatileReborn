@@ -1,5 +1,6 @@
 package com.example.BackendVolatile.controller;
 
+import com.example.BackendVolatile.dto.PageMsgDTO;
 import com.example.BackendVolatile.dto.employerDTO.*;
 import com.example.BackendVolatile.service.EmployerService;
 import com.example.BackendVolatile.util.jwtUtil.CustomAnnotation.UserLoginToken;
@@ -13,9 +14,22 @@ import javax.validation.Valid;
 //@CrossOrigin(originPatterns = "*", methods = {RequestMethod.GET, RequestMethod.POST})
 @RequestMapping(path = "/api/employer")
 public class EmployerController {
-
     @Resource
     EmployerService employerService;
+
+    /**
+     * Iter2新增
+     * 发包方分页查看其发布的所有复合（可拆分的）任务的状态信息
+     * @param pageMsgDTO 分页查询信息，包含页号及页大小
+     * @return 一页的复合任务状态信息列表，按照复合任务发布时间降序排序
+     * @see PageMsgDTO
+     * @see BrowserCompositeTasksVO
+     */
+    @GetMapping(value = "/browserCompositeTasks")
+    @UserLoginToken
+    public BrowserCompositeTasksVO browserCompositeTasks(@Valid @RequestParam PageMsgDTO pageMsgDTO){
+        return null;
+    }
 
     @GetMapping(value = "/browserUndertakingTasks")
     @UserLoginToken

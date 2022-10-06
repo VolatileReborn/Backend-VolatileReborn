@@ -6,6 +6,8 @@ public enum TaskStateConstant {
 
     FINISHED(1, "停止招募");
 
+//    COMPLETED(2,"已完成：所有工人均已提交报告");
+
 
     private int code;
     private  String message;

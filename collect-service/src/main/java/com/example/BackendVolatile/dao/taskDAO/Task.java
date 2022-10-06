@@ -1,4 +1,5 @@
 package com.example.BackendVolatile.dao.taskDAO;
+import com.example.BackendVolatile.dto.taskDTO.SubTaskDTO;
 import com.example.BackendVolatile.dto.taskDTO.TaskPublishDTO;
 import com.example.BackendVolatile.util.constant.TaskStateConstant;
 import lombok.AccessLevel;
@@ -60,6 +61,10 @@ public class Task implements Serializable {
         this.android = taskPublishDTO.getAndroid();
         this.ios = taskPublishDTO.getIOS();
         this.linux = taskPublishDTO.getLinux();
+    }
+
+    public Task(SubTaskDTO subTaskDTO, Long publisherId){
+
     }
 
 
