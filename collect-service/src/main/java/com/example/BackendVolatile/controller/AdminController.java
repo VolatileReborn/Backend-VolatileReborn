@@ -47,9 +47,9 @@ public class AdminController {
      * @see TaskIdDTO
      * @see RemoveVO
      */
-    @GetMapping(value = "/compositeTask/remove")
+    @PostMapping(value = "/compositeTask/remove")
     @UserLoginToken
-    public RemoveVO removeCompositeTask(@Valid @RequestParam("taskId") TaskIdDTO taskIdDTO){
+    public RemoveVO removeCompositeTask(@Valid @RequestBody TaskIdDTO taskIdDTO){
         return null;
     }
 
@@ -61,9 +61,9 @@ public class AdminController {
      * @see TaskIdDTO
      * @see RemoveVO
      */
-    @GetMapping(value = "/compositeTask/batchRemove")
+    @PostMapping(value = "/compositeTask/batchRemove")
     @UserLoginToken
-    public RemoveVO removeBatchOfCompositeTasks(@NotNull @Valid @RequestParam("taskIdList") List<TaskIdDTO> taskIdList){
+    public RemoveVO removeBatchOfCompositeTasks(@NotNull @Valid @RequestBody List<TaskIdDTO> taskIdList){
         return null;
     }
 
@@ -75,9 +75,9 @@ public class AdminController {
      * @see TaskIdDTO
      * @see RemoveVO
      */
-    @GetMapping(value = "/task/remove")
+    @PostMapping(value = "/task/remove")
     @UserLoginToken
-    public RemoveVO removeTask(@Valid @RequestParam("taskId") TaskIdDTO taskIdDTO){
+    public RemoveVO removeTask(@Valid @RequestBody TaskIdDTO taskIdDTO){
         return null;
     }
 
@@ -89,9 +89,9 @@ public class AdminController {
      * @see TaskIdDTO
      * @see RemoveVO
      */
-    @GetMapping(value = "/task/batchRemove")
+    @PostMapping(value = "/task/batchRemove")
     @UserLoginToken
-    public RemoveVO removeBatchOfTasks(@NotNull @Valid @RequestParam("taskIdList") List<TaskIdDTO> taskIdList){
+    public RemoveVO removeBatchOfTasks(@NotNull @Valid @RequestBody List<TaskIdDTO> taskIdList){
         return null;
     }
 
@@ -117,9 +117,9 @@ public class AdminController {
      * @see ReportIdDTO
      * @see RemoveVO
      */
-    @GetMapping(value = "/report/remove")
+    @PostMapping(value = "/report/remove")
     @UserLoginToken
-    public RemoveVO removeReport(@Valid @RequestParam("reportId")ReportIdDTO reportIdDTO){
+    public RemoveVO removeReport(@Valid @RequestBody ReportIdDTO reportIdDTO){
         return null;
     }
 
@@ -131,9 +131,9 @@ public class AdminController {
      * @see ReportIdDTO
      * @see RemoveVO
      */
-    @GetMapping(value = "/report/batchRemove")
+    @PostMapping(value = "/report/batchRemove")
     @UserLoginToken
-    public RemoveVO removeBatchOfReports(@NotNull @Valid @RequestParam("reportIdList") List<ReportIdDTO> reportIdList){
+    public RemoveVO removeBatchOfReports(@NotNull @Valid @RequestBody List<ReportIdDTO> reportIdList){
         return null;
     }
 
