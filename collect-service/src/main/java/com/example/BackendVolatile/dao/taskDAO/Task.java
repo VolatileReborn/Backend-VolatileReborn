@@ -12,8 +12,6 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 public class Task implements Serializable {
-
-    @Setter(AccessLevel.NONE)
     private Long task_id;
 
     private Long user_id;
@@ -46,7 +44,7 @@ public class Task implements Serializable {
     private Boolean linux;
 
 
-    public Task(TaskPublishDTO taskPublishDTO, Long userId){
+    public Task(TaskPublishDTO taskPublishDTO, Long userId) {
         this.user_id = userId;
         this.introduction = taskPublishDTO.getIntroduction();
         this.task_type = taskPublishDTO.getTaskType();
@@ -63,8 +61,21 @@ public class Task implements Serializable {
         this.linux = taskPublishDTO.getLinux();
     }
 
-    public Task(SubTaskDTO subTaskDTO, Long publisherId){
-
+    public Task(SubTaskDTO subTaskDTO, Long publisherId) {
+        this.user_id = publisherId;
+        this.introduction = subTaskDTO.getTaskIntroduction();
+        this.task_type = subTaskDTO.getTaskType();
+        this.begin_time = null;
+        this.end_time = null;
+        this.worker_num_total = subTaskDTO.getWorkerNumTotal();
+        this.worker_num_left = subTaskDTO.getWorkerNumTotal();
+        this.task_name = subTaskDTO.getTaskName();
+        this.task_state = TaskStateConstant.UNDERTAKING.getCode();
+        this.task_difficulty = subTaskDTO.getTaskDifficulty();
+        this.task_urgency = subTaskDTO.getTaskUrgency();
+        this.android = subTaskDTO.getAndroid();
+        this.ios = subTaskDTO.getIos();
+        this.linux = subTaskDTO.getLinux();
     }
 
 

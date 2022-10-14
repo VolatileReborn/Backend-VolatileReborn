@@ -1,5 +1,8 @@
 package com.example.BackendVolatile.vo.employerVO;
 
+import com.example.BackendVolatile.dao.taskDAO.compositetask.CompositeTask;
+import com.example.BackendVolatile.dao.taskDAO.compositetask.SubTask;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -38,9 +41,16 @@ public class CompositeTaskStateVO {
      */
     private List<TaskOrderPairVO> timingRel;
 
+    public CompositeTaskStateVO(CompositeTask compositeTask){
+        this.id=compositeTask.getId();
+        this.taskName=compositeTask.getTaskName();
+        this.taskIntroduction=compositeTask.getTaskIntroduction();
+        this.publishTime=compositeTask.getPublishTime();
+    }
+
     @Data
     @NoArgsConstructor
-    static class InnerSubTaskVO {
+    public static class InnerSubTaskVO {
         private Long taskId;  // 子任务id，"复合任务的子任务"相当于"普通任务"
         private String taskName;  // 子任务名称
 
@@ -54,23 +64,33 @@ public class CompositeTaskStateVO {
         private SubTaskState taskState;  // 子任务状态
         private Integer workerNumTotal;  // 所需工人数
         private Integer workerNumLeft;  // 剩余名额
+
+        public InnerSubTaskVO(SubTask subTask){
+            this.taskId=subTask.getTaskId();
+            this.taskName=subTask.getTaskName();
+            this.taskType=subTask.getTaskType();
+            this.workerNumTotal=subTask.getWorkerNumTotal();
+            this.workerNumLeft=subTask.getWorkerNumLeft();
+        }
+
     }
 
     @Data
     @NoArgsConstructor
-    static class TaskOrderPairVO {
+    @AllArgsConstructor
+    public static class TaskOrderPairVO {
         private Integer preTaskIndex; // 后序子任务在子任务列表中的索引
         private Integer postTaskIndex; // 后序子任务在子任务列表中的索引
     }
 
     // 整个复合任务的状态
-    enum CompositeTaskState {
+    public enum CompositeTaskState {
         IN_PROGRESS, // 正在进行中
         COMPLETED  // 所有子任务状态为COMPLETED
     }
 
     // 子任务状态
-    enum SubTaskState {
+    public enum SubTaskState {
         NOT_STARTED, // 有先序任务非COMPLETED，未开始招募
         RECRUITING, // 所有先序任务COMPLETED，已经开始招募，但报名人数未满
         IN_PROGRESS, // 报名人数已满但还有工人未提交报告

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.BackendVolatile.mapper.task.TaskMapper">
+    <resultMap id="DeviceMap" type="com.example.BackendVolatile.vo.stakeholder.EmployerStateVO">
+        <result column="device" property="deviceName"/>
+        <result column="numOfUsers" property="numOfUsers"/>
+        <result column="numOfTasks" property="numOfTasks"/>
+        <result column="numOfRecruitingTasks" property="numOfRecruitingTasks"/>
+    </resultMap>
+
+    <insert id="insertCompositeSubTaskBatch" parameterType="java.util.List">
+        insert into VR_task.composite_sub_tasks(ctask_id, stask_id) values
+        <foreach collection="parentChildIdList" item="csId" separator=",">
+            (#{csId.parent_task_id}, #{csId.child_task_id})
+        </foreach>
+    </insert>
+    <insert id="insertTaskOrderPairBatch" parameterType="java.util.List">
+        insert into VR_task.task_order_pair(ctask_id, pre_task_id, post_task_id)
+        values
+        <foreach collection="taskOrderPairList" item="top" separator=",">
+            (#{top.ctask_id}, #{top.pre_task_id}, #{top.post_task_id})
+        </foreach>
+    </insert>
+</mapper>

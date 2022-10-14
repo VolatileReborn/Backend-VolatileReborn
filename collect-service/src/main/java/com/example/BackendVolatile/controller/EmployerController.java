@@ -20,7 +20,7 @@ public class EmployerController {
     /**
      * Iter2新增
      * 发包方分页查看其发布的所有复合（可拆分的）任务的状态信息
-     * @param pageMsgDTO 分页查询信息，包含页号及页大小
+     * @param pageMsgDTO 分页  查询信息，包含页号及页大小
      * @return 一页的复合任务状态信息列表，按照复合任务发布时间降序排序
      * @see PageMsgDTO
      * @see BrowserCompositeTasksVO
@@ -28,7 +28,7 @@ public class EmployerController {
     @GetMapping(value = "/browserCompositeTasks")
     @UserLoginToken
     public BrowserCompositeTasksVO browserCompositeTasks(@Valid @RequestParam PageMsgDTO pageMsgDTO){
-        return null;
+        return employerService.browserCompositeTasks(pageMsgDTO.getPageNum(),pageMsgDTO.getPageSize());
     }
 
     @GetMapping(value = "/browserUndertakingTasks")

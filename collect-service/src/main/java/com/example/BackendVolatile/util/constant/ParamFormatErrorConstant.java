@@ -2,6 +2,8 @@ package com.example.BackendVolatile.util.constant;
 
 
 public class ParamFormatErrorConstant {
+    public static final String SUBTASK_CANNOT_BE_EMPTY = "子任务列表不能为空";
+
     public static final String TASK_INDEX_CANNOT_BE_NULL = "子任务序号不能为空";
 
     public static final String TASK_INDEX_CANNOT_BE_NEGATIVE = "子任务序号不能为负数";
@@ -46,7 +48,7 @@ public class ParamFormatErrorConstant {
 
     public static final String EXECUTABLE_FILE_LIST_CANNOT_BE_NULL = "可执行文件列表不能为空指针";
 
-    public static final String TASK_INTRODUCTION_CANNOT_BE_NULL = "任务介绍不能为空";
+    public static final String TASK_INTRODUCTION_CANNOT_BE_EMPTY = "任务介绍不能为空";
 
     public static final String TASK_START_TIME_CANNOT_BE_NULL = "任务开始时间不能为空";
 
@@ -68,7 +70,7 @@ public class ParamFormatErrorConstant {
 
     public static final String WORKER_NUM_TOTAL_CANNOT_BE_NULL = "需要人数不能为空";
 
-    public static final String TASK_NAME_CANNOT_BE_NULL = "任务名不能为空";
+    public static final String TASK_NAME_CANNOT_BE_EMPTY = "任务名不能为空";
 
     public static final String TASK_DIFFICULTY_CANNOT_BE_NULL = "任务难度不能为空";
 

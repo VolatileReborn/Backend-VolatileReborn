@@ -1,5 +1,7 @@
 package com.example.BackendVolatile.dao.taskDAO.compositetask;
 
+import com.example.BackendVolatile.dto.taskDTO.CompositeTaskPublishDTO;
+import com.example.BackendVolatile.vo.employerVO.CompositeTaskStateVO;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,9 +17,22 @@ public class CompositeTask {
     @Setter(AccessLevel.NONE)
     private Long id;
 
-    private Date publish_time;
+    private Long publisherId;
 
-    private List<Long> subtask_id_list;
+    private Date publishTime;
 
-    private List<TaskOrderPair> timing_rel;
+    private String taskName;
+
+    private String taskIntroduction;
+
+//    private List<Long> subtask_id_list;
+//
+//    private List<TaskOrderPair> timing_rel;
+
+    public CompositeTask(CompositeTaskPublishDTO compositeTaskPublishDTO, Long userId){
+        this.publisherId=userId;
+        this.publishTime=new Date();
+        this.taskName=compositeTaskPublishDTO.getTaskName();
+        this.taskIntroduction=compositeTaskPublishDTO.getTaskIntroduction();
+    }
 }

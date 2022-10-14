@@ -49,7 +49,7 @@ public interface ExecutableFileMapper {
 //    executable_file_url varchar(2083) COLLATE utf8mb4_unicode_ci NOT NULL,
 //    task_id bigint(20) NOT NULL,
     @Options(useGeneratedKeys = true, keyProperty = "executable_file_id", keyColumn = "executable_file_id")
-    @Insert("INSERT INTO executable_files ( task_id ,executable_file_name ,executable_file_url ) " +
+    @Insert("INSERT INTO VR_task.executable_files ( task_id ,executable_file_name ,executable_file_url ) " +
             "VALUES (#{executableFile.task_id}, #{executableFile.executable_file_name},#{executableFile.executable_file_url}) ")
     void insert( @Param("executableFile") ExecutableFile executableFile );
 

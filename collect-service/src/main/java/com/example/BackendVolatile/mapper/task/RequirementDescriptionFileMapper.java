@@ -36,7 +36,7 @@ public interface RequirementDescriptionFileMapper {
             @Param("task_id") Long task_id , @Param("offset") Integer offset, @Param("maxResults") Integer maxResults );
 
     @NotNull
-    @Select("SELECT * FROM requirement_description_files WHERE task_id = #{task_id}" )
+    @Select("SELECT * FROM VR_task.requirement_description_files WHERE task_id = #{task_id}" )
     List<RequirementDescriptionFile> get_all_by_task_id_without_paging( @Param("task_id") Long task_id);
 
     @Delete("DELETE FROM requirement_description_files where file_id = #{file_id}")
@@ -51,7 +51,7 @@ public interface RequirementDescriptionFileMapper {
      */
 
     @Options(useGeneratedKeys = true, keyProperty = "file_id", keyColumn = "file_id")
-    @Insert("INSERT INTO requirement_description_files ( task_id ,file_name ,file_url ) " +
+    @Insert("INSERT INTO VR_task.requirement_description_files ( task_id ,file_name ,file_url ) " +
             "VALUES (#{requirementDescriptionFile.task_id}, #{requirementDescriptionFile.file_name},#{requirementDescriptionFile.file_url}) ")
     void insert( @Param("requirementDescriptionFile") RequirementDescriptionFile requirementDescriptionFile );
 

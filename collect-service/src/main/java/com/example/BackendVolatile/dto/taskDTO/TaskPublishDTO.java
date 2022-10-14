@@ -10,10 +10,13 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class TaskPublishDTO{
     @Valid
     public TaskDTO task;
+
+    public TaskPublishDTO(TaskDTO task){
+        this.task=task;
+    }
 
     @NotNull
     public Long getTaskStartTime(){

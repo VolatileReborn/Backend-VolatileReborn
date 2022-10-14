@@ -7,8 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class TaskOrderPair {
-    private Long ctask_id;
-    private Long pre_task_id;
-    private Long post_task_id;
+public class ParentChildTaskPair {
+    private Long parent_task_id;
+    private Long child_task_id;
 }

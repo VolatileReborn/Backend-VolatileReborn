@@ -25,12 +25,12 @@ DROP TABLE IF EXISTS `requirement_description_files`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `requirement_description_files` (
-    `file_id` bigint(20) NOT NULL AUTO_INCREMENT,
-    `file_name` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
-    `file_url` varchar(1000) COLLATE utf8mb4_unicode_ci NOT NULL,
-    `task_id` bigint(20) NOT NULL,
-    PRIMARY KEY (`file_id`),
-    FOREIGN KEY(`task_id`) REFERENCES tasks(`task_id`) on delete cascade
+                                                 `file_id` bigint(20) NOT NULL AUTO_INCREMENT,
+                                                 `file_name` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
+                                                 `file_url` varchar(1000) COLLATE utf8mb4_unicode_ci NOT NULL,
+                                                 `task_id` bigint(20) NOT NULL,
+                                                 PRIMARY KEY (`file_id`),
+                                                 FOREIGN KEY(`task_id`) REFERENCES tasks(`task_id`) on delete cascade
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -88,12 +88,12 @@ DROP TABLE IF EXISTS `executable_files`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `executable_files` (
-    `executable_file_id` bigint(20) NOT NULL AUTO_INCREMENT,
-    `executable_file_name` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
-    `executable_file_url` varchar(1000) COLLATE utf8mb4_unicode_ci NOT NULL,
-    `task_id` bigint(20) NOT NULL,
-    PRIMARY KEY (`executable_file_id`),
-    FOREIGN KEY(`task_id`) REFERENCES tasks(`task_id`) on DELETE CASCADE
+                                    `executable_file_id` bigint(20) NOT NULL AUTO_INCREMENT,
+                                    `executable_file_name` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
+                                    `executable_file_url` varchar(1000) COLLATE utf8mb4_unicode_ci NOT NULL,
+                                    `task_id` bigint(20) NOT NULL,
+                                    PRIMARY KEY (`executable_file_id`),
+                                    FOREIGN KEY(`task_id`) REFERENCES tasks(`task_id`) on DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -147,10 +147,10 @@ DROP TABLE IF EXISTS `select_task`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `select_task` (
-    `user_id` bigint(20) NOT NULL,
-    `task_id` bigint(20) NOT NULL,
-    FOREIGN KEY(`task_id`) REFERENCES tasks(`task_id`) ON DELETE CASCADE ,
-    FOREIGN KEY(`user_id`) REFERENCES `VR_user`.users(`user_id`) on delete cascade
+                               `user_id` bigint(20) NOT NULL,
+                               `task_id` bigint(20) NOT NULL,
+                               FOREIGN KEY(`task_id`) REFERENCES tasks(`task_id`) ON DELETE CASCADE ,
+                               FOREIGN KEY(`user_id`) REFERENCES `VR_user`.users(`user_id`) on delete cascade
 
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -213,23 +213,23 @@ DROP TABLE IF EXISTS `tasks`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tasks` (
-  `task_id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `user_id` bigint(20) NOT NULL,
-  `task_type` tinyint(5) NOT NULL,
-  `task_state` tinyint(5) NOT NULL,
-  `task_name` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `begin_time` bigint(40) NOT NULL,
-  `end_time` bigint(40) NOT NULL,
-  `introduction` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `worker_num_total` int(10) NOT NULL,
-  `worker_num_left` int(10) NOT NULL,
-  `task_difficulty` tinyint(5) NOT NULL,
-  `task_urgency` tinyint(5) NOT NULL,
-  `android` bit NOT NULL,
-  `ios` bit NOT NULL,
-  `linux` bit NOT NULL,
-  PRIMARY KEY (`task_id`),
-  FOREIGN KEY(`user_id`) REFERENCES VR_user.users(`user_id`) on delete cascade
+                         `task_id` bigint(20) NOT NULL AUTO_INCREMENT,
+                         `user_id` bigint(20) NOT NULL,
+                         `task_type` tinyint(5) NOT NULL,
+                         `task_state` tinyint(5) NOT NULL,
+                         `task_name` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
+                         `begin_time` bigint(40),
+                         `end_time` bigint(40),
+                         `introduction` text COLLATE utf8mb4_unicode_ci NOT NULL,
+                         `worker_num_total` int(10) NOT NULL,
+                         `worker_num_left` int(10) NOT NULL,
+                         `task_difficulty` tinyint(5) NOT NULL,
+                         `task_urgency` tinyint(5) NOT NULL,
+                         `android` bit NOT NULL,
+                         `ios` bit NOT NULL,
+                         `linux` bit NOT NULL,
+                         PRIMARY KEY (`task_id`),
+                         FOREIGN KEY(`user_id`) REFERENCES VR_user.users(`user_id`) on delete cascade
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -254,6 +254,47 @@ INSERT INTO tasks VALUES (16, 14, 0, 0, 'Task 16', 1648169600000, 1656661600000,
 INSERT INTO tasks VALUES (17, 12, 0, 0, 'Task 17', 1648562600000, 1651111600000, 'task 17 introduction', 8, 5, 3, 3, true, true, false);
 INSERT INTO tasks VALUES (2, 12, 1, 1, 'Task 2', 1649569600000, 1650161600000, 'task 2 introduction', 15, 13, 4, 1, false, false, true);
 INSERT INTO tasks VALUES (19, 11, 1, 0, 'Task 19', 1648521600000, 1655161600000, 'task 19 introduction', 44, 41, 4, 4, true, false, false);
+
+
+DROP TABLE IF EXISTS `composite_tasks`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `composite_tasks` (
+                                   `id` bigint(20) NOT NULL AUTO_INCREMENT,
+                                   `publisher_id` bigint(20) NOT NULL,
+                                   `publish_time` datetime NOT NULL,
+                                   `task_name` varchar(1000) COLLATE utf8mb4_unicode_ci NOT NULL,
+                                   `task_introduction` varchar(1000) COLLATE utf8mb4_unicode_ci NOT NULL,
+                                   PRIMARY KEY (`id`),
+                                   FOREIGN KEY(`publisher_id`) REFERENCES VR_user.users(`user_id`) on delete cascade
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+
+DROP TABLE IF EXISTS `composite_sub_tasks`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `composite_sub_tasks` (
+                                       `ctask_id` bigint(20) NOT NULL,
+                                       `stask_id` bigint(20) NOT NULL,
+                                       FOREIGN KEY(`ctask_id`) REFERENCES composite_tasks(`id`) on delete cascade,
+                                       FOREIGN KEY(`stask_id`) REFERENCES tasks(`task_id`) on delete cascade
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+
+DROP TABLE IF EXISTS `task_order_pair`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `task_order_pair` (
+                                   `ctask_id` bigint(20) NOT NULL,
+                                   `pre_task_id` bigint(20) NOT NULL,
+                                   `post_task_id` bigint(20) NOT NULL,
+                                   FOREIGN KEY(`ctask_id`) REFERENCES composite_tasks(`id`) on delete cascade,
+                                   FOREIGN KEY(`pre_task_id`) REFERENCES tasks(`task_id`) on delete cascade,
+                                   FOREIGN KEY(`post_task_id`) REFERENCES tasks(`task_id`) on delete cascade
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 
 --

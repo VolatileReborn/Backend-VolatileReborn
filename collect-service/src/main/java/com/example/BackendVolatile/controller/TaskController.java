@@ -32,7 +32,7 @@ public class TaskController {
     @PostMapping(value = "/compositeTask/publish")
     @UserLoginToken
     public PublishTaskVO publishCompositeTask(@Valid @RequestBody CompositeTaskPublishDTO compositeTaskPublishDTO){
-        return null;
+        return taskService.publishCompositeTask(compositeTaskPublishDTO);
     }
 
 

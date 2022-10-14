@@ -16,5 +16,9 @@ public interface EmployerService {
 
     CooperationReportDetailVO cooperationReportDetail(CooperationReportDetailDTO cooperationReportDetailDTO);
 
+    BrowserCompositeTasksVO getCompositeTasksWithoutValidation(Integer pageNum, Integer pageSize, Long publisherId);
+
+    BrowserCompositeTasksVO browserCompositeTasks(Integer pageNum, Integer pageSize);
+
 
 }

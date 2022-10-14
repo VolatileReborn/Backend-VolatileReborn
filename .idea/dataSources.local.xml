@@ -1,48 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="dataSourceStorageLocal" created-in="IU-213.6461.79">
-    <data-source name="volatile_user@localhost" uuid="442a5e39-74a6-4e49-80ad-1f36a81fb6e9">
-      <database-info product="MySQL" version="8.0.27" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.25 (Revision: 08be9e9b4cba6aa115f9b27b215887af40b159e0)" dbms="MYSQL" exact-version="8.0.27" exact-driver-version="8.0">
-        <extra-name-characters>#@</extra-name-characters>
-        <identifier-quote-string>`</identifier-quote-string>
-      </database-info>
-      <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower" />
-      <secret-storage>master_key</secret-storage>
-      <user-name>root</user-name>
-      <schema-mapping>
-        <introspection-scope>
-          <node kind="schema" qname="@" />
-        </introspection-scope>
-      </schema-mapping>
-    </data-source>
-    <data-source name="volatile_task@localhost" uuid="d990c40b-7797-405a-9158-19b21006ccc0">
-      <database-info product="MySQL" version="8.0.27" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.25 (Revision: 08be9e9b4cba6aa115f9b27b215887af40b159e0)" dbms="MYSQL" exact-version="8.0.27" exact-driver-version="8.0">
-        <extra-name-characters>#@</extra-name-characters>
-        <identifier-quote-string>`</identifier-quote-string>
-      </database-info>
-      <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower" />
-      <secret-storage>master_key</secret-storage>
-      <user-name>root</user-name>
-      <schema-mapping>
-        <introspection-scope>
-          <node kind="schema" qname="@" />
-        </introspection-scope>
-      </schema-mapping>
-    </data-source>
-    <data-source name="volatile_report@localhost" uuid="7a36829a-5de2-4b86-89a1-2cb459d125f6">
-      <database-info product="MySQL" version="8.0.27" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.25 (Revision: 08be9e9b4cba6aa115f9b27b215887af40b159e0)" dbms="MYSQL" exact-version="8.0.27" exact-driver-version="8.0">
-        <extra-name-characters>#@</extra-name-characters>
-        <identifier-quote-string>`</identifier-quote-string>
-      </database-info>
-      <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower" />
-      <secret-storage>master_key</secret-storage>
-      <user-name>root</user-name>
-      <schema-mapping>
-        <introspection-scope>
-          <node kind="schema" qname="@" />
-        </introspection-scope>
-      </schema-mapping>
-    </data-source>
     <data-source name="VR_task@123.56.20.222" uuid="bf124125-58c9-4a78-b839-348440c5469b">
       <database-info product="MySQL" version="8.0.30-0ubuntu0.20.04.2" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.25 (Revision: 08be9e9b4cba6aa115f9b27b215887af40b159e0)" dbms="MYSQL" exact-version="8.0.30" exact-driver-version="8.0">
         <extra-name-characters>#@</extra-name-characters>

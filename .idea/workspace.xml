@@ -13,9 +13,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="FxmlFile" />
         <option value="Interface" />
         <option value="Kotlin Class" />
+        <option value="FxmlFile" />
         <option value="Class" />
       </list>
     </option>
@@ -42,7 +42,7 @@
     </option>
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="ProjectErrors" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="2FPAegd3Lc5PDkZtGkDMeuWfNCQ" />
   <component name="ProjectViewState">
@@ -84,7 +84,23 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.DemoApplication">
+  <component name="RunManager" selected="JUnit.CompositeTaskTest.publishTest">
+    <configuration name="CompositeTaskTest.publishTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="collect-service" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.BackendVolatile.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.example.BackendVolatile" />
+      <option name="MAIN_CLASS_NAME" value="com.example.BackendVolatile.CompositeTaskTest" />
+      <option name="METHOD_NAME" value="publishTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="DemoApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true">
       <module name="collect-service" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.BackendVolatile.DemoApplication" />
@@ -108,6 +124,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.CompositeTaskTest.publishTest" />
         <item itemvalue="Spring Boot.DemoApplication" />
       </list>
     </recent_temporary>
@@ -134,7 +151,13 @@
       <workItem from="1664887198853" duration="5921000" />
       <workItem from="1664950787146" duration="22462000" />
       <workItem from="1665034656515" duration="9047000" />
-      <workItem from="1665122449740" duration="691000" />
+      <workItem from="1665122449740" duration="25121000" />
+      <workItem from="1665219695047" duration="18730000" />
+      <workItem from="1665305114513" duration="18280000" />
+      <workItem from="1665388814096" duration="12183000" />
+      <workItem from="1665477923836" duration="15839000" />
+      <workItem from="1665575332063" duration="22305000" />
+      <workItem from="1665733889226" duration="16560000" />
     </task>
     <servers />
   </component>
@@ -159,6 +182,31 @@
           <url>file://$PROJECT_DIR$/eureka-server/src/main/java/com/collect/eurekaserver/EurekaServerApplication.java</url>
           <line>7</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/serviceImpl/SquareServiceImpl.java</url>
+          <line>241</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/serviceImpl/SquareServiceImpl.java</url>
+          <line>242</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/serviceImpl/SquareServiceImpl.java</url>
+          <line>243</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/serviceImpl/SquareServiceImpl.java</url>
+          <line>247</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/serviceImpl/SquareServiceImpl.java</url>
+          <line>245</line>
+          <option name="timeStamp" value="12" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

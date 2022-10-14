@@ -4,6 +4,9 @@ import com.example.BackendVolatile.dao.reportDAO.*;
 import com.example.BackendVolatile.dao.taskDAO.ExecutableFile;
 import com.example.BackendVolatile.dao.taskDAO.RequirementDescriptionFile;
 import com.example.BackendVolatile.dao.taskDAO.Task;
+import com.example.BackendVolatile.dao.taskDAO.compositetask.CompositeTask;
+import com.example.BackendVolatile.dao.taskDAO.compositetask.SubTask;
+import com.example.BackendVolatile.dao.taskDAO.compositetask.TaskOrderPair;
 import com.example.BackendVolatile.dto.employerDTO.*;
 import com.example.BackendVolatile.mapper.report.*;
 import com.example.BackendVolatile.mapper.task.ExecutableFileMapper;
@@ -18,8 +21,7 @@ import com.example.BackendVolatile.vo.ResultVO;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class EmployerServiceImpl implements EmployerService {
@@ -255,6 +257,136 @@ public class EmployerServiceImpl implements EmployerService {
         cooperationReportDetailVO.setResponse(new ResultVO(ResponseConstant.REQUEST_DATA_SUCCEEDED));
 
         return cooperationReportDetailVO;
+    }
+
+    @Override
+    public BrowserCompositeTasksVO getCompositeTasksWithoutValidation(Integer pageNum, Integer pageSize, Long publisherId) {
+        BrowserCompositeTasksVO res = new BrowserCompositeTasksVO();
+
+        List<CompositeTask> compositeTasks = publisherId==null?
+                taskMapper.get_all_composite_tasks():taskMapper.get_composite_tasks_by_publisher_id(publisherId);
+        res.setCurrSumSize(compositeTasks.size());
+
+        compositeTasks=compositeTasks.subList((pageNum - 1) * pageSize, Math.min(pageNum * pageSize,compositeTasks.size()));
+        List<CompositeTaskStateVO> compositeTaskStateVOList=new ArrayList<>();
+        for (CompositeTask compositeTask : compositeTasks) {
+
+            CompositeTaskStateVO compositeTaskStateVO = new CompositeTaskStateVO(compositeTask);
+
+            List<SubTask> subTasks = taskMapper.get_subtasks(compositeTask.getId());
+            List<TaskOrderPair> taskOrderPairs = taskMapper.get_task_order_pairs(compositeTask.getId());
+            Map<Long, Integer> idIndexMap = new HashMap<>();
+            for (int index = 0; index < subTasks.size(); index++) {
+                idIndexMap.put(subTasks.get(index).getTaskId(), index);
+            }
+            List<CompositeTaskStateVO.TaskOrderPairVO> timingRel = new ArrayList<>();
+            for (TaskOrderPair taskOrderPair : taskOrderPairs)
+                timingRel.add(new CompositeTaskStateVO.TaskOrderPairVO(
+                        idIndexMap.get(taskOrderPair.getPre_task_id()),
+                        idIndexMap.get(taskOrderPair.getPost_task_id())
+                ));
+            compositeTaskStateVO.setTimingRel(timingRel);
+
+            Map<Long, Boolean> isStartTask = new HashMap<>();
+            for (SubTask subTask : subTasks) isStartTask.put(subTask.getTaskId(), Boolean.TRUE);
+            for (TaskOrderPair taskOrderPair : taskOrderPairs)
+                isStartTask.put(taskOrderPair.getPost_task_id(), Boolean.FALSE);
+
+            Map<Long, List<Long>> laterTaskMap = new HashMap<>();
+            for (TaskOrderPair taskOrderPair : taskOrderPairs) {
+                Long earlierTaskId = taskOrderPair.getPre_task_id();
+                if (laterTaskMap.get(earlierTaskId) == null) {
+                    laterTaskMap.put(earlierTaskId,
+                            new ArrayList<>(Collections.singletonList(taskOrderPair.getPost_task_id())));
+                } else laterTaskMap.get(earlierTaskId).add(taskOrderPair.getPost_task_id());
+            }
+
+            //List<Long> subTaskIds=subTaskStates.stream().map(SubTask::getTaskId).collect(Collectors.toList());
+            Map<Long, CompositeTaskStateVO.InnerSubTaskVO> subTaskVOMap = new HashMap<>();
+            for (SubTask subTask : subTasks) {
+                subTaskVOMap.put(subTask.getTaskId(), new CompositeTaskStateVO.InnerSubTaskVO(subTask));
+                if (subTask.getWorkerNumTotal().equals(subTask.getReportNum())) {
+                    subTaskVOMap.get(subTask.getTaskId()).setTaskState(CompositeTaskStateVO.SubTaskState.COMPLETED);
+                }
+            }
+            for (SubTask subTask : subTasks) {
+                Long taskId = subTask.getTaskId();
+                if (subTask.getWorkerNumTotal().equals(subTask.getReportNum())) {
+                    List<Long> laterTaskIds = laterTaskMap.get(taskId);
+                    for (Long laterTaskId : laterTaskIds) {
+                        CompositeTaskStateVO.InnerSubTaskVO laterTask = subTaskVOMap.get(laterTaskId);
+                        if (laterTask.getTaskState() == null) {
+                            if (laterTask.getWorkerNumLeft() > 0) {
+                                laterTask.setTaskState(CompositeTaskStateVO.SubTaskState.RECRUITING);
+                            } else laterTask.setTaskState(CompositeTaskStateVO.SubTaskState.IN_PROGRESS);
+                        }
+                    }
+                }
+            }
+            for (SubTask subTask : subTasks) {
+                Long taskId = subTask.getTaskId();
+                if (subTaskVOMap.get(taskId).getTaskState() == null) {
+                    if (isStartTask.get(taskId)) {
+                        if (subTask.getWorkerNumLeft() > 0) {
+                            subTaskVOMap.get(taskId).setTaskState(CompositeTaskStateVO.SubTaskState.RECRUITING);
+                        } else subTaskVOMap.get(taskId).setTaskState(CompositeTaskStateVO.SubTaskState.IN_PROGRESS);
+                    } else
+                        subTaskVOMap.get(subTask.getTaskId()).setTaskState(CompositeTaskStateVO.SubTaskState.NOT_STARTED);
+                }
+            }
+
+            List<CompositeTaskStateVO.InnerSubTaskVO> subTaskVOList = new ArrayList<>();
+            for (SubTask subTask : subTasks) subTaskVOList.add(subTaskVOMap.get(subTask.getTaskId()));
+            compositeTaskStateVO.setSubTasks(subTaskVOList);
+
+
+            CompositeTaskStateVO.CompositeTaskState compositeTaskState = CompositeTaskStateVO.CompositeTaskState.COMPLETED;
+            for (CompositeTaskStateVO.InnerSubTaskVO subTask : subTaskVOList) {
+                if (subTask.getTaskState() != CompositeTaskStateVO.SubTaskState.COMPLETED) {
+                    compositeTaskState = CompositeTaskStateVO.CompositeTaskState.IN_PROGRESS;
+                    break;
+                }
+            }
+            compositeTaskStateVO.setState(compositeTaskState);
+
+            compositeTaskStateVOList.add(compositeTaskStateVO);
+
+        }
+
+        res.setResponse(new ResultVO(ResponseConstant.REQUEST_DATA_SUCCEEDED));
+        res.setCompositeTaskStateList(compositeTaskStateVOList);
+
+        return res;
+    }
+    @Override
+    public BrowserCompositeTasksVO browserCompositeTasks(Integer pageNum, Integer pageSize) {
+        BrowserCompositeTasksVO res = new BrowserCompositeTasksVO();
+        ValidationResult validationResult = validatePermission(RoleConstant.EMPLOYER.getRole());
+        if (validationResult.valid != BooleanValue.TRUE) {
+            res.setResponse(validationResult.resultVO);
+            return res;
+        }
+        return getCompositeTasksWithoutValidation(pageNum,pageSize,validationResult.userId);
+    }
+
+    static class ValidationResult {
+        ResultVO resultVO;
+        Long valid;
+        Long userId;
+
+        ValidationResult(Long valid, ResultVO resultVO, Long userId) {
+            this.resultVO = resultVO;
+            this.valid = valid;
+            this.userId = userId;
+        }
+    }
+
+    private ValidationResult validatePermission(int role) {
+        Map<String, Object> tokenVerification =
+                parameterValidityVerification.tokenVerification(role);
+        return new ValidationResult((Long) tokenVerification.get(VerificationMapConstant.VALID.getStr()),
+                (ResultVO) tokenVerification.get(VerificationMapConstant.RESULTVO.getStr()),
+                (Long) tokenVerification.get(VerificationMapConstant.USERID.getStr()));
     }
 
 

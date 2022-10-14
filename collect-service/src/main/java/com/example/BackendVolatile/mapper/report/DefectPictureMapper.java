@@ -22,17 +22,17 @@ public interface DefectPictureMapper {
      * @param picture_id： 图片id
      * @return 图片
      */
-    @Select("SELECT * FROM defectPictures WHERE picture_id = #{ id }")
+    @Select("SELECT * FROM VR_report.defectPictures WHERE picture_id = #{ id }")
     DefectPicture get_by_picture_id(@Param("id") Long picture_id );
 
     @NotNull
-    @Select("SELECT * FROM defect_pictures WHERE report_id = #{report_id}" )
+    @Select("SELECT * FROM VR_report.defect_pictures WHERE report_id = #{report_id}" )
     List<DefectPicture> get_all_by_report_id(@Param("report_id") Long report_id);
 
-    @Delete("DELETE FROM defect_pictures where picture_id = #{picture_id}")
+    @Delete("DELETE FROM VR_report.defect_pictures where picture_id = #{picture_id}")
     void delete_by_picture_id(@Param("picture_id") Long picture_id );
 
-    @Delete(" DELETE FROM defect_pictures where  report_id = #{report_id} ")
+    @Delete(" DELETE FROM VR_report.defect_pictures where  report_id = #{report_id} ")
     void delete_all_by_report_id( @Param("report_id") Long report_id);
 
     /**
@@ -40,9 +40,7 @@ public interface DefectPictureMapper {
      * @param picture 要插入的图片
      */
     @Options(useGeneratedKeys = true, keyProperty = "picture_id", keyColumn = "picture_id")
-    @Insert("INSERT INTO defect_pictures ( report_id ,picture_name ,picture_url ) " +
+    @Insert("INSERT INTO VR_report.defect_pictures ( report_id ,picture_name ,picture_url ) " +
             "VALUES (#{picture.report_id}, #{picture.picture_name},#{picture.picture_url}) ")
     void insert( @Param("picture") DefectPicture picture );
-
-
 }

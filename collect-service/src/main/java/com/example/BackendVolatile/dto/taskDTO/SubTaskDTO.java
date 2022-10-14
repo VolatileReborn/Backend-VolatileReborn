@@ -26,7 +26,7 @@ public class SubTaskDTO {
     @NotNull(message = ParamFormatErrorConstant.EXECUTABLE_FILE_LIST_CANNOT_BE_NULL)
     public List<File> executableFileList;
 
-    @NotBlank(message = ParamFormatErrorConstant.TASK_INTRODUCTION_CANNOT_BE_NULL)
+    @NotBlank(message = ParamFormatErrorConstant.TASK_INTRODUCTION_CANNOT_BE_EMPTY)
     public String taskIntroduction;
 
     @NotNull(message = ParamFormatErrorConstant.WORKER_NUM_TOTAL_CANNOT_BE_NULL)
@@ -38,7 +38,7 @@ public class SubTaskDTO {
     @Max(value = TaskTypeConstant.TASK_TYPE_MAX, message = ParamFormatErrorConstant.WRONG_WORK_TYPE_FORMAT)
     private Integer taskType;
 
-    @NotBlank(message = ParamFormatErrorConstant.TASK_NAME_CANNOT_BE_NULL)
+    @NotBlank(message = ParamFormatErrorConstant.TASK_NAME_CANNOT_BE_EMPTY)
     private String taskName;
 
     @Max(value = ParamFormatErrorConstant.TASK_DIFFICULTY_MAX, message = ParamFormatErrorConstant.WRONG_TASK_DIFFICULTY_FORMAT)

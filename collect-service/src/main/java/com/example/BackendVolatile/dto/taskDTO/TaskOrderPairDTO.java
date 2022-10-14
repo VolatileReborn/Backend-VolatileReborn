@@ -16,14 +16,14 @@ public class TaskOrderPairDTO {
     /**
      * 前序子任务在子任务列表中的索引
      */
-    @NotNull(message = ParamFormatErrorConstant.TASK_INTRODUCTION_CANNOT_BE_NULL)
+    @NotNull(message = ParamFormatErrorConstant.TASK_INTRODUCTION_CANNOT_BE_EMPTY)
     @Min(value = 0, message = ParamFormatErrorConstant.TASK_INDEX_CANNOT_BE_NEGATIVE)
     private Integer preTaskIndex;
 
     /**
      * 后序子任务在子任务列表中的索引
      */
-    @NotNull(message = ParamFormatErrorConstant.TASK_INTRODUCTION_CANNOT_BE_NULL)
+    @NotNull(message = ParamFormatErrorConstant.TASK_INTRODUCTION_CANNOT_BE_EMPTY)
     @Min(value = 0, message = ParamFormatErrorConstant.TASK_INDEX_CANNOT_BE_NEGATIVE)
     private Integer postTaskIndex;
 }

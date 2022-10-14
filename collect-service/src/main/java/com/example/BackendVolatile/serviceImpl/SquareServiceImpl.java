@@ -5,17 +5,16 @@ import com.example.BackendVolatile.dto.squareDTO.EmployeeTaskDetailDTO;
 import com.example.BackendVolatile.dto.squareDTO.TaskDetailDTO;
 import com.example.BackendVolatile.mapper.task.SelectTaskMapper;
 import com.example.BackendVolatile.mapper.task.TaskMapper;
+import com.example.BackendVolatile.service.EmployerService;
 import com.example.BackendVolatile.service.SquareService;
 import com.example.BackendVolatile.util.ParameterValidityVerification;
 import com.example.BackendVolatile.util.constant.*;
-import com.example.BackendVolatile.util.pythonUtil.PythonUtil;
-import com.example.BackendVolatile.util.pythonUtil.getRecommendedTaskUtil.GetRecommendedTaskDTO;
 import com.example.BackendVolatile.util.pythonUtil.getRecommendedTaskUtil.GetRecommendedTaskUtil;
-import com.example.BackendVolatile.util.pythonUtil.prepareTaskRecommendationTrainingDataUtil.PrepareTaskRecommendationTrainingDataDTO;
 import com.example.BackendVolatile.util.pythonUtil.prepareTaskRecommendationTrainingDataUtil.PrepareTaskRecommendationTrainingDataUtil;
-import com.example.BackendVolatile.util.pythonUtil.prepareTrainingDataUtil.PrepareTrainingDataDTO;
 import com.example.BackendVolatile.util.pythonUtil.prepareTrainingDataUtil.PrepareTrainingDataUtil;
 import com.example.BackendVolatile.vo.ResultVO;
+import com.example.BackendVolatile.vo.employerVO.BrowserCompositeTasksVO;
+import com.example.BackendVolatile.vo.employerVO.CompositeTaskStateVO;
 import com.example.BackendVolatile.vo.squareVO.BrowserTasksVO;
 import com.example.BackendVolatile.vo.squareVO.VisitorBrowserTasksVO;
 import com.example.BackendVolatile.vo.squareVO.EmployeeTaskDetailVO;
@@ -30,6 +29,9 @@ import java.util.Map;
 
 @Service
 public class SquareServiceImpl implements SquareService {
+
+    @Resource
+    EmployerService employerService;
 
     @Resource
     TaskMapper taskMapper;
@@ -96,8 +98,6 @@ public class SquareServiceImpl implements SquareService {
 //        return browserTasksVO;
 //        return visitorBrowserTasksVO;
 
-
-
             BrowserTasksVO browserTasksVO = new BrowserTasksVO();
 
             Map<String, Object> tokenVerification =
@@ -112,6 +112,24 @@ public class SquareServiceImpl implements SquareService {
             }
 
             List<Task> taskList = taskMapper.get_one_state_all_tasks_without_paging(TaskStateConstant.UNDERTAKING.getCode());
+
+            BrowserCompositeTasksVO browserCompositeTasksVO=employerService.getCompositeTasksWithoutValidation(1,Integer.MAX_VALUE,null);
+            System.err.println(browserCompositeTasksVO);
+            List<CompositeTaskStateVO> compositeTaskStateVOList=browserCompositeTasksVO.getCompositeTaskStateList();
+            for(CompositeTaskStateVO compositeTaskState:compositeTaskStateVOList) {
+                List<CompositeTaskStateVO.InnerSubTaskVO> subTaskVOList = compositeTaskState.getSubTasks();
+                for (CompositeTaskStateVO.InnerSubTaskVO subTask : subTaskVOList) {
+                    if (subTask.getTaskState() != CompositeTaskStateVO.SubTaskState.RECRUITING) {
+                        for(int index=0;index<taskList.size();index++){
+                            if(taskList.get(index).getTask_id().equals(subTask.getTaskId())){
+                                taskList.remove(index);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
             List<Integer> indexList = new ArrayList<>();
             for (int i = 0; i < taskList.size(); i++) {
                 if (selectTaskMapper.is_selected(taskList.get(i).getTask_id(), userId) == BooleanValue.TRUE) {

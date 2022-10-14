@@ -14,6 +14,7 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class UploadTestReportDTO {
 
     @NotNull(message = ParamFormatErrorConstant.TASK_ID_CANNOT_BE_NULL)
@@ -48,25 +49,4 @@ public class UploadTestReportDTO {
         return testReport.getDefectPictureList();
     }
 
-}
-
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-class TestReport {
-
-    @NotBlank(message = ParamFormatErrorConstant.DEFECT_EXPLAIN_CANNOT_BE_NULL)
-    private String defectExplain;
-
-    @NotBlank(message = ParamFormatErrorConstant.DEFECT_REPRODUCTION_STEP_CANNOT_BE_NULL)
-    private String defectReproductionStep;
-
-    @NotBlank(message = ParamFormatErrorConstant.TEST_EQUIPMENT_INFORMATION_CANNOT_BE_NULL)
-    private String testEquipmentInformation;
-
-    @NotNull(message = ParamFormatErrorConstant.DEFECT_PICTURE_LIST_CANNOT_BE_NULL)
-    private List<File> defectPictureList;
-
-    @NotBlank(message = ParamFormatErrorConstant.REPORT_NAME_CANNOT_BE_NULL)
-    private String reportName;
 }
