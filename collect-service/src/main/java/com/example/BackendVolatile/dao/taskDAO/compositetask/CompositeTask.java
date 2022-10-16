@@ -32,7 +32,7 @@ public class CompositeTask {
     public CompositeTask(CompositeTaskPublishDTO compositeTaskPublishDTO, Long userId){
         this.publisherId=userId;
         this.publishTime=new Date();
-        this.taskName=compositeTaskPublishDTO.getTaskName();
-        this.taskIntroduction=compositeTaskPublishDTO.getTaskIntroduction();
+        this.taskName=compositeTaskPublishDTO.getTask().getTaskName();
+        this.taskIntroduction=compositeTaskPublishDTO.getTask().getTaskIntroduction();
     }
 }

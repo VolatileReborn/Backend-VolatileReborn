@@ -156,7 +156,7 @@ public class TaskServiceImpl implements TaskService {
 
         Long publisherId = validationResult.userId;
 
-        List<SubTaskDTO> subTasks = compositeTaskPublishDTO.getSubtasks();
+        List<SubTaskDTO> subTasks = compositeTaskPublishDTO.getTask().getSubTasks();
         List<Long> subTaskIds = new ArrayList<>();
         for (SubTaskDTO subTaskDTO : subTasks) {
             Task subTask = new Task(subTaskDTO, publisherId);
@@ -172,7 +172,7 @@ public class TaskServiceImpl implements TaskService {
         for (Long subTaskId : subTaskIds) parentChildTaskPairs.add(new ParentChildTaskPair(compositeTaskId, subTaskId));
         if(parentChildTaskPairs.size()!=0) taskMapper.insertCompositeSubTaskBatch(parentChildTaskPairs);
 
-        List<TaskOrderPairDTO> taskOrderPairDTOs = compositeTaskPublishDTO.getTimingRel();
+        List<TaskOrderPairDTO> taskOrderPairDTOs = compositeTaskPublishDTO.getTask().getTimingRel();
         List<TaskOrderPair> taskOrderPairs = new ArrayList<>();
         for (TaskOrderPairDTO taskOrderPairDTO : taskOrderPairDTOs)
             taskOrderPairs.add(new TaskOrderPair(compositeTaskId,

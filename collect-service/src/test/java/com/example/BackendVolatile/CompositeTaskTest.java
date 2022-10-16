@@ -66,15 +66,16 @@ public class CompositeTaskTest {
                 "intro",1,1,"sub4",4,3,true,false,false
         );
 
-        System.out.println(taskService.publishCompositeTask(new CompositeTaskPublishDTO(
-                "name","intro",new ArrayList<>(Arrays.asList(subTask1,subTask2,subTask3,subTask4)),
-                new ArrayList<>(Arrays.asList(
-                        new TaskOrderPairDTO(0, 1),
-                        new TaskOrderPairDTO(0,2),
-                        new TaskOrderPairDTO(1,3),
-                        new TaskOrderPairDTO(2,3)
-                ))
-        )));
+        //TODO
+//        System.out.println(taskService.publishCompositeTask(new CompositeTaskPublishDTO(
+//                "name","intro",new ArrayList<>(Arrays.asList(subTask1,subTask2,subTask3,subTask4)),
+//                new ArrayList<>(Arrays.asList(
+//                        new TaskOrderPairDTO(0, 1),
+//                        new TaskOrderPairDTO(0,2),
+//                        new TaskOrderPairDTO(1,3),
+//                        new TaskOrderPairDTO(2,3)
+//                ))
+//        )));
 
         System.out.println(employerService.browserCompositeTasks(1,5));
 

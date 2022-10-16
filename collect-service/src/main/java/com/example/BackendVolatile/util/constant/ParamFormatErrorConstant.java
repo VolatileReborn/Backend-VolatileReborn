@@ -50,6 +50,9 @@ public class ParamFormatErrorConstant {
 
     public static final String TASK_INTRODUCTION_CANNOT_BE_EMPTY = "任务介绍不能为空";
 
+    public static final String COMPOSITE_TASK_INTRODUCTION_CANNOT_BE_EMPTY = "复合任务介绍不能为空";
+
+
     public static final String TASK_START_TIME_CANNOT_BE_NULL = "任务开始时间不能为空";
 
     public static final String TASK_END_TIME_CANNOT_BE_NULL = "任务结束时间不能为空";
@@ -71,6 +74,9 @@ public class ParamFormatErrorConstant {
     public static final String WORKER_NUM_TOTAL_CANNOT_BE_NULL = "需要人数不能为空";
 
     public static final String TASK_NAME_CANNOT_BE_EMPTY = "任务名不能为空";
+
+    public static final String COMPOSITE_TASK_NAME_CANNOT_BE_EMPTY = "复合任务名不能为空";
+
 
     public static final String TASK_DIFFICULTY_CANNOT_BE_NULL = "任务难度不能为空";
 

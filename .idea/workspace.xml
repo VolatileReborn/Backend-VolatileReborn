@@ -4,7 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0c3bbde9-fdae-41ae-88d5-20134bc1350d" name="变更" comment="变更" />
+    <list default="true" id="0c3bbde9-fdae-41ae-88d5-20134bc1350d" name="变更" comment="变更">
+      <change afterPath="$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/dto/taskDTO/CompositeTaskDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/bf124125-58c9-4a78-b839-348440c5469b.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/bf124125-58c9-4a78-b839-348440c5469b.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/controller/TaskController.java" beforeDir="false" afterPath="$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/controller/TaskController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/dao/taskDAO/compositetask/CompositeTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/dao/taskDAO/compositetask/CompositeTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/dto/taskDTO/CompositeTaskPublishDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/dto/taskDTO/CompositeTaskPublishDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/dto/taskDTO/TaskPublishDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/dto/taskDTO/TaskPublishDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/serviceImpl/TaskServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/serviceImpl/TaskServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/util/constant/ParamFormatErrorConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/util/constant/ParamFormatErrorConstant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/collect-service/src/test/java/com/example/BackendVolatile/CompositeTaskTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/collect-service/src/test/java/com/example/BackendVolatile/CompositeTaskTest.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -49,22 +61,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RequestMappingsPanelOrder0" value="0" />
-    <property name="RequestMappingsPanelOrder1" value="1" />
-    <property name="RequestMappingsPanelWidth0" value="75" />
-    <property name="RequestMappingsPanelWidth1" value="75" />
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="node.js.detected.package.eslint" value="true" />
-    <property name="node.js.detected.package.tslint" value="true" />
-    <property name="node.js.selected.package.eslint" value="(autodetect)" />
-    <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="vue.rearranger.settings.migration" value="true" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "WebServerToolWindowFactoryState": "false",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "spring.configuration.checksum": "9ddbadfdce714c3eab4b3c7b51011c78"
+  }
+}]]></component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -84,7 +94,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.CompositeTaskTest.publishTest">
+  <component name="RunManager" selected="Spring Boot.DemoApplication">
     <configuration name="CompositeTaskTest.publishTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="collect-service" />
       <extension name="coverage">
@@ -124,8 +134,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.CompositeTaskTest.publishTest" />
         <item itemvalue="Spring Boot.DemoApplication" />
+        <item itemvalue="JUnit.CompositeTaskTest.publishTest" />
       </list>
     </recent_temporary>
   </component>
@@ -158,6 +168,7 @@
       <workItem from="1665477923836" duration="15839000" />
       <workItem from="1665575332063" duration="22305000" />
       <workItem from="1665733889226" duration="16560000" />
+      <workItem from="1665888629934" duration="9496000" />
     </task>
     <servers />
   </component>
@@ -208,7 +219,53 @@
           <line>245</line>
           <option name="timeStamp" value="12" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/dto/taskDTO/CompositeTaskPublishDTO.java</url>
+          <line>16</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/controller/TaskController.java</url>
+          <line>39</line>
+          <option name="timeStamp" value="25" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/controller/TaskController.java</url>
+          <line>37</line>
+          <option name="timeStamp" value="31" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/controller/TaskController.java</url>
+          <line>36</line>
+          <option name="timeStamp" value="32" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/controller/TaskController.java</url>
+          <line>45</line>
+          <properties class="com.example.BackendVolatile.controller.TaskController" method="publishTask">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-field">
+          <url>file://$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/dto/taskDTO/CompositeTaskPublishDTO.java</url>
+          <line>34</line>
+          <properties field="subTasks" class="com.example.BackendVolatile.dto.taskDTO.CompositeTaskPublishDTO" />
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-field">
+          <url>file://$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/dto/taskDTO/CompositeTaskPublishDTO.java</url>
+          <line>33</line>
+          <properties field="taskName" class="com.example.BackendVolatile.dto.taskDTO.CompositeTaskPublishDTO" />
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="org.apache.catalina.connector.Request" memberName="coyoteRequest" />
+      </pinned-members>
+    </pin-to-top-manager>
   </component>
 </project>

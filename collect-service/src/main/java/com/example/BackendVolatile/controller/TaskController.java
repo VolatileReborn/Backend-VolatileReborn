@@ -32,7 +32,12 @@ public class TaskController {
     @PostMapping(value = "/compositeTask/publish")
     @UserLoginToken
     public PublishTaskVO publishCompositeTask(@Valid @RequestBody CompositeTaskPublishDTO compositeTaskPublishDTO){
-        return taskService.publishCompositeTask(compositeTaskPublishDTO);
+//    public PublishTaskVO publishCompositeTask( @RequestBody Object compositeTaskPublishDTO){
+
+        System.out.println(compositeTaskPublishDTO);
+//        System.out.println(compositeTaskPublishDTO.getTaskName());
+//        System.out.println(compositeTaskPublishDTO.getSubTasks());
+        return taskService.publishCompositeTask((CompositeTaskPublishDTO) compositeTaskPublishDTO);
     }
 
 

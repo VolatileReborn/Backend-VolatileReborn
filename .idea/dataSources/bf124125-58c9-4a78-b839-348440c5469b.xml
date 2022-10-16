@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="VR_task@123.56.20.222">
-  <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.32">
+  <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.41">
     <root id="1">
       <DefaultCasing>exact</DefaultCasing>
       <DefaultEngine>InnoDB</DefaultEngine>
@@ -1376,10 +1376,10 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Type>btree</Type>
     </index>
     <column id="319" parent="306" name="id">
+      <AutoIncrement>1</AutoIncrement>
       <DataType>bigint|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="320" parent="306" name="publisher_id">
       <DataType>bigint|0s</DataType>
@@ -1413,15 +1413,15 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Type>btree</Type>
     </index>
     <key id="326" parent="306" name="PRIMARY">
-      <ColNames>id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>id</UnderlyingIndexColNames>
     </key>
     <column id="327" parent="307" name="executable_file_id">
+      <AutoIncrement>1</AutoIncrement>
       <DataType>bigint|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="328" parent="307" name="executable_file_name">
       <DataType>varchar(256)|0s</DataType>
@@ -1449,9 +1449,9 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Type>btree</Type>
     </index>
     <key id="333" parent="307" name="PRIMARY">
-      <ColNames>executable_file_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>executable_file_id</UnderlyingIndexColNames>
     </key>
     <column id="334" parent="308" name="day">
       <DataType>bigint|0s</DataType>
@@ -1459,10 +1459,10 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Position>1</Position>
     </column>
     <column id="335" parent="309" name="file_id">
+      <AutoIncrement>1</AutoIncrement>
       <DataType>bigint|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="336" parent="309" name="file_name">
       <DataType>varchar(256)|0s</DataType>
@@ -1490,9 +1490,9 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Type>btree</Type>
     </index>
     <key id="341" parent="309" name="PRIMARY">
-      <ColNames>file_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>file_id</UnderlyingIndexColNames>
     </key>
     <column id="342" parent="310" name="user_id">
       <DataType>bigint|0s</DataType>
@@ -1571,10 +1571,10 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Type>btree</Type>
     </index>
     <column id="357" parent="312" name="task_id">
+      <AutoIncrement>1</AutoIncrement>
       <DataType>bigint|0s</DataType>
       <NotNull>1</NotNull>
       <Position>1</Position>
-      <SequenceIdentity>null</SequenceIdentity>
     </column>
     <column id="358" parent="312" name="user_id">
       <DataType>bigint|0s</DataType>
@@ -1656,9 +1656,9 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Type>btree</Type>
     </index>
     <key id="374" parent="312" name="PRIMARY">
-      <ColNames>task_id</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
+      <UnderlyingIndexColNames>task_id</UnderlyingIndexColNames>
     </key>
   </database-model>
 </dataSource>
