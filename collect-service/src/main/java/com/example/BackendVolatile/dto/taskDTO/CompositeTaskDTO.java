@@ -42,6 +42,8 @@ public class CompositeTaskDTO {
     private List<SubTaskDTO> subTasks;
 
     /**
+     * Iter3：前端不传此项数据
+     *
      * 子任务的时序关系，即前后子任务索引对的集合
      * 例如子任务列表subtasks={A,B,C,D}，A/B/C/D在列表中的索引为0/1/2/3
      * 且时序关系为{A在B前，A在C前，B在D前，C在D前}
@@ -50,7 +52,5 @@ public class CompositeTaskDTO {
      * 可以为空列表
      *
      */
-    @Valid
-    @NotNull
-    private List<TaskOrderPairDTO> timingRel;
+    private List<TaskOrderPairDTO> timingRel=null;
 }

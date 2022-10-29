@@ -25,6 +25,7 @@
     <modules>
         <module>eureka-server</module>
         <module>collect-service</module>
+        <module>collect-gateway</module>
     </modules>
 
     <dependencies>

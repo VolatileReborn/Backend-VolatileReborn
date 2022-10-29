@@ -4,19 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0c3bbde9-fdae-41ae-88d5-20134bc1350d" name="变更" comment="变更">
-      <change afterPath="$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/dto/taskDTO/CompositeTaskDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/bf124125-58c9-4a78-b839-348440c5469b.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/bf124125-58c9-4a78-b839-348440c5469b.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/controller/TaskController.java" beforeDir="false" afterPath="$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/controller/TaskController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/dao/taskDAO/compositetask/CompositeTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/dao/taskDAO/compositetask/CompositeTask.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/dto/taskDTO/CompositeTaskPublishDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/dto/taskDTO/CompositeTaskPublishDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/dto/taskDTO/TaskPublishDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/dto/taskDTO/TaskPublishDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/serviceImpl/TaskServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/serviceImpl/TaskServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/util/constant/ParamFormatErrorConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/util/constant/ParamFormatErrorConstant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/collect-service/src/test/java/com/example/BackendVolatile/CompositeTaskTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/collect-service/src/test/java/com/example/BackendVolatile/CompositeTaskTest.java" afterDir="false" />
-    </list>
+    <list default="true" id="0c3bbde9-fdae-41ae-88d5-20134bc1350d" name="变更" comment="变更" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -61,20 +49,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "WebServerToolWindowFactoryState": "false",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "spring.configuration.checksum": "9ddbadfdce714c3eab4b3c7b51011c78"
-  }
-}]]></component>
+  <component name="PropertiesComponent">
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+  </component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
@@ -94,7 +80,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.DemoApplication">
+  <component name="RunManager" selected="Spring Boot.ZuulApplication">
     <configuration name="CompositeTaskTest.publishTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="collect-service" />
       <extension name="coverage">
@@ -132,8 +118,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ZuulApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="collect-gateway" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.collect.collectgateway.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.collect.collectgateway.ZuulApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Spring Boot.ZuulApplication" />
         <item itemvalue="Spring Boot.DemoApplication" />
         <item itemvalue="JUnit.CompositeTaskTest.publishTest" />
       </list>
@@ -169,6 +169,9 @@
       <workItem from="1665575332063" duration="22305000" />
       <workItem from="1665733889226" duration="16560000" />
       <workItem from="1665888629934" duration="9496000" />
+      <workItem from="1666880202908" duration="2677000" />
+      <workItem from="1666949578844" duration="5407000" />
+      <workItem from="1667051374608" duration="3888000" />
     </task>
     <servers />
   </component>

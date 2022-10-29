@@ -145,8 +145,21 @@ public class TaskServiceImpl implements TaskService {
 
     }
 
+    private void formalizeCompositeTask(CompositeTaskPublishDTO compositeTaskPublishDTO){
+        CompositeTaskDTO compositeTask=compositeTaskPublishDTO.task;
+        List<SubTaskDTO> subTasks=compositeTask.getSubTasks();
+        List<TaskOrderPairDTO> taskOrderPairs=new ArrayList<>();
+        for(int i=0;i<subTasks.size();i++){
+            SubTaskDTO subTask=subTasks.get(i);
+            if(subTask.getPreTask()!=-1) taskOrderPairs.add(new TaskOrderPairDTO(subTask.getPreTask(),i));
+        }
+        compositeTask.setTimingRel(taskOrderPairs);
+    }
+
     @Override
     public PublishTaskVO publishCompositeTask(@Valid CompositeTaskPublishDTO compositeTaskPublishDTO) {
+        formalizeCompositeTask(compositeTaskPublishDTO);
+
         PublishTaskVO res = new PublishTaskVO();
         ValidationResult validationResult = validatePermission(RoleConstant.EMPLOYER.getRole());
         if (validationResult.valid != BooleanValue.TRUE) {

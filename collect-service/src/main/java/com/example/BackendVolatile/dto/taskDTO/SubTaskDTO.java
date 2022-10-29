@@ -59,5 +59,7 @@ public class SubTaskDTO {
 
     @NotNull(message = ParamFormatErrorConstant.DEVICE_REQUIREMENT_IOS_CANNOT_BE_NULL)
     private Boolean ios;
+
+    private Integer preTask;
 }
 
