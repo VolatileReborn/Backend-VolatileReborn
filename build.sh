@@ -1,5 +1,7 @@
 #!/bin/sh
 
+echo "For every service, build its jar"
+
 # First, eureka
 echo "Eureka"
 cd ./eureka-server
