@@ -27,7 +27,7 @@ public class EmployerController {
      */
     @GetMapping(value = "/browserCompositeTasks")
     @UserLoginToken
-    public BrowserCompositeTasksVO browserCompositeTasks(@Valid @RequestParam PageMsgDTO pageMsgDTO){
+    public BrowserCompositeTasksVO browserCompositeTasks(@Valid PageMsgDTO pageMsgDTO){
         return employerService.browserCompositeTasks(pageMsgDTO.getPageNum(),pageMsgDTO.getPageSize());
     }
 

@@ -26,6 +26,9 @@ node("slave1") {
 
     def EUREKA_CONTAINER_PORT = 8001
     def EUREKA_HOST_PORT = 8001
+
+    def ZUUL_CONTAINER_PORT = 9999
+    def ZUUL_HOST_PORT = 9999
     //=======================
 
     def ORIGINAL_COLLECT_IMAGE_NAME = __PROJECT_TYPE + '_' + __PROJECT_NAME //backend_volatile_reborn
@@ -34,17 +37,22 @@ node("slave1") {
     def COLLECT_IMAGE_FULL_NAME = __DOCKERHUB_ACCOUNT + '/' + IMAGE_NAME_WITH_INITIAL_TAG // lyklove/backend_volatile_reborn:latest-linux
 
     def EUREKA_IMAGE_FULL_NAME = "lyklove/backend_eureka_volatile_reborn:latest-linux"
+    def ZUUL_IMAGE_FULL_NAME = "lyklove/backend_zuul_volatile_reborn:latest-linux"
 
 
     //IMAGE TO RUN
     def COLLECT_IMAGE_TO_RUN = COLLECT_IMAGE_FULL_NAME
     def EUREKA_IMAGE_TO_RUN = EUREKA_IMAGE_FULL_NAME
+    def ZUUL_IMAGE_TO_RUN = ZUUL_IMAGE_FULL_NAME
+
 
     //======================
 
     //CONTAINER NAME
     def COLLECT_CONTAINER_NAME = ORIGINAL_COLLECT_IMAGE_NAME //backend_volatile_reborn
     def EUREKA_CONTAINER_NAME = "backend_eureka_volatile_reborn"
+    def ZUUL_CONTAINER_NAME = "backend_zuul_volatile_reborn"
+
     //===================
 
     //SERVICE_NAME
@@ -99,6 +107,11 @@ node("slave1") {
         sh "docker build -t ${EUREKA_IMAGE_FULL_NAME} -f ${EUREKA_SERVICE_DOCKERFILE_PATH} ."
         echo "Eureka build finished"
 
+        def ZUUL_SERVICE_DOCKERFILE_PATH = './collect-gateway/Dockerfile'
+        sh "docker build -t ${ZUUL_IMAGE_FULL_NAME} -f ${ZUUL_SERVICE_DOCKERFILE_PATH} ."
+        echo "Zuul build finished"
+
+
 
         def COLLECT_SERVICE_DOCKERFILE_PATH = './collect-service/Dockerfile'
         sh "docker build -t ${COLLECT_IMAGE_FULL_NAME} -f ${COLLECT_SERVICE_DOCKERFILE_PATH} ."
@@ -117,6 +130,8 @@ node("slave1") {
         echo "begin push to dockerhub"
         sh "docker image push ${COLLECT_IMAGE_FULL_NAME}"
         sh "docker image push ${EUREKA_IMAGE_FULL_NAME}"
+        sh "docker image push ${ZUUL_IMAGE_FULL_NAME}"
+
 
     }
 
@@ -125,8 +140,10 @@ node("slave1") {
 
         stage("clean previous image and container"){
 //        sh "docker container rm -f ${EUREKA_CONTAINER_NAME}"
-        sh "docker container rm -f ${COLLECT_CONTAINER_NAME}"
+            sh "docker container rm -f ${COLLECT_CONTAINER_NAME}"
             sh "docker container rm -f ${EUREKA_CONTAINER_NAME}"
+            sh "docker container rm -f ${ZUUL_CONTAINER_NAME}"
+
 
 //        sh "docker image rm ${EUREKA_IMAGE_TO_RUN}"
 //        sh "docker image rm ${COLLECT_IMAGE_TO_RUN}"
@@ -145,6 +162,8 @@ node("slave1") {
 //        sh "docker image ls"
 
         sh "docker container run -p ${EUREKA_HOST_PORT}:${EUREKA_CONTAINER_PORT} --name ${EUREKA_CONTAINER_NAME}   -d ${EUREKA_IMAGE_TO_RUN}"
+        sh "docker container run -p ${ZUUL_HOST_PORT}:${ZUUL_CONTAINER_PORT} --name ${ZUUL_CONTAINER_NAME}   -d ${ZUUL_IMAGE_TO_RUN}"
+
         sh "docker container run --net=host --restart unless-stopped --name ${COLLECT_CONTAINER_NAME}   -d ${COLLECT_IMAGE_TO_RUN}"
 
     }

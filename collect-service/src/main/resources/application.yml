@@ -44,4 +44,8 @@ eureka:
 mybatis:
   mapper-locations: classpath*:mapper/**/*Mapper.xml
 
+zuul:
+  routes:
+    collect-service: /**
+
 

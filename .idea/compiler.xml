@@ -8,17 +8,20 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="eureka-server" />
+        <module name="collect-gateway" />
         <module name="collect-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="Backend-VolatileReborn" target="1.8" />
-      <module name="collect-service" target="8" />
+      <module name="collect-gateway" target="1.8" />
+      <module name="collect-service" target="1.8" />
       <module name="eureka-server" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="collect-gateway" options="-parameters" />
       <module name="collect-service" options="-parameters" />
       <module name="eureka-server" options="-parameters" />
     </option>
