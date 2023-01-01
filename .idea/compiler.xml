@@ -15,7 +15,7 @@
     <bytecodeTargetLevel>
       <module name="Backend-VolatileReborn" target="1.8" />
       <module name="collect-gateway" target="1.8" />
-      <module name="collect-service" target="1.8" />
+      <module name="collect-service" target="8" />
       <module name="eureka-server" target="1.8" />
     </bytecodeTargetLevel>
   </component>

@@ -17,6 +17,16 @@ public class ReportController {
     @Resource
     ReportService reportService;
 
+
+
+
+    @GetMapping(value = "/qualityEvaluation")
+    @UserLoginToken
+    public ReportEvaluationVO getQualityEvaluation(@Valid GettingEvaluationDTO gettingEvaluationDTO){
+        return reportService.getQualityEvaluation(gettingEvaluationDTO,gettingEvaluationDTO.getIsCoop()==1);
+    }
+
+
     //根据任务id获得测试报告列表
     @GetMapping(value = "/checkReports")
     @PassToken
