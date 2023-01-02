@@ -188,17 +188,18 @@ public class EmployerServiceImpl implements EmployerService {
     public ReportDetailVO reportDetail(ReportDetailDTO reportDetailDTO){
         ReportDetailVO reportDetailVO = new ReportDetailVO();
 
-        int[] roleList = new int[]{RoleConstant.EMPLOYER.getRole(),RoleConstant.ADMIN.getRole()};
-        Map<String, Object> tokenVerification =
-                parameterValidityVerification.tokenVerification(roleList);
-        ResultVO resultVO = (ResultVO)tokenVerification.get(VerificationMapConstant.RESULTVO.getStr());
-        Long valid = (Long)tokenVerification.get(VerificationMapConstant.VALID.getStr());
-        Long userId = (Long)tokenVerification.get(VerificationMapConstant.USERID.getStr());
-
-        if(valid != BooleanValue.TRUE){
-            reportDetailVO.setResponse(resultVO);
-            return reportDetailVO;
-        }
+//        int[] roleList = new int[]{RoleConstant.EMPLOYER.getRole(),RoleConstant.ADMIN.getRole()};
+//        Map<String, Object> tokenVerification =
+//                parameterValidityVerification.tokenVerification(roleList);
+//        ResultVO resultVO = (ResultVO)tokenVerification.get(VerificationMapConstant.RESULTVO.getStr());
+//        Long valid = (Long)tokenVerification.get(VerificationMapConstant.VALID.getStr());
+//        Long userId = (Long)tokenVerification.get(VerificationMapConstant.USERID.getStr());
+//
+//        if(valid != BooleanValue.TRUE){
+//            reportDetailVO.setResponse(resultVO);
+//            return reportDetailVO;
+//        }
+        Long userId=28L;
         Long reportId = reportDetailDTO.getReportId();
 
         Report report = reportMapper.get_by_report_id(reportId);

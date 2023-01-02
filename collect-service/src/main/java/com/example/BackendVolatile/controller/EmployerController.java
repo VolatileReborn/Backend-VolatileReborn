@@ -56,7 +56,7 @@ public class EmployerController {
     }
 
     @GetMapping(value = "/reportDetail")
-    @UserLoginToken
+    //@UserLoginToken
     public ReportDetailVO reportDetail(@Valid ReportDetailDTO reportDetailDTO){
         return employerService.reportDetail(reportDetailDTO);
     }

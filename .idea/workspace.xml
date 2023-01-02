@@ -115,7 +115,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1672474740735</updated>
-      <workItem from="1672474745415" duration="34485000" />
+      <workItem from="1672474745415" duration="43867000" />
     </task>
     <servers />
   </component>
@@ -138,83 +138,136 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/serviceImpl/ReportServiceImpl.java</url>
-          <line>207</line>
+          <line>208</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/serviceImpl/ReportServiceImpl.java</url>
-          <line>208</line>
+          <line>209</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/serviceImpl/ReportServiceImpl.java</url>
-          <line>210</line>
+          <line>211</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/serviceImpl/ReportServiceImpl.java</url>
-          <line>211</line>
+          <line>212</line>
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/serviceImpl/ReportServiceImpl.java</url>
-          <line>209</line>
+          <line>210</line>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/serviceImpl/ReportServiceImpl.java</url>
-          <line>212</line>
+          <line>213</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/serviceImpl/ReportServiceImpl.java</url>
-          <line>213</line>
+          <line>214</line>
           <option name="timeStamp" value="8" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/serviceImpl/ReportServiceImpl.java</url>
-          <line>214</line>
+          <line>215</line>
           <option name="timeStamp" value="9" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/serviceImpl/ReportServiceImpl.java</url>
-          <line>215</line>
+          <line>216</line>
           <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/serviceImpl/ReportServiceImpl.java</url>
-          <line>216</line>
+          <line>217</line>
           <option name="timeStamp" value="11" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/serviceImpl/ReportServiceImpl.java</url>
-          <line>205</line>
+          <line>206</line>
           <option name="timeStamp" value="12" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/serviceImpl/ReportServiceImpl.java</url>
-          <line>206</line>
+          <line>207</line>
           <option name="timeStamp" value="13" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/serviceImpl/ReportServiceImpl.java</url>
-          <line>218</line>
+          <line>219</line>
           <option name="timeStamp" value="14" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/serviceImpl/ReportServiceImpl.java</url>
-          <line>220</line>
+          <line>221</line>
           <option name="timeStamp" value="15" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/serviceImpl/ReportServiceImpl.java</url>
-          <line>219</line>
+          <line>220</line>
           <option name="timeStamp" value="16" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/serviceImpl/ReportServiceImpl.java</url>
-          <line>221</line>
+          <line>222</line>
           <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/controller/SquareController.java</url>
+          <line>33</line>
+          <option name="timeStamp" value="110" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/controller/SquareController.java</url>
+          <line>34</line>
+          <option name="timeStamp" value="111" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/serviceImpl/SquareServiceImpl.java</url>
+          <line>100</line>
+          <option name="timeStamp" value="113" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/serviceImpl/SquareServiceImpl.java</url>
+          <line>102</line>
+          <option name="timeStamp" value="114" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/serviceImpl/SquareServiceImpl.java</url>
+          <line>146</line>
+          <option name="timeStamp" value="115" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/serviceImpl/SquareServiceImpl.java</url>
+          <line>145</line>
+          <option name="timeStamp" value="116" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/serviceImpl/SquareServiceImpl.java</url>
+          <line>144</line>
+          <option name="timeStamp" value="117" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/controller/SquareController.java</url>
+          <line>32</line>
+          <properties class="com.example.BackendVolatile.controller.SquareController" method="browserTasks">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="109" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/collect-service/src/main/java/com/example/BackendVolatile/serviceImpl/SquareServiceImpl.java</url>
+          <line>83</line>
+          <properties class="com.example.BackendVolatile.serviceImpl.SquareServiceImpl" method="browserTasks">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="112" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
