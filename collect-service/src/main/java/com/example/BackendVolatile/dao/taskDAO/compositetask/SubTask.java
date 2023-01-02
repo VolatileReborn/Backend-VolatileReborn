@@ -13,5 +13,5 @@ public class SubTask {
     private Integer taskType;
     private Integer workerNumTotal;
     private Integer workerNumLeft;
-    private Integer reportNum;
+    private Integer reportNum; // 完成的工人数量
 }

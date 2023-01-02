@@ -177,4 +177,9 @@ public class ParamFormatErrorConstant {
 
     public static final String LOGIN_LOG_DO_NOT_EXIST = "登录日志不存在";
 
+
+    public static final String AUGMENTED_REPORT_NUM_CANNOT_BE_NULL = "扩增数量不能为空";
+
+    public static final String AUGMENTED_REPORT_NUM_MUST_BE_POSITIVE= "扩增数量必须为正数";
+
 }

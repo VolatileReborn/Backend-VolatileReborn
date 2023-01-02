@@ -5,6 +5,10 @@ import com.example.BackendVolatile.vo.reportVO.*;
 
 public interface ReportService {
 
+    AugmentedReportsVO getAugmentedReports(AugmentationRequestDTO augmentationRequestDTO, boolean isCoop);
+
+    ReportEvaluationVO getQualityEvaluation(GettingEvaluationDTO gettingEvaluationDTO, boolean isCoop);
+
     CheckReportsVO checkReports(CheckReportsDTO checkReportsDTO);
 
     ScoreReportVO scoreReport(ScoreReportDTO scoreReportDTO);

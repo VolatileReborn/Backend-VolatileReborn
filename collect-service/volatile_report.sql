@@ -99,7 +99,7 @@ DROP TABLE IF EXISTS `reports`;
 CREATE TABLE `reports` (
   `report_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `report_name` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `user_id` bigint(20) NOT NULL,
+  `user_id` bigint(20),
   `report_state` tinyint(4) NOT NULL,
   `defect_explain` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `defect_reproduction_step` text COLLATE utf8mb4_unicode_ci NOT NULL,

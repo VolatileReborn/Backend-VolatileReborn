@@ -38,8 +38,9 @@ public interface TaskMapper {
     @Select("SELECT t.task_id AS taskId, t.task_name AS taskName, " +
             "       t.task_type AS taskType, t.worker_num_total AS workerNumTotal, " +
             "       t.worker_num_left AS workerNumLeft, " +
-            "       (SELECT count(r.report_id) FROM VR_report.reports AS r WHERE r.task_id = t.task_id) AS reportNum " +
-            "FROM VR_task.tasks AS t, VR_task.composite_tasks AS ct, VR_task.composite_sub_tasks AS cst " +
+            "       (SELECT count(distinct r.user_id) FROM VR_report.reports AS r " +
+            "        WHERE r.task_id = t.task_id AND r.user_id IS NOT NULL) AS reportNum " +
+            "FROM VR_task.tasks AS t, VR_task.composite_sub_tasks AS cst " +
             "WHERE t.task_id = cst.stask_id AND cst.ctask_id = #{composite_task_id}")
     List<SubTask> get_subtasks(@Param("composite_task_id") Long composite_task_id);
 

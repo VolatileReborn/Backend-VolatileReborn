@@ -135,6 +135,19 @@ public enum ResponseConstant {
     ADMIN_SET_RULE_SUCCESS(700, "设置相似度计算算法成功"),
 
 
+    REPORT_EVALUATION_SUCCEED(800,"报告评估成功"),
+
+    REPORT_EVALUATION_FAILED(801,"报告评估失败"),
+
+    REPORT_EVALUATION_SYSTEM_ERR(801,"报告评估系统内部错误"),
+
+    REPORT_AUGMENTATION_SUCCEED(900,"报告扩增成功"),
+
+    REPORT_CANNOT_BE_AUGMENTED(901,"此报告是扩增报告，不能被扩增"),
+
+    REPORT_AUGMENTATION_SYSTEM_ERR(902,"报告扩增系统内部错误"),
+
+
 
 
 
