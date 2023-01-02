@@ -314,7 +314,7 @@ public class EmployerServiceImpl implements EmployerService {
                 Long taskId = subTask.getTaskId();
                 if (subTask.getWorkerNumTotal().equals(subTask.getReportNum())) {
                     List<Long> laterTaskIds = laterTaskMap.get(taskId);
-                    for (Long laterTaskId : laterTaskIds) {
+                    if(laterTaskIds!=null) for (Long laterTaskId : laterTaskIds) {
                         CompositeTaskStateVO.InnerSubTaskVO laterTask = subTaskVOMap.get(laterTaskId);
                         if (laterTask.getTaskState() == null) {
                             if (laterTask.getWorkerNumLeft() > 0) {
