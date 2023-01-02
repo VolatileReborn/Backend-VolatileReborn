@@ -161,10 +161,10 @@ node("slave1") {
     stage("run Collect container") {
 //        sh "docker image ls"
 
-        sh "docker container run -p ${EUREKA_HOST_PORT}:${EUREKA_CONTAINER_PORT} --name ${EUREKA_CONTAINER_NAME}   -d ${EUREKA_IMAGE_TO_RUN}"
+        sh "docker container run --restart unless-stopped -p ${EUREKA_HOST_PORT}:${EUREKA_CONTAINER_PORT} --name ${EUREKA_CONTAINER_NAME}   -d ${EUREKA_IMAGE_TO_RUN}"
 
         //Eureka的Consumer全部使用host网络
-        sh "docker container run --net=host -p ${ZUUL_HOST_PORT}:${ZUUL_CONTAINER_PORT} --name ${ZUUL_CONTAINER_NAME}   -d ${ZUUL_IMAGE_TO_RUN}"
+        sh "docker container run --net=host --restart unless-stopped -p ${ZUUL_HOST_PORT}:${ZUUL_CONTAINER_PORT} --name ${ZUUL_CONTAINER_NAME}   -d ${ZUUL_IMAGE_TO_RUN}"
 
         sh "docker container run --net=host --restart unless-stopped --name ${COLLECT_CONTAINER_NAME}   -d ${COLLECT_IMAGE_TO_RUN}"
 

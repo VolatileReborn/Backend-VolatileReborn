@@ -39,3 +39,6 @@
    
    ```
 
+* 每次重启服务器后， 因为eureka和zuul不会自动启动， 因此需要：
+    1. docker container start backend_eureka_volatile_reborn
+    2. docker container start backend_zuul_volatile_reborn

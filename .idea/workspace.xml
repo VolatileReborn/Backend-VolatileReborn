@@ -7,15 +7,23 @@
     <list default="true" id="c3a9a8dd-ad36-4a8f-9a18-729f49a5d9df" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Jenkinsfile.groovy" beforeDir="false" afterPath="$PROJECT_DIR$/Jenkinsfile.groovy" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.sh" beforeDir="false" afterPath="$PROJECT_DIR$/build.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/collect-gateway/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/collect-gateway/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eureka-server/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/eureka-server/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testFile" beforeDir="false" afterPath="$PROJECT_DIR$/testLocally.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/Readme.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2JlZKwVi1zYCRCl4Ob1upBAUxRe" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
@@ -23,7 +31,12 @@
     "RequestMappingsPanelOrder1": "1",
     "RequestMappingsPanelWidth0": "75",
     "RequestMappingsPanelWidth1": "75",
-    "last_opened_file_path": "/Users/lyk/Projects/MyOfficialProjects/VolatileReborn/Backend-VolatileReborn/collect-gateway"
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/Users/lyk/Projects/MyOfficialProjects/VolatileReborn/Backend-VolatileReborn/collect-gateway",
+    "nodejs_package_manager_path": "npm",
+    "spring.configuration.checksum": "ad677b3dcdab4094a9eeff22811544dc"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -31,7 +44,7 @@
       <recent name="$PROJECT_DIR$/collect-gateway" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.ZuulApplication">
+  <component name="RunManager" selected="Spring Boot.DemoApplication">
     <configuration name="build.sh" type="ShConfigurationType" temporary="true">
       <option name="SCRIPT_TEXT" value="" />
       <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
@@ -76,13 +89,25 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Shell Script.build.sh" />
         <item itemvalue="Spring Boot.EurekaServerApplication" />
+        <item itemvalue="Shell Script.build.sh" />
       </list>
     </recent_temporary>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c3a9a8dd-ad36-4a8f-9a18-729f49a5d9df" name="Changes" comment="" />
+      <created>1672654572151</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1672654572151</updated>
+      <workItem from="1672654574653" duration="819000" />
+    </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
