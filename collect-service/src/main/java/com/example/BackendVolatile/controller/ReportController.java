@@ -23,7 +23,14 @@ public class ReportController {
     @GetMapping(value = "/qualityEvaluation")
     @UserLoginToken
     public ReportEvaluationVO getQualityEvaluation(@Valid GettingEvaluationDTO gettingEvaluationDTO){
-        return reportService.getQualityEvaluation(gettingEvaluationDTO,gettingEvaluationDTO.getIsCoop()==1);
+        return reportService.getQualityEvaluation(gettingEvaluationDTO,gettingEvaluationDTO.getIsCoop()!=0);
+    }
+
+    @GetMapping(value = "/test")
+    @UserLoginToken
+    public AugmentedReportsVO test(){
+        return reportService.getAugmentedReports(new AugmentationRequestDTO(2L,1),false);
+
     }
 
 

@@ -129,6 +129,7 @@ public class ReportServiceImpl implements ReportService {
             this.defect_reproduction_step = report.getDefect_reproduction_step();
             this.test_equipment_information = report.getTest_equipment_information();
             this.is_augmented = isAugmented;
+            this.defect_picture_list=defect_picture_list;
         }
     }
 
@@ -169,8 +170,9 @@ public class ReportServiceImpl implements ReportService {
         );
 
         try {
+            System.err.println(augmentationRequest);
             String augmentedReportsJson = restTemplate.postForObject(
-                    "http://" + PythonServerConstant.IP + ":" + PythonServerConstant.PORT + "/getAugmentatedReports"
+                    "http://" + PythonServerConstant.IP + ":" + PythonServerConstant.PORT + "/getAugmentedReports"
                     , augmentationRequest, String.class);
 
             List<AugmentedReport> augmentedReports = JSONUtils.jsonToList(augmentedReportsJson, AugmentedReport.class);
@@ -222,7 +224,10 @@ public class ReportServiceImpl implements ReportService {
         try {
             String url = "http://" + PythonServerConstant.IP + ":" + PythonServerConstant.PORT + "/getReportEvaluation";
 
+            System.err.println(url);
+            System.err.println(evaluationRequest);
             String evaluationJson = restTemplate.postForObject(url, evaluationRequest, String.class);
+
             ReportEvaluation reportEvaluation = JSONUtils.jsonToPojo(evaluationJson, ReportEvaluation.class);
 
             res.setEvaluationValue(Objects.requireNonNull(reportEvaluation).getReport_evaluation_value());
